@@ -1,0 +1,33 @@
+.banner-container{
+    display: flex;
+}
+.banner-image-text{
+    position: relative;
+}
+.banner-text{
+    position: absolute;
+    top: 30%;
+    left: 45%;
+}
+.banner-text button{
+    background-color: #E40046;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    margin-top: 15px;
+}
+.banner-text h5{
+    color: #E40046;
+}
+.banner-text h2{
+    margin-top: 15px;
+}
+.bold-word {
+    font-weight: 700;
+  }
+  
+  .normal-word {
+    font-weight: 400;
+  }
+  

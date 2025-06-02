@@ -1,0 +1,28 @@
+.wallpaperImage{
+    height: 552px;
+    width: 100%;
+    object-fit: cover;
+    position: relative;
+}
+.wallpaper-text{
+    position:absolute;
+    top: 30%;
+    left: 10%;
+}
+.wallpaper-text h1{
+    font-weight: bolder;
+    font-size: 70px;
+}
+.wallpaper-text span{
+    font-weight: normal;
+}
+.wallpaper-text button{
+    background-color: #E40046;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+}
+.wallpaper-container{
+    position: relative;
+}

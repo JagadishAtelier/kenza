@@ -1,0 +1,65 @@
+/* Fix the background image to stay in place */
+.background-image {
+    background-image: url(../../Assets/backgroundImage.webp);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Keeps it fixed when scrolling */
+    height: 500px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+  }
+  
+  /* Content container that scrolls if needed */
+  .main-container {
+    padding: 60px 20px;
+    text-align: center;
+    z-index: 1;
+    width: 100%;
+    max-width: 700px;
+    margin: auto;
+    position: absolute;
+    right: 8%;
+  }
+  
+  .season-text {
+    font-size: 20px;
+    margin: 0;
+  }
+  
+  .highlight-box {
+    border: 10px solid rgba(255, 255, 255, 0.3);
+    display: inline-block;
+    margin: 30px 0 10px;
+    padding: 20px 40px;
+    position: relative;
+    width: 700px;
+  }
+  
+  .main-heading {
+    font-size: 48px;
+    font-weight: 700;
+    margin: 0;
+  }
+  
+  .subheading {
+    font-size: 22px;
+    margin: 30px 0 20px;
+    font-weight: 500;
+  }
+  
+  .view-button {
+    background-color: #e1004d;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    letter-spacing: 1px;
+  }
+  

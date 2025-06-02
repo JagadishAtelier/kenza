@@ -1,0 +1,19 @@
+.top-cat-content{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 5%;
+    text-align: center;
+}
+.top-cat-image-text{
+    text-align: center;
+}
+.top-cat-image-text img {
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+.heading-text-top-cat {
+    text-align: center;
+}

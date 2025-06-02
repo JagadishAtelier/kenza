@@ -1,0 +1,119 @@
+.trending-product-container {
+    padding: 40px 20px;
+    text-align: center;
+    margin-top: 5%;
+  }
+  
+  .trending-product-container h1 {
+    margin-bottom: 30px;
+    font-size: 50px;
+  }
+  
+  .grid-box-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns */
+    gap: 24px; /* spacing between items */
+    justify-items: center;
+    padding: 0 80px;
+  }
+  
+  .data-grid {
+    background-color: #fff;
+    padding: 16px;
+    width: 100%;
+    transition: transform 0.2s ease;
+    position: relative;
+  }
+  .image-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+  
+  .image-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+  }
+  
+  /* Positioning the star rating on top of the image */
+  .star-overlay {
+    position: absolute;
+    top: 85%;
+    right: 35%;
+    padding: 4px 6px;
+    border-radius: 4px;
+  }
+  .hover-icons {
+    position: absolute;
+    top: 20%;
+    right: -10px;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px 12px;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 3;  
+    font-size: 20px;
+  }
+  
+  .hover-icons i {
+    font-size: 20px;
+    color: #E40046;
+    cursor: pointer;
+
+  }
+  
+  /* Show icons only on hover */
+  .image-wrapper:hover .hover-icons {
+    opacity: 1;
+  }
+  
+  .star-overlay i {
+    color: #f4b400;
+    font-size: 14px;
+    margin-left: 1px;
+  }
+  
+  
+  .data-grid:hover {
+    transform: translateY(-5px);
+  }
+  
+  .data-grid img {
+    width: 400px;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .data-grid p {
+    margin: 4px 0;
+    font-size: 18px;
+  }
+  .trending-product-view-all-btn{
+    background-color: #E40046;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+  }
+  .features-btn button {
+    margin: 0 10px 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: white;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+  }
+  
+  .features-btn button.active {
+    background-color: #E40046;
+    color: #fff;
+  }
+  
