@@ -21,18 +21,21 @@ const blogContent = [
   ];
 
 function SmartBlog() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  // const [activeIndex, setActiveIndex] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex(prev => (prev + 1) % Math.ceil(blogContent.length / 2));
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setActiveIndex(prev => (prev + 1) % Math.ceil(blogContent.length / 2));
+  //   }, 3000);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   return (
     <div className='blog-container'>
-      <div className='blog-carousel-wrapper'>
+      <div className='blod-heading'>
+        <h1>TODAY'S DEALS</h1>
+      </div>
+      {/* <div className='blog-carousel-wrapper'>
         <div
           className='blog-comment-conent'
           style={{ transform: `translateY(-${activeIndex * 25}%)` }}
@@ -72,13 +75,13 @@ function SmartBlog() {
 ))}
 
       </div>
-      </div>
+      </div> */}
 
       <div className='newsLetter-container'>
         <div className='news-letter-content'>
           <div className='news-letter-heading'><h1>NEWSLETTER</h1></div>
           <div className='news-letter-icon-text'><h1><i className="bi bi-envelope-paper"></i>SIGN UP & GET OFFER</h1></div>
-          <p className='news-letter-para'>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <p className='news-letter-para'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac ex sit amet arcu ultricies rhoncus vel ut nislimply Dummy Text</p>
           <div className='news-letter-input-btn'>
             <input type='text' placeholder='YOUR MAIL' />
             <button>SUBSCRIBE</button>

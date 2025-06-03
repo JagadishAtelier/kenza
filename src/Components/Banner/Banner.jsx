@@ -1,13 +1,13 @@
 import React from 'react';
 import './banner.css';
-import banner1 from '../../Assets/banner1.webp';
-import banner2 from '../../Assets/banner2.webp';
-import banner3 from '../../Assets/banner3.webp';
+import banner1 from '../../Assets/b1.webp';
+import banner2 from '../../Assets/b2.webp';
+import banner3 from '../../Assets/b3.webp';
 
 const bannerContent = [
-  { image: banner1, para: "Women's Party Wear", heading: "Trendy Fashion" },
-  { image: banner2, para: "Flat 20% Off Clothes", heading: "Stylish Frocks" },
-  { image: banner3, para: "Flat 20% Off Clothes", heading: "Stylish Fashion" },
+  { image: banner1, para: "FRESH FOOD 20% OFF", heading: "Juicy Fruits" },
+  { image: banner2, para: "FLAT 30% OFF FRUITS", heading: "Healthy Food" },
+  { image: banner3, para: "BIG SEASON SALE", heading: "Fresh Papaya" },
 ];
 
 function Banner() {

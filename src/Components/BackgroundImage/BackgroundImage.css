@@ -1,6 +1,6 @@
 /* Fix the background image to stay in place */
 .background-image {
-    background-image: url(../../Assets/backgroundImage.webp);
+    background-image: url(../../Assets/bg.webp);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -19,10 +19,9 @@
     text-align: center;
     z-index: 1;
     width: 100%;
-    max-width: 700px;
     margin: auto;
     position: absolute;
-    right: 8%;
+    right: 0;
   }
   
   .season-text {
@@ -31,12 +30,12 @@
   }
   
   .highlight-box {
-    border: 10px solid rgba(255, 255, 255, 0.3);
+    border: 10px solid #3b9048;
     display: inline-block;
     margin: 30px 0 10px;
-    padding: 20px 40px;
+    padding: 40px 40px;
     position: relative;
-    width: 700px;
+    width: 800px;
   }
   
   .main-heading {
@@ -52,7 +51,7 @@
   }
   
   .view-button {
-    background-color: #e1004d;
+    background-color: #3b9048;
     color: white;
     padding: 12px 25px;
     border: none;

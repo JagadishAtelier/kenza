@@ -6,8 +6,9 @@
 }
 .wallpaper-text{
     position:absolute;
-    top: 30%;
-    left: 10%;
+    top: 32%;
+    left: 32%;
+    text-align: center;
 }
 .wallpaper-text h1{
     font-weight: bolder;
@@ -17,7 +18,7 @@
     font-weight: normal;
 }
 .wallpaper-text button{
-    background-color: #E40046;
+    background-color: #3b9048;
     padding: 10px 30px;
     border: none;
     border-radius: 10px;

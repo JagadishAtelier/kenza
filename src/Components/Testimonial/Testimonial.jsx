@@ -1,54 +1,55 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './Testimonial.css';
-import test1 from '../../Assets/test1.webp';
-import test2 from '../../Assets/test2.webp';
-import test3 from '../../Assets/test3.webp';
-import test4 from '../../Assets/test4.webp';
-
+import test1 from '../../Assets/t1.avif';
+import test2 from '../../Assets/t2.avif';
+import test3 from '../../Assets/t3.avif';
+import test4 from '../../Assets/t4.avif';
 const testContent = [
-    {image : test1 ,comment : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non eros tellus. Phasellus nec iaculis sapien. Fusce quisest bibendum ornare erat in pretium aliquam.",name : "John Duff",prof : "Web Designer"},
-    {image : test2 ,comment : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non eros tellus. Phasellus nec iaculis sapien. Fusce quisest bibendum ornare erat in pretium aliquam.",name : "John Duff",prof : "Web Designer"},
-    {image : test3 ,comment : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non eros tellus. Phasellus nec iaculis sapien. Fusce quisest bibendum ornare erat in pretium aliquam.",name : "John Duff",prof : "Web Designer"},
-    {image : test4 ,comment : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non eros tellus. Phasellus nec iaculis sapien. Fusce quisest bibendum ornare erat in pretium aliquam.",name : "John Duff",prof : "Web Designer"},
-]
+  { image: test1, comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non eros tellus. Phasellus nec iaculis sapien. Fusce quisest bibendum ornare erat in pretium aliquam.", name: "John Duff", prof: "Web Designer" },
+  { image: test2, comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non eros tellus. Phasellus nec iaculis sapien. Fusce quisest bibendum ornare erat in pretium aliquam.", name: "John Duff", prof: "Web Designer" },
+  { image: test3, comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non eros tellus. Phasellus nec iaculis sapien. Fusce quisest bibendum ornare erat in pretium aliquam.", name: "John Duff", prof: "Web Designer" },
+  { image: test4, comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non eros tellus. Phasellus nec iaculis sapien. Fusce quisest bibendum ornare erat in pretium aliquam.", name: "John Duff", prof: "Web Designer" },
+];
 
 function Testimonial() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveIndex(prev => (prev + 1) % testContent.length);
-    }, 3000); // change every 3 seconds
+  const handleNext = () => {
+    if ((currentIndex + 1) * 2 < testContent.length) {
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
 
-    return () => clearInterval(timer);
-  }, []);
+  const handlePrev = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
+
+  const visibleTestimonials = testContent.slice(currentIndex * 2, currentIndex * 2 + 2);
 
   return (
     <div className="testimonial-carousel-wrapper">
-      <div
-        className="testimonial-carousel-inner"
-        style={{ transform: `translateY(-${activeIndex * 25}%)` }}
-      >
-        {testContent.map((data, index) => (
-          <div className="testimonial-image-and-content" key={index}>
-            <img src={data.image} alt="testimonial" />
-            <div className="testimonail-text">
-              <p>{data.comment}</p>
-              <h1>{data.name}</h1>
-              <h2>{data.prof}</h2>
+      <button className="testimonial-arrow left" onClick={handlePrev}>&#10094;</button>
+
+      <div className="testimonial-carousel-viewport">
+        <div className="testimonial-carousel-inner">
+          {visibleTestimonials.map((data, index) => (
+            <div className="testimonial-image-and-content" key={index}>
+              <img src={data.image} alt="testimonial" />
+              <div className="testimonail-text">
+                <div className='test-name-prof'>
+                  <h1>{data.name}</h1>
+                  <h2>{data.prof}</h2>
+                </div>
+                <p>{data.comment}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
-      <div className="testimonial-indicator">
-        {testContent.map((_, i) => (
-          <span
-            key={i}
-            className={`indicator-dot ${i === activeIndex ? 'active' : ''}`}
-          ></span>
-        ))}
-      </div>
+      <button className="testimonial-arrow right" onClick={handleNext}>&#10095;</button>
     </div>
   );
 }

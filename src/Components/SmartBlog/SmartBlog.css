@@ -42,12 +42,12 @@ color: grey;
     width: 800px;
 }
 .news-letter-icon-text i{
-    color: #E40046;
+    color: #3b9048;
     margin-right: 20px;
 }
 .blog-para-div i{
     font-size: 16px;
-    color: #E40046;
+    color: #3b9048;
 }
 .news-letter-content{
     margin: 100px 40px;
@@ -88,7 +88,7 @@ color: grey;
   }
   .news-letter-input-btn input{
     width: 500px;
-    height: 50px;
+    height: 70px;
     padding-left: 20px;
     border-radius: 10px;
     border: 1px solid rgb(244, 244, 244);
@@ -96,13 +96,22 @@ color: grey;
   }
   .news-letter-input-btn{
     display: flex;
+    margin-top: 5%;
   }
   .news-letter-input-btn button{
     padding: 10px 40px;
     border: none;
-    background-color: #E40046;
+    background-color: #3b9048;
     border-radius: 10px;
   }
   
-
+.blod-heading{
+  text-align: center;
+  width: 600px;
+}
+.news-letter-para{
+  color: gray;
+  font-size: 18px;
+  margin-top: 20px;
+}
   

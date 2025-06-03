@@ -1,22 +1,20 @@
 import React from 'react'
 import './SpecialProduct.css'
-import TPImage1 from '../../Assets/TP1.webp'
-import TPImage2 from '../../Assets/TP2.webp'
-import TPImage3 from '../../Assets/TP3.webp'
-import TPImage4 from '../../Assets/TP4.webp'
-import TPImage5 from '../../Assets/TP5.webp'
-import TPImage6 from '../../Assets/TP6.webp'
-import TPImage7 from '../../Assets/TP7.webp'
-import TPImage8 from '../../Assets/TP8.webp'
+import TPImage1 from '../../Assets/p1.webp'
+import TPImage2 from '../../Assets/p2.webp'
+import TPImage3 from '../../Assets/p3.webp'
+import TPImage4 from '../../Assets/p4.webp'
+import TPImage5 from '../../Assets/p5.webp'
+import TPImage6 from '../../Assets/p6.webp'
+import TPImage7 from '../../Assets/p8.webp'
+import TPImage8 from '../../Assets/p1.webp'
 const featuredProducts = [
     { image: TPImage1, text: "Printed Long Skrit", price: "$ 18.00" },
     { image: TPImage2, text: "Pellenteque Et Phatera", price: "$ 17.00" },
     { image: TPImage3, text: "Simul Dorolman Voluptoria", price: "$ 16.00" },
     { image: TPImage4, text: "Malesuadai Facilities Velit", price: "$ 15.00" }, 
-     { image: TPImage7, text: "Mug Today is Good Day", price: "$ 12.00" },
-    { image: TPImage8, text: "Brown Bear Cushion", price: "$ 10.00" },
-    { image: TPImage3, text: "Retro Style T-shirt", price: "$ 15.00" },
-    { image: TPImage4, text: "Casual Summer Top", price: "$ 14.00" }
+     { image: TPImage5, text: "Mug Today is Good Day", price: "$ 12.00" },
+    { image: TPImage6, text: "Brown Bear Cushion", price: "$ 10.00" },
   ]
 function SpecialProduct() {
   return (

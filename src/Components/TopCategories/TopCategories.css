@@ -1,18 +1,33 @@
 .top-cat-content{
     display: flex;
     justify-content: space-evenly;
-    margin: 5%;
     text-align: center;
+    margin: 5% 6%;
 }
 .top-cat-image-text{
     text-align: center;
 }
+.top-cat-image-text p{
+    color: gray;
+}
 .top-cat-image-text img {
+    position: absolute;
+    top: 32px;
+    left: 35px;
+    opacity: 1;
+}
+.top-cat-image{
+    position: relative;
+    text-align: center;
+    height: 100px;
+    width: 100px;
+    line-height: 100px;
+    margin: 0 auto 10px;
+    overflow: hidden;
     border-radius: 50%;
-    height: 200px;
-    width: 200px;
-    object-fit: cover;
-    margin-bottom: 20px;
+    z-index: 1;
+    box-shadow: 0 0 6px #0000001a;
+    margin-bottom: 25px;
 }
 .heading-text-top-cat {
     text-align: center;

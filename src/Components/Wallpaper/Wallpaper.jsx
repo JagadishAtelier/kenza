@@ -1,6 +1,6 @@
 import React from 'react'
 import './Wallpaper.css'
-import wallpaperImage from '../../Assets/wallpaperImage1.webp'
+import wallpaperImage from '../../Assets/wallpaper1.webp'
 function Wallpaper() {
   return (
     <div className='wallpaper-container'>

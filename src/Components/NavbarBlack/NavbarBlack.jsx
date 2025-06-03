@@ -2,6 +2,21 @@ import React,{useState}from 'react'
 import './NavbarBlack.css'
 import phoneSystemImage from '../../Assets/phoneSystemImage.png'
 import callSupport from '../../Assets/callSupport.png'
+import fruit1 from '../../Assets/carrot.png'
+import fruit2 from '../../Assets/fruit2.png'
+import fruit3 from '../../Assets/fruit3.png'
+import fruit4 from '../../Assets/fruit4.png'
+import fruit5 from '../../Assets/fruit6.webp'
+import fruit6 from '../../Assets/fruit5.webp'
+import logo from '../../Assets/logo.png'
+const blackNavData = [
+  {image : fruit1 , text : "CARROT"},
+  {image : fruit2 , text : "POTATO"},
+  {image : fruit3 , text : "WATERMELON"},
+  {image : fruit4 , text : "ORANGE"},
+  {image : fruit5 , text : "PAPAYA"},
+  {image : fruit6 , text : "TOMATO"},
+]
 const categories = [
     "Electronics",
     "Fashion",
@@ -16,31 +31,17 @@ function NavbarBlack() {
   return (
     <div style={{position:"relative"}}>
     <div className='navbar-black-container'>
-        <div className='navbar-black-text-icon-conatiner'>
-            <i class="bi bi-globe"></i>
-            <h6>Global Worldwide Delivery</h6>
-            <div className='navbar-black-vertical-line'></div>
-        </div>
-        <div className='navbar-black-text-icon-conatiner'>
-            <i class="bi bi-gift"></i>
-            <h6>Free Gift Voucher</h6>
-            <div className='navbar-black-vertical-line'></div>
-        </div>
-        <div className='navbar-black-text-icon-conatiner'>
-            <img src={phoneSystemImage}/>
-            <h6>Money Back Guarantee</h6>
-            <div className='navbar-black-vertical-line'></div>
-        </div>
-        <div className='navbar-black-text-icon-conatiner'>
-            <img src={callSupport}/>
-            <h6>24X7 Support Assistance</h6>
-        </div>
-      
+        {blackNavData.map((data,index)=>(
+          <div className='black-nav-image-and-text'>
+            <img src={data.image}/>
+            <h6>{data.text}</h6>
+          </div>
+        ))}
     </div>
 
     <div className='navbar-white-container'>
         <div className='navbar-white-heading-and-details'>
-            <h1>KENZA</h1>
+            <img src={logo}/>
             <div className='mail-account-item-container'>
                 <div className='navbar-white-icon-text'>
                     <i class="bi bi-envelope"></i>

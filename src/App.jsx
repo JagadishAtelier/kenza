@@ -8,13 +8,14 @@ import Banner from './Components/Banner/Banner';
 import TreandingProduct from './Components/TreandingProduct/TreandingProduct';
 import BackgroundImage from './Components/BackgroundImage/BackgroundImage';
 // import TrendingNow from './Components/TrendingNow/TrendingNow';
-import Reviews from './Components/Reviews/Reviews';
+// import Reviews from './Components/Reviews/Reviews';
 import TopCategories from './Components/TopCategories/TopCategories';
 import Testimonial from './Components/Testimonial/Testimonial';
 import BrandLogo from './Components/BrandLogo/BrandLogo';
 import SpecialProduct from './Components/SpecialProduct/SpecialProduct';
 import SmartBlog from './Components/SmartBlog/SmartBlog';
 import Footer from './Components/Footer/Footer';
+import LatestBlog from './Components/LatestBlog/LatestBlog';
 function App() {
   return (
     <div>
@@ -24,11 +25,12 @@ function App() {
       <TreandingProduct/>
       <BackgroundImage/>
       {/* <TrendingNow/> */}
-      <Reviews/>
+      {/* <Reviews/> */}
       <TopCategories/>
       <Testimonial/>
       <BrandLogo/>
       <SpecialProduct/>
+      <LatestBlog/>
       <SmartBlog/>
       <Footer/>
     </div>
