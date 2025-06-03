@@ -1,0 +1,9 @@
+.brand-logo-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 0 20px;
+}
+.brand-logo-container img{
+    height: 150px;
+}

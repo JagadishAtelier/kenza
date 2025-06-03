@@ -3,6 +3,12 @@
 }
 .banner-image-text{
     position: relative;
+
+}
+.banner-image-text img{
+    width: 600px;
+    object-fit: cover;
+    height: 350px;
 }
 .banner-text{
     position: absolute;
