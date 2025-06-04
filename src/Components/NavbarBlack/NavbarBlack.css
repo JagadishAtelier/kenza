@@ -7,15 +7,13 @@
 .navbar-black-container{
     display: flex;
     background-color: black;
-    justify-content: space-evenly;
-    padding-right: 100px;
-    padding-left: 100px;
+    justify-content:center;
     position: relative;
     width: 100%;
 }
 .navbar-black-vertical-line{
     height: 30px;
-    margin-left: 70px;
+    margin: 0 25px;
     width: 1px;
     border: 1px solid white;
 }
