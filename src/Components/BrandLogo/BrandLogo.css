@@ -31,10 +31,10 @@
     }
   
     .carousel-btn {
-      background: #3b9048;
+      background:rgb(237, 236, 236);
       border: none;
-      color: white;
-      font-size: 24px;
+      color: black;
+      font-size: 18px;
       padding: 5px 15px;
       cursor: pointer;
       border-radius: 50%;
@@ -44,13 +44,13 @@
     .carousel-btn.prev {
         position: absolute;
         bottom: -60%;
-        left:38%;
+        left:39%;
     }
   
     .carousel-btn.next {
         position:absolute;
         bottom: -60%;
-        right: 38%;
+        right: 39%;
     }
   }
   
