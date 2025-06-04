@@ -79,8 +79,8 @@ function SmartBlog() {
 
       <div className='newsLetter-container'>
         <div className='news-letter-content'>
-          <div className='news-letter-heading'><h1>NEWSLETTER</h1></div>
-          <div className='news-letter-icon-text'><h1><i className="bi bi-envelope-paper"></i>SIGN UP & GET OFFER</h1></div>
+          <div className='news-letter-heading'><h3>NEWSLETTER</h3></div>
+          <div className='news-letter-icon-text'><h3><i className="bi bi-envelope-paper"></i>SIGN UP & GET OFFER</h3></div>
           <p className='news-letter-para'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac ex sit amet arcu ultricies rhoncus vel ut nislimply Dummy Text</p>
           <div className='news-letter-input-btn'>
             <input type='text' placeholder='YOUR MAIL' />

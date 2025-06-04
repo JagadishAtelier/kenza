@@ -19,7 +19,7 @@ function TopCategories() {
             <div className='top-cat-image'>
               <img src={item.image}/>
             </div>
-            <h5>{item.text}</h5>
+            <h6>{item.text}</h6>
             <p>{item.para}</p>
         </div>
       ))}

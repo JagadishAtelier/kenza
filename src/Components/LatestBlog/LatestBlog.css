@@ -2,7 +2,7 @@
     position: relative;
     width: 100%;
     overflow: visible;
-    padding: 20px;
+    margin-top: 5%;
   }
   
   .blog-carousel-container {
@@ -40,7 +40,7 @@
     width: 90%;
     height: 100%;
     color: white;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(55, 55, 55, 0.6);
     opacity: 0;
     padding: 20px;
     display: flex;

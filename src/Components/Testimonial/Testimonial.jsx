@@ -39,8 +39,8 @@ function Testimonial() {
               <img src={data.image} alt="testimonial" />
               <div className="testimonail-text">
                 <div className='test-name-prof'>
-                  <h1>{data.name}</h1>
-                  <h2>{data.prof}</h2>
+                  <h3>{data.name}</h3>
+                  <h4>{data.prof}</h4>
                 </div>
                 <p>{data.comment}</p>
               </div>
