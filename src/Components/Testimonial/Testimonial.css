@@ -6,6 +6,16 @@
     height: 150px;
     object-fit: cover;
 }
+.quote-icon {
+  transform: rotateY(180deg); /* rotate downward */
+  position: absolute;
+  top: -55px; /* pull it down to border */
+  left: 50px;
+  opacity: 1;
+  z-index: 1001;
+  background-color: white;
+}
+
 .testimonail-text p{
     font-size: 18px;
     margin-left: 30px;

@@ -37,11 +37,29 @@ function Testimonial() {
           {visibleTestimonials.map((data, index) => (
             <div className="testimonial-image-and-content" key={index}>
               <img src={data.image} alt="testimonial" />
+              
               <div className="testimonail-text">
                 <div className='test-name-prof'>
                   <h3>{data.name}</h3>
                   <h4>{data.prof}</h4>
+                  
                 </div>
+                <svg
+  className="quote-icon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="90"
+  height="90"
+  viewBox="0 0 24 24"
+  fill="green"
+  stroke="none"
+  strokeWidth="none"
+  strokeLinecap="round"
+  strokeLinejoin="round"
+>
+  <path d="M6 15h4v-6H5v7a3 3 0 0 0 3 3" />
+  <path d="M14 15h4v-6h-5v7a3 3 0 0 0 3 3" />
+</svg>
+
                 <p>{data.comment}</p>
               </div>
             </div>
