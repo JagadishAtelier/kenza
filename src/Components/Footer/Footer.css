@@ -9,7 +9,6 @@
 .logo-and-content img {
     height: 30px;
     width: 200px;
-    margin-left: 38%;
     margin-bottom: 3%;
 }
 .logo-and-content p{
@@ -19,12 +18,13 @@
 }
 .footer-details-container{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     margin-top: 5%;
 }
 .information-container p{
     color: gray;
     font-size: 18px;
+    width: 220px;
 }
 .footer-account-content p{
     color: gray;
