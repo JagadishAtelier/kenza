@@ -9,42 +9,43 @@ import TPImage6 from '../../Assets/p6.webp'
 import TPImage7 from '../../Assets/p1.webp'
 import TPImage8 from '../../Assets/p8.webp'
 
-// Define product lists for each category
+// Products with hover images added
 const featuredProducts = [
-  { image: TPImage1, text: "Aliqunaim Retrum Mollis", price: "$ 18.00" },
-  { image: TPImage2, text: "American Grapes", price: "$ 17.00" },
-  { image: TPImage3, text: "Autum Eua Guide", price: "$ 16.00" },
-  { image: TPImage4, text: "Consectuar Adipicing", price: "$ 15.00" }, 
-   { image: TPImage7, text: "Fuse Fermentum", price: "$ 12.00" },
-  { image: TPImage8, text: "Maruis Bibendum", price: "$ 10.00" },
-  { image: TPImage3, text: "Mustard", price: "$ 15.00" },
-  { image: TPImage4, text: "Organic Chilli", price: "$ 14.00" }
+  { image: TPImage1, hoverImage: TPImage2, text: "Aliqunaim Retrum Mollis", price: "$ 18.00" },
+  { image: TPImage2, hoverImage: TPImage3, text: "American Grapes", price: "$ 17.00" },
+  { image: TPImage3, hoverImage: TPImage4, text: "Autum Eua Guide", price: "$ 16.00" },
+  { image: TPImage4, hoverImage: TPImage5, text: "Consectuar Adipicing", price: "$ 15.00" }, 
+  { image: TPImage7, hoverImage: TPImage6, text: "Fuse Fermentum", price: "$ 12.00" },
+  { image: TPImage8, hoverImage: TPImage1, text: "Maruis Bibendum", price: "$ 10.00" },
+  { image: TPImage3, hoverImage: TPImage7, text: "Mustard", price: "$ 15.00" },
+  { image: TPImage4, hoverImage: TPImage8, text: "Organic Chilli", price: "$ 14.00" }
 ]
 
 const newArrivals = [
-  { image: TPImage5, text: "Unique Omnesque", price: "$ 14.00" },
-  { image: TPImage6, text: "Printed Chiffon Dress", price: "$ 13.00" },
-  { image: TPImage1, text: "Denim Skirt", price: "$ 12.00" },
-  { image: TPImage2, text: "Soft Wool Scarf", price: "$ 11.00" },
-  { image: TPImage7, text: "Mug Today is Good Day", price: "$ 12.00" },
-  { image: TPImage8, text: "Brown Bear Cushion", price: "$ 10.00" },
-  { image: TPImage3, text: "Retro Style T-shirt", price: "$ 15.00" },
-  { image: TPImage4, text: "Casual Summer Top", price: "$ 14.00" }
+  { image: TPImage5, hoverImage: TPImage6, text: "Unique Omnesque", price: "$ 14.00" },
+  { image: TPImage6, hoverImage: TPImage7, text: "Printed Chiffon Dress", price: "$ 13.00" },
+  { image: TPImage1, hoverImage: TPImage8, text: "Denim Skirt", price: "$ 12.00" },
+  { image: TPImage2, hoverImage: TPImage3, text: "Soft Wool Scarf", price: "$ 11.00" },
+  { image: TPImage7, hoverImage: TPImage4, text: "Mug Today is Good Day", price: "$ 12.00" },
+  { image: TPImage8, hoverImage: TPImage5, text: "Brown Bear Cushion", price: "$ 10.00" },
+  { image: TPImage3, hoverImage: TPImage1, text: "Retro Style T-shirt", price: "$ 15.00" },
+  { image: TPImage4, hoverImage: TPImage2, text: "Casual Summer Top", price: "$ 14.00" }
 ]
 
 const bestSellers = [
-  { image: TPImage7, text: "Mug Today is Good Day", price: "$ 12.00" },
-  { image: TPImage8, text: "Brown Bear Cushion", price: "$ 10.00" },
-  { image: TPImage3, text: "Retro Style T-shirt", price: "$ 15.00" },
-  { image: TPImage4, text: "Casual Summer Top", price: "$ 14.00" },
-  { image: TPImage1, text: "Printed Long Skrit", price: "$ 18.00" },
-  { image: TPImage2, text: "Pellenteque Et Phatera", price: "$ 17.00" },
-  { image: TPImage3, text: "Simul Dorolman Voluptoria", price: "$ 16.00" },
-  { image: TPImage4, text: "Malesuadai Facilities Velit", price: "$ 15.00" }, 
+  { image: TPImage7, hoverImage: TPImage3, text: "Mug Today is Good Day", price: "$ 12.00" },
+  { image: TPImage8, hoverImage: TPImage4, text: "Brown Bear Cushion", price: "$ 10.00" },
+  { image: TPImage3, hoverImage: TPImage5, text: "Retro Style T-shirt", price: "$ 15.00" },
+  { image: TPImage4, hoverImage: TPImage6, text: "Casual Summer Top", price: "$ 14.00" },
+  { image: TPImage1, hoverImage: TPImage7, text: "Printed Long Skrit", price: "$ 18.00" },
+  { image: TPImage2, hoverImage: TPImage8, text: "Pellenteque Et Phatera", price: "$ 17.00" },
+  { image: TPImage3, hoverImage: TPImage1, text: "Simul Dorolman Voluptoria", price: "$ 16.00" },
+  { image: TPImage4, hoverImage: TPImage2, text: "Malesuadai Facilities Velit", price: "$ 15.00" }, 
 ]
 
 function TreandingProduct() {
   const [selectedCategory, setSelectedCategory] = useState('featured')
+  const [hoverIndex, setHoverIndex] = useState(null)
 
   let productsToDisplay
   if (selectedCategory === 'featured') productsToDisplay = featuredProducts
@@ -56,48 +57,65 @@ function TreandingProduct() {
       <h1>TRENDING PRODUCT</h1>
 
       <div className='features-btn'>
-  <button 
-    className={selectedCategory === 'featured' ? 'active' : ''} 
-    onClick={() => setSelectedCategory('featured')}
-  >
-    Featured
-  </button>
-  <button 
-    className={selectedCategory === 'new' ? 'active' : ''} 
-    onClick={() => setSelectedCategory('new')}
-  >
-    New Arrivals
-  </button>
-  <button 
-    className={selectedCategory === 'best' ? 'active' : ''} 
-    onClick={() => setSelectedCategory('best')}
-  >
-    Best Sellers
-  </button>
-</div>
-
+        <button 
+          className={selectedCategory === 'featured' ? 'active' : ''} 
+          onClick={() => setSelectedCategory('featured')}
+        >
+          Featured
+        </button>
+        <button 
+          className={selectedCategory === 'new' ? 'active' : ''} 
+          onClick={() => setSelectedCategory('new')}
+        >
+          New Arrivals
+        </button>
+        <button 
+          className={selectedCategory === 'best' ? 'active' : ''} 
+          onClick={() => setSelectedCategory('best')}
+        >
+          Best Sellers
+        </button>
+      </div>
 
       <div className='grid-box-container'>
-        {productsToDisplay.map((data, index) => (
-          <div className='data-grid' key={index}>
-            <div className='image-wrapper'>
-              <img src={data.image} alt={`product-${index}`} />
-              <div className='star-overlay'>
-                <i className="bi bi-star-fill"></i>
-                <i className="bi bi-star-fill"></i>
-                <i className="bi bi-star-fill"></i>
-                <i className="bi bi-star-fill"></i>
-                <i className="bi bi-star-fill"></i>
+        {productsToDisplay.map((data, index) => {
+          const activeDot = hoverIndex === index ? 1 : 0;
+
+          return (
+            <div 
+              className='data-grid' 
+              key={index}
+              onMouseEnter={() => setHoverIndex(index)}
+              onMouseLeave={() => setHoverIndex(null)}
+            >
+              <div className='image-wrapper'>
+                <img 
+                  src={hoverIndex === index ? data.hoverImage : data.image} 
+                  alt={`product-${index}`} 
+                />
+                <div className='star-overlay'>
+                  <i className="bi bi-star-fill"></i>
+                  <i className="bi bi-star-fill"></i>
+                  <i className="bi bi-star-fill"></i>
+                  <i className="bi bi-star-fill"></i>
+                  <i className="bi bi-star-fill"></i>
+                </div>
+                <div className='hover-icons'>
+                  <i className="bi bi-heart"></i>
+                  <i className="bi bi-eye"></i>
+                </div>
               </div>
-              <div className='hover-icons'>
-                <i className="bi bi-heart"></i>
-                <i className="bi bi-eye"></i>
+              <p>{data.text}</p>
+              <p>{data.price}</p>
+
+              {/* Dots */}
+              <div className="dots-container">
+                <span className={`dot ${activeDot === 0 ? 'active' : ''}`}></span>
+                <span className={`dot ${activeDot === 1 ? 'active' : ''}`}></span>
               </div>
             </div>
-            <p>{data.text}</p>
-            <p>{data.price}</p>
-          </div>
-        ))}
+          )
+        })}
       </div>
 
       <button className='trending-product-view-all-btn'>VIEW ALL</button>

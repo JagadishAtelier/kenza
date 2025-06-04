@@ -21,19 +21,19 @@ function LatestBlog() {
 
   const next = () => {
     if (startIndex + itemsPerPage < imageContent.length) {
-      setStartIndex(startIndex + itemsPerPage);
+      setStartIndex(startIndex + 1);
     }
   };
 
   const prev = () => {
-    if (startIndex - itemsPerPage >= 0) {
-      setStartIndex(startIndex - itemsPerPage);
+    if (startIndex - 1 >= 0) {
+      setStartIndex(startIndex - 1);
     }
   };
 
   return (
     <div className="blog-carousel-wrapper">
-      <button className="latest-carousel-btn left" onClick={prev}>{'<'}</button>
+      <button className="latest-carousel-btn left" onClick={prev} disabled={startIndex === 0}>{'<'}</button>
       <div className="blog-carousel-container">
         <div className="blog-carousel-track">
           {imageContent.slice(startIndex, startIndex + itemsPerPage).map((data, index) => (
@@ -49,7 +49,7 @@ function LatestBlog() {
           ))}
         </div>
       </div>
-      <button className="latest-carousel-btn right" onClick={next}>{'>'}</button>
+      <button className="latest-carousel-btn right" onClick={next} disabled={startIndex >= imageContent.length - 1}>{'>'}</button>
     </div>
   );
 }

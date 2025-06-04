@@ -56,4 +56,49 @@
       font-size: 14px;
     }
   }
+  .wallpaper-container {
+    overflow: hidden; /* hide overflow for sliding */
+    position: relative;
+  }
+  
+  .wallpaper-slider {
+    display: flex;     /* horizontal layout */
+    transition: transform 0.8s ease-in-out;
+    width: 200%;       /* assuming 2 slides, adjust dynamically if needed */
+  }
+  
+  .wallpaper-slide {
+    flex-shrink: 0;    /* prevent shrinking */
+    width: 50%;        /* 100% / number of slides (2 here) */
+    position: relative; /* for your absolute .wallpaper-text */
+  }
+  @keyframes slideDownFadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-40px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideDownFadeOut {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+  }
+  
+  .wallpaper-text.enter {
+    animation: slideDownFadeIn 0.6s ease forwards;
+  }
+  
+  .wallpaper-text.exit {
+    animation: slideDownFadeOut 0.6s ease forwards;
+  }
   

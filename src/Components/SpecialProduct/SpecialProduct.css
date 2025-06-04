@@ -49,8 +49,8 @@
   }
   .spl-hover-icons {
     position: absolute;
-    top: 20%;
-    right: -10px;
+    top: 35%;
+    left: 15px;
     transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
@@ -62,8 +62,12 @@
     z-index: 3;  
     font-size: 20px;
   }
+  .spl-hover-icons i:hover {
+    background-color: #3b9048; /* light orange translucent */
+    color: white; /* bright orange icon */
+  }
   
-  .spl-hover-icons i {
+  .spl-hover-icons i{
     font-size: 20px;
     color: #3b9048;
     cursor: pointer;
@@ -71,9 +75,10 @@
   }
   
   /* Show icons only on hover */
-  .spl-image-wrapper:hover .hover-icons {
+  .spl-image-wrapper:hover .spl-hover-icons {
     opacity: 1;
   }
+  
   
   .spl-star-overlay i {
     color: #f4b400;
@@ -131,7 +136,7 @@
   
   @media (max-width: 576px) {
     .spl-grid-box-container {
-      grid-template-columns: 1fr; /* 1 column for mobile */
+      grid-template-columns:repeat(2, 1fr); /* 1 column for mobile */
       padding: 0 20px;
     }
   
@@ -140,11 +145,14 @@
     }
   
     .spl-data-grid {
+      flex-direction: column;
       align-items: center;
     }
     .spl-para-text{
       width: 100%;
-      margin-left: 7px;
+        text-align: center;
+        margin-top: 20px;
+        margin-left: 10px;
     }
     .spl-image-wrapper {
       width: 100%;
@@ -157,7 +165,9 @@
     }
   
     .spl-star-overlay {
-      right: -105px;
+      left: 26px;
+      position: absolute;
+    top: 95%;
     }
     .spl-data-grid p {
       margin: 4px 0;

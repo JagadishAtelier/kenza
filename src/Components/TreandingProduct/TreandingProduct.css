@@ -60,11 +60,18 @@
     z-index: 3;  
     font-size: 20px;
   }
+  .hover-icons i:hover {
+    background-color: #3b9048; /* light orange translucent */
+    color: white; /* bright orange icon */
+  }
   
   .hover-icons i {
     font-size: 20px;
     color: #3b9048;
     cursor: pointer;
+    padding: 6px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease, color 0.3s ease;
 
   }
   
@@ -116,6 +123,28 @@
     background-color: #3b9048;
     color: #fff;
   }
+  .dots-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 4px;
+    gap: 8px;
+  }
+  
+  .dot {
+    width: 10px;
+    height: 10px;
+    background-color: #bbb; /* default gray */
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .dot.active {
+    background-color: #ff5722; /* bright orange */
+    box-shadow: 0 0 6px #ff5722;
+  }
+  
+  
 
   @media (max-width: 768px) {
     .trending-product-container {

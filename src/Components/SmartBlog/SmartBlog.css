@@ -171,3 +171,36 @@ color: grey;
     height: auto;
   }
 }
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToLeft {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+/* Example usage: add one of these classes dynamically in your JS */
+
+.blog-comment-conent.slide-in {
+  animation: slideInFromRight 1s forwards ease-in-out;
+}
+
+.blog-comment-conent.slide-out {
+  animation: slideOutToLeft 1s forwards ease-in-out;
+}
+

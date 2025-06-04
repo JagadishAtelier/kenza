@@ -269,3 +269,84 @@
     }
 
   }
+  /* Nav links hover: smooth color change and underline */
+.nav-links a {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background-color: #3b9048;
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
+
+.nav-links a:hover {
+  color: #3b9048;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Categories button hover: background color lightening */
+.categories-button {
+  transition: background-color 0.3s ease;
+}
+
+.categories-button:hover {
+  background-color: #4fb85b; /* slightly lighter green */
+}
+
+/* Navbar white icons hover: scale and color change */
+.navbar-white-icon-text i {
+  transition: color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.navbar-white-icon-text i:hover {
+  color: #2d6f37; /* darker green */
+  transform: scale(1.2);
+}
+
+/* Search button hover: darken background */
+.nav-search button {
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.nav-search button:hover {
+  background-color: #2e7a35;
+}
+
+/* Navbar black text/icon container hover for icons and text */
+.navbar-black-text-icon-conatiner i,
+.navbar-black-text-icon-conatiner h6 {
+  transition: color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.navbar-black-text-icon-conatiner i:hover,
+.navbar-black-text-icon-conatiner h6:hover {
+  color: #3b9048;
+  transform: translateY(-3px);
+}
+
+/* Dropdown list item hover: background color highlight */
+.categories-dropdown li:hover {
+  background-color: #e6f2e6; /* very light green */
+  cursor: pointer;
+}
+
+/* Mobile menu links hover */
+.nav-links-mobile a:hover {
+  color: #3b9048;
+  text-decoration: underline;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}

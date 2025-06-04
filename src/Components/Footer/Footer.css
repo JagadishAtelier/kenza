@@ -100,4 +100,48 @@
       margin-right: 10px;
     }
   }
+  @keyframes fadeSlideUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .logo-and-content,
+  .footer-details-container {
+    animation: fadeSlideUp 1s ease forwards;
+  }
+/* Social icons hover: scale up and slight shadow */
+.social-icons .icon {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.social-icons .icon:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Footer text hover: change color smoothly */
+.information-container p:hover,
+.footer-account-content p:hover,
+.logo-and-content p:hover {
+  color: #3b9048; /* example highlight color */
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+/* Logo image hover: subtle scale effect */
+.logo-and-content img {
+  transition: transform 0.3s ease;
+}
+
+.logo-and-content img:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
   
