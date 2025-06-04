@@ -73,3 +73,31 @@
     margin-right: 20px;
   }
   
+  @media (max-width: 768px) {
+    .logo-and-content {
+      padding: 0 20px;
+    }
+  
+    .logo-and-content p {
+      width: 100%;
+      font-size: 16px;
+    }
+  
+    .footer-details-container {
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      padding: 0 20px;
+    }
+  
+    .information-container p,
+    .footer-account-content p {
+      font-size: 16px;
+      text-align: center;
+    }
+  
+    .information-container i {
+      margin-right: 10px;
+    }
+  }
+  

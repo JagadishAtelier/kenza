@@ -62,7 +62,7 @@
   .blog-overlay p {
     font-size: 14px;
   }
-  .carousel-btn {
+  .latest-carousel-btn {
     position: absolute;
     bottom: 0;
     transform: translateY(-50%);
@@ -77,18 +77,17 @@
     z-index: 2;
   }
   
-  .carousel-btn.left  {
+  .latest-carousel-btn.left  {
     left: 47%;
   }
   
-  .carousel-btn.right {
+  .latest-carousel-btn.right {
     right: 46%;
   }
 
   @media (max-width: 768px) {
     .blog-carousel-track {
       flex-wrap: nowrap;
-      overflow-x: auto;
       scroll-snap-type: x mandatory;
       scroll-behavior: smooth;
       margin-left: 0;
@@ -97,10 +96,11 @@
     }
   
     .blog-card {
-      flex: 0 0 90%;
+      flex: 0 0 100%;
       scroll-snap-align: start;
       margin-right: 10px;
       position: relative;
+      overflow: visible;
     }
   
     .blog-card img {
@@ -115,10 +115,19 @@
       background: none;
       color: #333;
       padding: 10px 0;
+
     }
-  
-    .carousel-btn {
-      display: none;
+    .blog-carousel-container {
+      overflow: hidden;
+      width: 100%;
+    }
+    
+    .latest-carousel-btn.left  {
+      left: 39%;
+    }
+    
+    .latest-carousel-btn.right {
+      right: 39%;
     }
   }
   

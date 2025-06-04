@@ -33,7 +33,7 @@ function LatestBlog() {
 
   return (
     <div className="blog-carousel-wrapper">
-      <button className="carousel-btn left" onClick={prev}>{'<'}</button>
+      <button className="latest-carousel-btn left" onClick={prev}>{'<'}</button>
       <div className="blog-carousel-container">
         <div className="blog-carousel-track">
           {imageContent.slice(startIndex, startIndex + itemsPerPage).map((data, index) => (
@@ -47,7 +47,7 @@ function LatestBlog() {
           ))}
         </div>
       </div>
-      <button className="carousel-btn right" onClick={next}>{'>'}</button>
+      <button className="latest-carousel-btn right" onClick={next}>{'>'}</button>
     </div>
   );
 }
