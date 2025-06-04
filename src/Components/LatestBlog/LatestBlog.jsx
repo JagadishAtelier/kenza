@@ -40,8 +40,10 @@ function LatestBlog() {
             <div className="blog-card" key={index}>
               <img src={data.image} alt={data.text} />
               <div className="blog-overlay">
-                <h3>{data.text}</h3>
-                <p>{data.para}</p>
+                <div>
+                  <h3>{data.text}</h3>
+                  <p>{data.para}</p>
+                </div>
               </div>
             </div>
           ))}

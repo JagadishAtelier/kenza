@@ -118,10 +118,10 @@
 
     }
     .blog-carousel-container {
-      overflow: hidden;
-      width: 100%;
-    }
-    
+  overflow: hidden;
+  width: 100%;
+}
+
     .latest-carousel-btn.left  {
       left: 39%;
     }

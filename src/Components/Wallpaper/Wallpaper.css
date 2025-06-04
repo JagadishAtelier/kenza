@@ -30,8 +30,9 @@
 
 @media (max-width: 768px) {
     .wallpaperImage {
-      height: 190px; /* smaller height for mobile */
+      height: 220px; /* smaller height for mobile */
       object-fit: cover;
+      width: 100%;
     }
   
     .wallpaper-text {
