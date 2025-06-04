@@ -45,7 +45,6 @@
     transition: transform 0.5s ease-in-out;
     width: max-content;
     gap: 50px;
-    margin-left: 60px;
   }
   
   .testimonial-arrow {
@@ -64,11 +63,11 @@
   }
   
   .testimonial-arrow.left {
-    left: 46%;
+    left: 47%;
   }
   
   .testimonial-arrow.right {
-    right: 46%;
+    right: 44%;
   }
   
   

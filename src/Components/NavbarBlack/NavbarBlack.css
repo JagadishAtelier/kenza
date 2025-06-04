@@ -76,7 +76,6 @@
   .nav-links {
     display: flex;
     justify-content: space-around;
-    margin-left: 40px;
     gap: 40px;
     font-size: 18px;
     color: #2d2d2d;
