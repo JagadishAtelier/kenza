@@ -9,29 +9,29 @@ const testContent = [
   {
     image: test1,
     comment:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non eros tellus. Phasellus nec iaculis sapien. Fusce quisest bibendum ornare erat in pretium aliquam.",
+      "Amazing service and top-quality products! I’m so happy with my purchase. The delivery was quick, and the customer support was very helpful.",
     name: "John Duff",
     prof: "Web Designer",
   },
   {
     image: test2,
     comment:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non eros tellus. Phasellus nec iaculis sapien. Fusce quisest bibendum ornare erat in pretium aliquam.",
-    name: "John Duff",
+      "I’ve never experienced such a smooth shopping experience. The product exceeded my expectations and the money-back guarantee gave me complete peace of mind.",
+    name: "Anita",
     prof: "Web Designer",
   },
   {
     image: test3,
     comment:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non eros tellus. Phasellus nec iaculis sapien. Fusce quisest bibendum ornare erat in pretium aliquam.",
-    name: "John Duff",
+      "The free gift voucher was a wonderful surprise! It made my next purchase even better. Highly recommend this store!",
+    name: "Rahul",
     prof: "Web Designer",
   },
   {
     image: test4,
     comment:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non eros tellus. Phasellus nec iaculis sapien. Fusce quisest bibendum ornare erat in pretium aliquam.",
-    name: "John Duff",
+      "Their 24x7 support team is outstanding. They helped me immediately when I had a question about my order. Excellent customer care!",
+    name: "Sneha",
     prof: "Web Designer",
   },
 ];

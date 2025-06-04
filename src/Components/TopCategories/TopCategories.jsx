@@ -5,10 +5,10 @@ import image2 from '../../Assets/d2.png'
 import image3 from '../../Assets/d3.png'
 import image4 from '../../Assets/d4.png'
 const data = [
-    {image : image1,text : "FREE WORLDWIDE DELIVERY",para : "lorem Ipsum Is Dummy Text"},
-    {image : image2,text : "24X7 SUPPORT ASSISTENCE",para : "lorem Ipsum Is Dummy Text"},
-    {image : image3,text : "FREE GIFT VOUCHER",para : "lorem Ipsum Is Dummy Text"},
-    {image : image4,text : "MONEY BACK GAURENTEE",para : "lorem Ipsum Is Dummy Text"},
+    {image : image1,text : "FREE WORLDWIDE DELIVERY",para : "Enjoy the convenience of free worldwide delivery on all your orders. No matter where you are, we make sure your favorite products reach you quickly and safely"},
+    {image : image2,text : "24X7 SUPPORT ASSISTENCE",para : "Our dedicated support team is available 24/7 to assist you with any questions or concerns."},
+    {image : image3,text : "FREE GIFT VOUCHER",para : " Treat yourself or someone special to exclusive discounts and surprises, making your shopping experience even more rewarding."},
+    {image : image4,text : "MONEY BACK GAURENTEE",para : "Shop with confidence knowing that we offer a money-back guarantee. "},
 ]
 function TopCategories() {
   return (
