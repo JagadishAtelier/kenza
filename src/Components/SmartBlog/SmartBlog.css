@@ -31,7 +31,7 @@ color: grey;
 
 .blog-container{
     display: flex;
-    margin-top: 10%;
+    margin-top: 7%;
     justify-content: space-around;
 }
 .newsLetter-container{

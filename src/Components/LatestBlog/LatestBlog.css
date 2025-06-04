@@ -64,7 +64,7 @@
   }
   .carousel-btn {
     position: absolute;
-    bottom: -10%;
+    bottom: 0;
     transform: translateY(-50%);
     background: rgb(238, 237, 237);
     color: black;
