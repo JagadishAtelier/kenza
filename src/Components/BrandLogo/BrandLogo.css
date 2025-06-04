@@ -1,9 +1,56 @@
-.brand-logo-container{
+.brand-logo-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .brand-logo-container {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     padding: 0 20px;
-}
-.brand-logo-container img{
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .brand-logo-item img {
     height: 125px;
-}
+    max-width: 100%;
+  }
+  
+  @media (max-width: 768px) {
+    .brand-logo-container {
+      justify-content: space-evenly;
+      gap: 10px;
+      position: relative;
+      margin-top: 5%;
+    }
+  
+    .brand-logo-item img {
+      height: 120px;
+    }
+  
+    .carousel-btn {
+      background: #3b9048;
+      border: none;
+      color: white;
+      font-size: 24px;
+      padding: 5px 15px;
+      cursor: pointer;
+      border-radius: 50%;
+      user-select: none;
+    }
+  
+    .carousel-btn.prev {
+        position: absolute;
+        bottom: -60%;
+        left:38%;
+    }
+  
+    .carousel-btn.next {
+        position:absolute;
+        bottom: -60%;
+        right: 38%;
+    }
+  }
+  

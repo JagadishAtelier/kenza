@@ -63,3 +63,42 @@
     letter-spacing: 1px;
   }
   
+  @media (max-width: 768px) {
+    .background-image {
+      background-attachment: scroll; /* Fix attachment issue on mobile */
+      height: 300px;
+      padding: 60px 10px;
+      flex-direction: column;
+    }
+  
+    .main-container {
+      position: static;
+      padding: 40px 10px;
+    }
+  
+    .highlight-box {
+      width: 100%;
+      padding: 20px 15px;
+      border-width: 5px;
+      margin: 20px 0 10px;
+    }
+  
+    .main-heading {
+      font-size: 28px;
+    }
+  
+    .subheading {
+      font-size: 16px;
+      margin: 20px 0 15px;
+    }
+  
+    .season-text {
+      font-size: 16px;
+    }
+  
+    .view-button {
+      font-size: 13px;
+      padding: 10px 20px;
+    }
+  }
+  

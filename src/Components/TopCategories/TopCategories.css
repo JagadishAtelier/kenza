@@ -32,3 +32,35 @@
 .heading-text-top-cat {
     text-align: center;
 }
+
+@media (max-width: 768px) {
+    .top-cat-content {
+      flex-direction: column;
+      align-items: center;
+      margin: 10% 5%;
+      gap: 20px;
+    }
+  
+    .top-cat-image {
+      height: 80px;
+      width: 80px;
+      line-height: 80px;
+      margin-bottom: 15px;
+    }
+  
+    .top-cat-image-text img {
+      top: 24px;
+      left: 28px;
+      width: 30px;
+      height: 30px;
+    }
+  
+    .heading-text-top-cat {
+      font-size: 20px;
+    }
+  
+    .top-cat-image-text p {
+      font-size: 14px;
+    }
+  }
+  

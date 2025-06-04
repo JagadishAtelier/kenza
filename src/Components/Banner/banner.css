@@ -34,3 +34,32 @@
     font-weight: 400;
   }
   
+  @media (max-width: 768px) {
+    .banner-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .banner-image-text img {
+      width: 100%;
+      height: 300px;
+      position: relative;
+    }
+  
+    .banner-text {
+      position: absolute; /* remove absolute for stacking */
+      top: 90px;
+      left: 205px;
+
+    }
+  
+    .banner-text h2,h5 {
+      font-size: 16px;
+    }
+  
+    .banner-text button {
+      font-size: 14px;
+      padding: 8px 20px;
+    }
+  }
+  

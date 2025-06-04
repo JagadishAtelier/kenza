@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './Testimonial.css';
 import test1 from '../../Assets/t1.avif';
 import test2 from '../../Assets/t2.avif';
@@ -13,9 +13,22 @@ const testContent = [
 
 function Testimonial() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(window.innerWidth <= 768 ? 1 : 2);
+
+  // Detect resize and update itemsPerPage
+  useEffect(() => {
+    const handleResize = () => {
+      const isMobile = window.innerWidth <= 768;
+      setItemsPerPage(isMobile ? 1 : 2);
+      setCurrentIndex(0); // reset index
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleNext = () => {
-    if ((currentIndex + 1) * 2 < testContent.length) {
+    if ((currentIndex + 1) * itemsPerPage < testContent.length) {
       setCurrentIndex(currentIndex + 1);
     }
   };
@@ -26,8 +39,10 @@ function Testimonial() {
     }
   };
 
-  const visibleTestimonials = testContent.slice(currentIndex * 2, currentIndex * 2 + 2);
-
+  const visibleTestimonials = testContent.slice(
+    currentIndex * itemsPerPage,
+    currentIndex * itemsPerPage + itemsPerPage
+  );
   return (
     <div className="testimonial-carousel-wrapper">
       <button className="testimonial-arrow left" onClick={handlePrev}>&#10094;</button>

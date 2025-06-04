@@ -28,6 +28,8 @@ const categories = [
   ];
 function NavbarBlack() {
     const [showCategories, setShowCategories] = useState(false);
+    const [showSearchBox, setShowSearchBox] = useState(false);
+    const [showNavDetails, setShowNavDetails] = useState(false);
   return (
     <div style={{position:"relative"}}>
         <div className='navbar-black-container'>
@@ -110,6 +112,53 @@ function NavbarBlack() {
 
         
     </div>
+
+     {/* Mobile Navbar */}
+     <div className='black-nav-mobile'>
+      <p>Login</p>
+      <div className='mobile-vertical-line'></div>
+      <p>Create A Account</p>
+
+     </div>
+     <div className="navbar-mobile">
+
+     <div className="mobile-menu">
+       <div onClick={() => setShowCategories(!showCategories)}>☰</div>
+       {showCategories && (
+          <ul className="categories-dropdown">
+            {categories.map((category, index) => (
+              <li key={index}>
+                <a href={`/category/${category.toLowerCase().replace(/ /g, '-')}`}>{category}</a>
+              </li>
+            ))}
+          </ul>
+        )}
+       <div className='mobile-search-box' onClick={() => setShowSearchBox(!showSearchBox)}><i className="bi bi-search"></i></div>
+       {showSearchBox && (
+          <div className="nav-search">
+          <input type="text" placeholder="Search" />
+          <button>
+            <i className="bi bi-search"></i>
+          </button>
+        </div>
+        )}
+       <img src={logo}/>
+       <div className='nav-links-mobile' onClick={() => setShowNavDetails(!showNavDetails)}><i class="bi bi-filter-left"></i></div>
+       {showNavDetails && (
+            <div className="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Shop</a>
+            <a href="#">Blog</a>
+            <a href="#">Contact</a>
+            <a href="#">About Us</a>
+            <div className="view-more">
+              View More <i className="bi bi-caret-down-fill ml-1 text-xs"></i>
+            </div>
+          </div>
+        )}
+       <i class="bi bi-bag"></i>
+     </div>
+   </div>
     </div>
   )
 }

@@ -84,3 +84,41 @@
   .carousel-btn.right {
     right: 46%;
   }
+
+  @media (max-width: 768px) {
+    .blog-carousel-track {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      margin-left: 0;
+      justify-content: flex-start;
+      padding: 0 10px;
+    }
+  
+    .blog-card {
+      flex: 0 0 90%;
+      scroll-snap-align: start;
+      margin-right: 10px;
+      position: relative;
+    }
+  
+    .blog-card img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+  
+    .blog-overlay {
+      position: static;
+      opacity: 1;
+      background: none;
+      color: #333;
+      padding: 10px 0;
+    }
+  
+    .carousel-btn {
+      display: none;
+    }
+  }
+  

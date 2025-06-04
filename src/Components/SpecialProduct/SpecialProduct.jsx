@@ -18,7 +18,7 @@ const featuredProducts = [
   ]
 function SpecialProduct() {
   return (
-    <div>
+    <div className='special-conatiner'>
         <div className='spl-heading'>
             <h1>SPECIAL PRODUCT</h1>
         </div>

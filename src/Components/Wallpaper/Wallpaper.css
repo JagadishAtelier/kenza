@@ -27,3 +27,32 @@
 .wallpaper-container{
     position: relative;
 }
+
+@media (max-width: 768px) {
+    .wallpaperImage {
+      height: 190px; /* smaller height for mobile */
+      object-fit: cover;
+    }
+  
+    .wallpaper-text {
+      top: 5%;
+      left: 10%;
+      right: 10%;
+      width: 80%;
+      text-align: center;
+    }
+  
+    .wallpaper-text h1 {
+      font-size: 32px;
+    }
+  
+    .wallpaper-text span {
+      font-size: 14px;
+    }
+  
+    .wallpaper-text button {
+      padding: 8px 20px;
+      font-size: 14px;
+    }
+  }
+  
