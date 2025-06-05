@@ -2,6 +2,7 @@ import React,{useState}from 'react'
 import './NavbarBlack.css'
 import phoneSystemImage from '../../Assets/phoneSystemImage.png'
 import callSupport from '../../Assets/callSupport.png'
+import CartDrawer from '../CartDrawer/CartDrawer'
 // import fruit1 from '../../Assets/carrot.png'
 // import fruit2 from '../../Assets/fruit2.png'
 // import fruit3 from '../../Assets/fruit3.png'
@@ -30,6 +31,7 @@ function NavbarBlack() {
     const [showCategories, setShowCategories] = useState(false);
     const [showSearchBox, setShowSearchBox] = useState(false);
     const [showNavDetails, setShowNavDetails] = useState(false);
+    const [cartOpen, setCartOpen] = useState(false);
   return (
     <div style={{position:"relative"}}>
         <div className='navbar-black-container'>
@@ -67,10 +69,11 @@ function NavbarBlack() {
                     <i class="bi bi-person"></i>
                     <p>Account</p>
                 </div>
-                <div className='navbar-white-icon-text'>
+                <div className='navbar-white-icon-text'onClick={() => setCartOpen(true)}>
                     <i class="bi bi-basket"></i>
                     <p>Item</p>
                 </div>
+                <CartDrawer show={cartOpen} onClose={() => setCartOpen(false)} />
             </div>
         </div>
         <div className="navbar">

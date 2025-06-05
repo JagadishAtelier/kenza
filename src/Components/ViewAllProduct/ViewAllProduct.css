@@ -246,3 +246,10 @@
     color: gray;
     margin-bottom: 10px;
   }
+.view-all-right-grid-box-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns */
+    gap: 24px; /* spacing between items */
+    justify-items: center;
+    padding: 0 80px;
+  }

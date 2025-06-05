@@ -54,7 +54,39 @@ function ViewAllProduct() {
     const[showFruits,setShowFruits] = useState(false)
     const[showOragnicProduct,setShowOragnicProduct] = useState(false)
     const navigate = useNavigate()
-
+    const [columnCount, setColumnCount] = useState(3); // default to 3 columns
+    const [sortOption, setSortOption] = useState("Featured");
+const [sortedProducts, setSortedProducts] = useState([...featuredProducts]);
+const handleSortChange = (e) => {
+    const option = e.target.value;
+    setSortOption(option);
+  
+    let sorted = [...featuredProducts]; // fresh copy to avoid mutating original
+  
+    switch (option) {
+      case "Alphabeticall A-Z":
+        sorted.sort((a, b) => a.text.localeCompare(b.text));
+        break;
+      case "Alphabeticall Z-A":
+        sorted.sort((a, b) => b.text.localeCompare(a.text));
+        break;
+      case "Price Low-High":
+        sorted.sort((a, b) => parseFloat(a.price.replace("$", "")) - parseFloat(b.price.replace("$", "")));
+        break;
+      case "Price High-Low":
+        sorted.sort((a, b) => parseFloat(b.price.replace("$", "")) - parseFloat(a.price.replace("$", "")));
+        break;
+      case "Best Selling":
+        // You can implement logic if there's a "sales" or "popularity" key
+        break;
+      case "Featured":
+      default:
+        sorted = [...featuredProducts];
+    }
+  
+    setSortedProducts(sorted);
+  };
+  
     const DoubleVerticalLine = () => (
         <svg width="20" height="20" viewBox="0 0 20 40" xmlns="http://www.w3.org/2000/svg">
           <line x1="5" y1="0" x2="5" y2="40" stroke="black" strokeWidth="5" />
@@ -239,26 +271,29 @@ function ViewAllProduct() {
         <img src={vegImage}/>
         <div>
         <div className='view-all-right-align-icon'>
-        <DoubleVerticalLine/>
-        <ThreeVerticalLines/>
-        <FourVerticalLines/>
-        <ThreeHorizontalLines/>
+        <div onClick={() => setColumnCount(2)}><DoubleVerticalLine /></div>
+  <div onClick={() => setColumnCount(3)}><ThreeVerticalLines /></div>
+  <div onClick={() => setColumnCount(4)}><FourVerticalLines /></div>
         <h6>View Products By Your Wish</h6>
         <div className='view-all-sort-by-right'>
         <h6>Sort By</h6>
-        <select>
-            <option>Featured</option>
-            <option>Best Selling</option>
-            <option>Alphabeticall A-Z</option>
-            <option>Alphabeticall Z-A</option>
-            <option>Price Low-High</option>
-            <option>Price High-Low</option>
-        </select>
+        <select value={sortOption} onChange={handleSortChange}>
+  <option>Featured</option>
+  <option>Best Selling</option>
+  <option>Alphabeticall A-Z</option>
+  <option>Alphabeticall Z-A</option>
+  <option>Price Low-High</option>
+  <option>Price High-Low</option>
+</select>
         </div>
         </div>
     <div className='trending-product-container'>
-      <div className='grid-box-container'>
-        {featuredProducts.map((data, index) => {
+      <div className='view-all-right-grid-box-container'style={{ 
+  display: 'grid', 
+  gridTemplateColumns: `repeat(${columnCount}, 1fr)`, 
+  gap: '20px' 
+}}>
+        {sortedProducts.map((data, index) => {
           const activeDot = hoverIndex === index ? 1 : 0;
 
           return (

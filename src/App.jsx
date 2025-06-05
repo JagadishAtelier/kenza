@@ -18,11 +18,10 @@ import SmartBlog from './Components/SmartBlog/SmartBlog';
 import Footer from './Components/Footer/Footer';
 import LatestBlog from './Components/LatestBlog/LatestBlog';
 import ViewAllProduct from './Components/ViewAllProduct/ViewAllProduct';
-
+import { CartProvider } from './Components/CartContext/CartContext';
 function HomePage() {
   return (
     <>
-      <NavbarBlack />
       <Wallpaper />
       <Banner />
       <TreandingProduct />
@@ -33,22 +32,23 @@ function HomePage() {
       <SpecialProduct />
       <LatestBlog />
       <SmartBlog />
-      <Footer />
     </>
   );
 }
 
 function App() {
   return (
-    <Router>
-      <NavbarBlack/>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/product/:name" element={<TrendingNow />} />
-        <Route path="/all-product" element={<ViewAllProduct />} />
-      </Routes>
-      <Footer/>
-    </Router>
+    <CartProvider>
+      <Router>
+        <NavbarBlack />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/product/:name" element={<TrendingNow />} />
+          <Route path="/all-product" element={<ViewAllProduct />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </CartProvider>
   );
 }
 

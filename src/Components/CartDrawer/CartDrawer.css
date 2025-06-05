@@ -1,0 +1,126 @@
+.cart-drawer {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 500px;
+    height: 100vh;
+    background: white;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+    z-index: 999;
+    transition: right 0.3s ease-in-out;
+    overflow-y: auto;
+  }
+  
+  .cart-drawer.open {
+    right: 0;
+  }
+  
+  .cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+  }
+  
+  .cart-body {
+    padding: 16px;
+  }
+  
+  .support,
+  .free-shipping,
+  .cart-item,
+  .recommend,
+  .summary {
+    margin-bottom: 20px;
+  }
+  
+  .cart-item,
+  .recommend-item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .cart-item img,
+  .recommend-item img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+  }
+  
+  .progress-bar {
+    background: #f1f1f1;
+    height: 6px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 5px;
+  }
+  
+  .progress {
+    background: #47ba2b;
+    height: 100%;
+  }
+  
+  .recommend-item button {
+    background: #47ba2b;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-top: 5px;
+    cursor: pointer;
+  }
+  .recommend {
+    margin-top: 20px;
+  }
+  
+  .recommend-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 250px;
+  }
+  
+  .recommend-item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: #f7f7f7;
+    padding: 10px;
+    border-radius: 6px;
+  }
+  
+  .recommend-item img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+  
+  .recommend-item button {
+    padding: 4px 8px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  .cart-top-carousel {
+    background: #f1f1f1;
+    padding: 10px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 14px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .cart-top-carousel p {
+    margin: 0;
+    color: #444;
+  }
+  

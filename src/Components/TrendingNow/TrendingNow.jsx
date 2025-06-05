@@ -15,6 +15,7 @@ import TPImage7 from '../../Assets/p1.webp'
 import TPImage8 from '../../Assets/p8.webp'
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import { useCart } from '../CartContext/CartContext';
 const featuredProducts = [
   { image: TPImage1,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage2, text: "Aliqunaim Retrum Mollis", price: "$ 18.00",type:"organics" },
   { image: TPImage2,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage3, text: "American Grapes", price: "$ 17.00",type:"organics" },
@@ -26,6 +27,18 @@ const featuredProducts = [
   { image: TPImage4,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage8, text: "Organic Chilli", price: "$ 14.00" ,type:"organics"}
 ]
 function TrendingNow() {
+  const { addToCart } = useCart();
+  const [addedToCart, setAddedToCart] = useState(false);
+  const handleAddToCart = () => {
+    addToCart({
+      ...product,
+      quantity,
+      selectedSize,
+      selectedColor,
+    });
+    setAddedToCart(true);
+    setTimeout(() => setAddedToCart(false), 1500); // Reset message
+  };
   const location = useLocation();
   const product = location.state?.product;
   const [hoverIndex, setHoverIndex] = useState(null)
@@ -135,7 +148,10 @@ function TrendingNow() {
             </div>
           </div>
           <div>
-          <button className="add-btn">ADD TO CART</button>
+          <button className="add-btn" onClick={handleAddToCart}>
+  {addedToCart ? "✅ Added to Cart" : "ADD TO CART"}
+</button>
+
             <button className="buy-btn">BUY IT NOW</button>
           </div>
 
