@@ -123,7 +123,7 @@ const handleSortChange = (e) => {
     <div className='view-all-container'>
       <div className='view-all-left-side'>
         <div className='view-all-cat-section-left'>
-        <h3 className='view-all-categories-container-heading'>CATEGORIES</h3>
+        <h5 className='view-all-categories-container-heading'>CATEGORIES</h5>
         <div onClick={() => setShowCategories(!showCategories)}>
             <h5 className='view-all-categories-container-inner-heading'>Vegitables</h5></div>
             {showCategories && (
@@ -156,7 +156,7 @@ const handleSortChange = (e) => {
         </div>
                 <br/>
         <div className='view-all-cat-section-left'>
-            <h3 className='view-all-categories-container-heading'>FILTER</h3>
+            <h5 className='view-all-categories-container-heading'>FILTER</h5>
             <h5 style={{padding:"10px"}}>Availability</h5>
             <div className='input-checkbox'>
                 <input type='checkbox'/>
@@ -196,7 +196,7 @@ const handleSortChange = (e) => {
         <br/>
 
         <div className='view-all-cat-section-left'>
-            <h3 className='view-all-categories-container-heading'>NEW PRODUCTS</h3>
+            <h5 className='view-all-categories-container-heading'>NEW PRODUCTS</h5>
             <div className='view-all-grid-box-container'>
     {newProducts.map((data, index) => (
       <div className='view-all-data-grid' key={index}>
@@ -234,7 +234,7 @@ const handleSortChange = (e) => {
         <br/>
 
         <div className='view-all-cat-section-left'>
-            <h3 className='view-all-categories-container-heading'>SPECIAL PRODUCTS</h3>
+            <h5 className='view-all-categories-container-heading'>SPECIAL PRODUCTS</h5>
             <div className='view-all-grid-box-container'>
     {newProducts.map((data, index) => (
       <div className='view-all-data-grid' key={index}>
@@ -265,9 +265,10 @@ const handleSortChange = (e) => {
 
       <div className='view-all-right-side'>
         <h3>Vegetables</h3>
-        <p>Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit. Accessorize with a straw hat and you're ready for summer!</p>
+        <p className='view-all-right-para'>Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit. Accessorize with a straw hat and you're ready for summer!</p>
         <br/>
-        <p>Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit. Accessorize with a straw hat and you're ready for summer! Accessorize with a straw hat and you're ready for summer! Accessorize with a straw hat and you're ready for summer!...</p>
+        <p className='view-all-right-para'>Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit. Accessorize with a straw hat and you're ready for summer! Accessorize with a straw hat and you're ready for summer! Accessorize with a straw hat and you're ready for summer!...</p>
+        <br/>
         <img src={vegImage}/>
         <div>
         <div className='view-all-right-align-icon'>

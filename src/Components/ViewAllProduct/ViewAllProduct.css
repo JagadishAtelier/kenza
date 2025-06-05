@@ -7,7 +7,7 @@
     width: 350px;
 }
 .view-all-right-side{
-    width: 900px;
+    width: 780px;
 }
 .view-all-cat-section-left{
     border: 1px solid rgb(234, 232, 232);
@@ -18,7 +18,7 @@
     text-decoration: none;
     color: gray;
     display: block;
-    font-size: 18px;
+    font-size: 16px;
     margin: 2px;
 }
 .view-all-categories-container-heading{
@@ -33,7 +33,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 18px;
+    font-size: 16px;
     padding: 10px;
 }
 .input-checkbox p{
@@ -60,7 +60,10 @@
 }
 .input-text p{
     color: gray;
-    font-size: 18px;
+    font-size: 16px;
+}
+.view-all-right-para{
+    color: gray;
 }
 .color-red-round{
     height: 30px;
@@ -229,7 +232,7 @@
     background-color: rgb(216, 216, 216);
     padding: 10px;
     border-radius: 10px;
-    width: 875px;
+    width: 780px;
     margin-top: 5%;
   }
   .view-all-sort-by-right{
