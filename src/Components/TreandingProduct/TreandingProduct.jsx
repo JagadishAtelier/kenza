@@ -118,7 +118,7 @@ function TreandingProduct() {
         })}
       </div>
 
-      <button className='trending-product-view-all-btn'>VIEW ALL</button>
+      <button className='trending-product-view-all-btn' onClick={()=>navigate('/all-product')}>VIEW ALL</button>
     </div>
   )
 }
