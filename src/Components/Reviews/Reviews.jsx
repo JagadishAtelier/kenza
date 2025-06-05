@@ -85,26 +85,8 @@ function Reviews() {
           <blockquote>
             {paragraphText} {paragraphText}
           </blockquote>
-
-          <h4>About this item</h4>
-          <div className="about-table">
-            {aboutItemContent.map((item, index) => (
-              <div className="table-row" key={index}>
-                <div className="table-cell head">{item.head}</div>
-                <div className="table-cell text">{item.text}</div>
-              </div>
-            ))}
-          </div>
         </div>
       )}
-<div className="description-content">
-        <h4>Additional Information</h4>
-          <ul>
-            {additionalInformation.map((item, index) => (
-              <li key={index}>{item}</li>
-            ))}
-          </ul>
-          </div>
       {activeTab !== 'description' && (
         <div className="placeholder">
           <p>Content for "{tabData.find(tab => tab.id === activeTab).label}" goes here.</p>

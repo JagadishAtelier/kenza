@@ -8,45 +8,45 @@ import TPImage5 from '../../Assets/p5.webp'
 import TPImage6 from '../../Assets/p6.webp'
 import TPImage7 from '../../Assets/p1.webp'
 import TPImage8 from '../../Assets/p8.webp'
-
+import { useNavigate } from 'react-router-dom'
 // Products with hover images added
 const featuredProducts = [
-  { image: TPImage1, hoverImage: TPImage2, text: "Aliqunaim Retrum Mollis", price: "$ 18.00" },
-  { image: TPImage2, hoverImage: TPImage3, text: "American Grapes", price: "$ 17.00" },
-  { image: TPImage3, hoverImage: TPImage4, text: "Autum Eua Guide", price: "$ 16.00" },
-  { image: TPImage4, hoverImage: TPImage5, text: "Consectuar Adipicing", price: "$ 15.00" }, 
-  { image: TPImage7, hoverImage: TPImage6, text: "Fuse Fermentum", price: "$ 12.00" },
-  { image: TPImage8, hoverImage: TPImage1, text: "Maruis Bibendum", price: "$ 10.00" },
-  { image: TPImage3, hoverImage: TPImage7, text: "Mustard", price: "$ 15.00" },
-  { image: TPImage4, hoverImage: TPImage8, text: "Organic Chilli", price: "$ 14.00" }
+  { image: TPImage1,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage2, text: "Aliqunaim Retrum Mollis", price: "$ 18.00",type:"organics" },
+  { image: TPImage2,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage3, text: "American Grapes", price: "$ 17.00",type:"organics" },
+  { image: TPImage3,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage4, text: "Autum Eua Guide", price: "$ 16.00",type:"organics" },
+  { image: TPImage4,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage5, text: "Consectuar Adipicing", price: "$ 15.00",type:"organics" }, 
+  { image: TPImage7,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage6, text: "Fuse Fermentum", price: "$ 12.00",type:"organics" },
+  { image: TPImage8,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage1, text: "Maruis Bibendum", price: "$ 10.00" ,type:"organics"},
+  { image: TPImage3,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage7, text: "Mustard", price: "$ 15.00",type:"organics" },
+  { image: TPImage4,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage8, text: "Organic Chilli", price: "$ 14.00" ,type:"organics"}
 ]
 
 const newArrivals = [
-  { image: TPImage5, hoverImage: TPImage6, text: "Unique Omnesque", price: "$ 14.00" },
-  { image: TPImage6, hoverImage: TPImage7, text: "Printed Chiffon Dress", price: "$ 13.00" },
-  { image: TPImage1, hoverImage: TPImage8, text: "Denim Skirt", price: "$ 12.00" },
-  { image: TPImage2, hoverImage: TPImage3, text: "Soft Wool Scarf", price: "$ 11.00" },
-  { image: TPImage7, hoverImage: TPImage4, text: "Mug Today is Good Day", price: "$ 12.00" },
-  { image: TPImage8, hoverImage: TPImage5, text: "Brown Bear Cushion", price: "$ 10.00" },
-  { image: TPImage3, hoverImage: TPImage1, text: "Retro Style T-shirt", price: "$ 15.00" },
-  { image: TPImage4, hoverImage: TPImage2, text: "Casual Summer Top", price: "$ 14.00" }
+  { image: TPImage5,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage6, text: "Unique Omnesque", price: "$ 14.00",type:"organics" },
+  { image: TPImage6,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage7, text: "Printed Chiffon Dress", price: "$ 13.00" ,type:"organics"},
+  { image: TPImage1,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage8, text: "Denim Skirt", price: "$ 12.00" ,type:"organics"},
+  { image: TPImage2,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage3, text: "Soft Wool Scarf", price: "$ 11.00" ,type:"organics"},
+  { image: TPImage7,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage4, text: "Mug Today is Good Day", price: "$ 12.00",type:"organics" },
+  { image: TPImage8,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage5, text: "Brown Bear Cushion", price: "$ 10.00",type:"organics" },
+  { image: TPImage3,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage1, text: "Retro Style T-shirt", price: "$ 15.00" ,type:"organics"},
+  { image: TPImage4,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage2, text: "Casual Summer Top", price: "$ 14.00" ,type:"organics"}
 ]
 
 const bestSellers = [
-  { image: TPImage7, hoverImage: TPImage3, text: "Mug Today is Good Day", price: "$ 12.00" },
-  { image: TPImage8, hoverImage: TPImage4, text: "Brown Bear Cushion", price: "$ 10.00" },
-  { image: TPImage3, hoverImage: TPImage5, text: "Retro Style T-shirt", price: "$ 15.00" },
-  { image: TPImage4, hoverImage: TPImage6, text: "Casual Summer Top", price: "$ 14.00" },
-  { image: TPImage1, hoverImage: TPImage7, text: "Printed Long Skrit", price: "$ 18.00" },
-  { image: TPImage2, hoverImage: TPImage8, text: "Pellenteque Et Phatera", price: "$ 17.00" },
-  { image: TPImage3, hoverImage: TPImage1, text: "Simul Dorolman Voluptoria", price: "$ 16.00" },
-  { image: TPImage4, hoverImage: TPImage2, text: "Malesuadai Facilities Velit", price: "$ 15.00" }, 
+  { image: TPImage7,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage3, text: "Mug Today is Good Day", price: "$ 12.00",type:"organics" },
+  { image: TPImage8,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage4, text: "Brown Bear Cushion", price: "$ 10.00",type:"organics" },
+  { image: TPImage3,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage5, text: "Retro Style T-shirt", price: "$ 15.00" ,type:"organics"},
+  { image: TPImage4,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage6, text: "Casual Summer Top", price: "$ 14.00" ,type:"organics"},
+  { image: TPImage1,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage7, text: "Printed Long Skrit", price: "$ 18.00",type:"organics" },
+  { image: TPImage2,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage8, text: "Pellenteque Et Phatera", price: "$ 17.00",type:"organics" },
+  { image: TPImage3,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage1, text: "Simul Dorolman Voluptoria", price: "$ 16.00",type:"organics" },
+  { image: TPImage4,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage2, text: "Malesuadai Facilities Velit", price: "$ 15.00",type:"organics" }, 
 ]
 
 function TreandingProduct() {
   const [selectedCategory, setSelectedCategory] = useState('featured')
   const [hoverIndex, setHoverIndex] = useState(null)
-
+  const navigate = useNavigate()
   let productsToDisplay
   if (selectedCategory === 'featured') productsToDisplay = featuredProducts
   else if (selectedCategory === 'new') productsToDisplay = newArrivals
@@ -88,7 +88,7 @@ function TreandingProduct() {
               onMouseEnter={() => setHoverIndex(index)}
               onMouseLeave={() => setHoverIndex(null)}
             >
-              <div className='image-wrapper'>
+              <div className='image-wrapper' onClick={() => navigate(`/product/${data.text}`, { state: { product: data } })}>
                 <img 
                   src={hoverIndex === index ? data.hoverImage : data.image} 
                   alt={`product-${index}`} 
