@@ -146,7 +146,7 @@ function TrendingNow() {
               <button onClick={() => handleQuantityChange("inc")}>+</button>
             </div>
           </div>
-          <div>
+          <div className="add-to-cart-buy-btn-div">
           <button className="add-btn" onClick={handleAddToCart}>
   {addedToCart ? "✅ Added to Cart" : "ADD TO CART"}
 </button>

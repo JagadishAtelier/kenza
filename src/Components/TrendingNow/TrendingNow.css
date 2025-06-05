@@ -6,7 +6,7 @@
   }
   
   .image-section {
-    width: 700px;
+    width: 550px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -193,10 +193,15 @@
   .product-dtl {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
     padding: 20px;
-    border: 1px solid rgb(231, 230, 230);
+    border: 1px solid #e7e6e6;
     border-radius: 10px;
+    width: 500px;
+  }
+  .add-to-cart-buy-btn-div{
+    width: 600px;
+    display: flex;
+    gap: 20px;
   }
   
   .feature-box {
@@ -213,14 +218,12 @@
   }
   
   .add-btn,.buy-btn{
-    background-color: #E40046;
-    padding: 10px 80px;
+    background-color:#3b9048;
+    padding: 10px 50px;
     border: none;
     border-radius: 10px;
     color: white;
-    margin-left: 20px;
-
   }
   .buy-btn{
-    background-color: blue;
+    background-color: #1990c6;
   }
