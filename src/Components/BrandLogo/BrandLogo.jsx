@@ -12,6 +12,7 @@ const images = [brandLogo1, brandLogo2, brandLogo3, brandLogo4, brandLogo5, bran
 function BrandLogo() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const showCount = 2; // Number of logos to show on mobile
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -19,28 +20,23 @@ function BrandLogo() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const showCount = 2; // Number of logos to show on mobile
+  // Auto slide effect for mobile
+  useEffect(() => {
+    if (!isMobile) return;
 
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev + showCount) % images.length);
-  };
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + showCount) % images.length);
+    }, 2000); // change slide every 2 seconds
 
-  const handlePrev = () => {
-    setCurrentIndex((prev) => (prev - showCount + images.length) % images.length);
-  };
+    return () => clearInterval(interval);
+  }, [isMobile]);
 
-  // Slice the images to display based on currentIndex for mobile, else show all
   const visibleImages = isMobile
     ? [...images, ...images].slice(currentIndex, currentIndex + showCount)
     : images;
 
   return (
     <div className="brand-logo-wrapper">
-      {isMobile && (
-        <button className="carousel-btn prev" onClick={handlePrev}>
-          &#10094;
-        </button>
-      )}
       <div className="brand-logo-container">
         {visibleImages.map((image, index) => (
           <div key={index} className="brand-logo-item">
@@ -48,11 +44,6 @@ function BrandLogo() {
           </div>
         ))}
       </div>
-      {isMobile && (
-        <button className="carousel-btn next" onClick={handleNext}>
-          &#10095;
-        </button>
-      )}
     </div>
   );
 }

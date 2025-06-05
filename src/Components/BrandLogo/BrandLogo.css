@@ -54,5 +54,15 @@
     }
   }
   
-
+  .brand-logo-container {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .brand-logo-item img {
+    width: 100px;
+    height: auto;
+    margin: 0 10px;
+  }
+  
   

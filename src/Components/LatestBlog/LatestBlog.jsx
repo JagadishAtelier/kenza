@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import './LatestBlog.css';
 import image1 from '../../Assets/l1.webp';
 import image2 from '../../Assets/l2.webp';
@@ -7,36 +7,40 @@ import image4 from '../../Assets/l4.webp';
 import image5 from '../../Assets/l5.webp';
 
 const imageContent = [
-  { image: image1, heading: '10 June 2021', text: 'Sweet Summer Mangoes', para: 'Juicy and ripe, mangoes bring a tropical delight.' },
-  { image: image2, heading: '05 March 2022', text: 'Bunches of Bananas', para: 'A powerhouse of energy and potassium.' },
-  { image: image2, heading: '05 March 2022', text: 'Bunches of Bananas', para: 'A powerhouse of energy and potassium.' },
-  { image: image3, heading: '22 July 2020', text: 'Fresh Strawberries', para: 'Bright red and sweet — a perfect summer snack.' },
-  { image: image4, heading: '18 November 2019', text: 'Crisp Green Apples', para: 'Tart, crunchy, and packed with fiber.' },
-  { image: image5, heading: '30 August 2023', text: 'Luscious Blueberries', para: 'Tiny berries full of antioxidants and flavor.' }
+  { image: image1, text: 'Sweet Summer Mangoes', para: 'Juicy and ripe, mangoes bring a tropical delight.' },
+  { image: image2, text: 'Bunches of Bananas', para: 'A powerhouse of energy and potassium.' },
+  { image: image3, text: 'Fresh Strawberries', para: 'Bright red and sweet — a perfect summer snack.' },
+  { image: image4, text: 'Crisp Green Apples', para: 'Tart, crunchy, and packed with fiber.' },
+  { image: image5, text: 'Luscious Blueberries', para: 'Tiny berries full of antioxidants and flavor.' }
 ];
 
 function LatestBlog() {
-  const [startIndex, setStartIndex] = useState(0);
-  const itemsPerPage = 3;
+  const trackRef = useRef(null);
 
-  const next = () => {
-    if (startIndex + itemsPerPage < imageContent.length) {
-      setStartIndex(startIndex + 1);
-    }
-  };
+  useEffect(() => {
+    const track = trackRef.current;
+    let start = 0;
 
-  const prev = () => {
-    if (startIndex - 1 >= 0) {
-      setStartIndex(startIndex - 1);
-    }
-  };
+    const scroll = () => {
+      start -= 1;
+      if (Math.abs(start) >= track.scrollWidth / 2) {
+        start = 0;
+      }
+      track.style.transform = `translateX(${start}px)`;
+      requestAnimationFrame(scroll);
+    };
+
+    requestAnimationFrame(scroll);
+  }, []);
+
+  // Duplicate content to fake infinite scroll
+  const duplicatedContent = [...imageContent, ...imageContent];
 
   return (
     <div className="blog-carousel-wrapper">
-      <button className="latest-carousel-btn left" onClick={prev} disabled={startIndex === 0}>{'<'}</button>
       <div className="blog-carousel-container">
-        <div className="blog-carousel-track">
-          {imageContent.slice(startIndex, startIndex + itemsPerPage).map((data, index) => (
+        <div className="blog-carousel-track infinite" ref={trackRef}>
+          {duplicatedContent.map((data, index) => (
             <div className="blog-card" key={index}>
               <img src={data.image} alt={data.text} />
               <div className="blog-overlay">
@@ -49,7 +53,6 @@ function LatestBlog() {
           ))}
         </div>
       </div>
-      <button className="latest-carousel-btn right" onClick={next} disabled={startIndex >= imageContent.length - 1}>{'>'}</button>
     </div>
   );
 }

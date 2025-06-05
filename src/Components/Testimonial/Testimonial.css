@@ -30,7 +30,7 @@
     position: relative;
     width: 80%;
     height: 400px; /* height of one testimonial */
-    margin: 10% 8%;
+    margin: 5% 8% 0;
     overflow: visible;
   }
   

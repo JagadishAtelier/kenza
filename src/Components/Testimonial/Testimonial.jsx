@@ -97,9 +97,6 @@ function Testimonial() {
 
   return (
     <div className="testimonial-carousel-wrapper">
-      <button className="testimonial-arrow left" onClick={handlePrev}>
-        &#10094;
-      </button>
 
       <div className="testimonial-carousel-viewport">
         <div
@@ -138,10 +135,6 @@ function Testimonial() {
           ))}
         </div>
       </div>
-
-      <button className="testimonial-arrow right" onClick={handleNext}>
-        &#10095;
-      </button>
     </div>
   );
 }
