@@ -59,7 +59,6 @@ function TrendingNow() {
     <>
     <div className="trending-now-conatiner">
       <div className="trending-now-conatiner-heading">
-        <h1>TRENDING NOW</h1>
       </div>
 
       <div className="product-container">

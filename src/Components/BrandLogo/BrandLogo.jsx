@@ -36,6 +36,10 @@ function BrandLogo() {
     : images;
 
   return (
+    <>
+    <div style={{textAlign:"center",marginBottom:"5%"}}>
+      <h1>FOLLOW US <span>@instgram</span></h1>
+    </div>
     <div className="brand-logo-wrapper">
       <div className="brand-logo-container">
         {visibleImages.map((image, index) => (
@@ -45,6 +49,7 @@ function BrandLogo() {
         ))}
       </div>
     </div>
+    </>
   );
 }
 

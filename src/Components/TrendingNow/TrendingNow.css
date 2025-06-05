@@ -1,7 +1,8 @@
 .product-container {
     display: flex;
     gap: 40px;
-    padding: 30px;
+    justify-content: center;
+    margin-left: 5%;
   }
   
   .image-section {
@@ -163,7 +164,7 @@
     padding: 0 10px;
   }
   .trending-now-conatiner{
-    margin: 5%;
+    margin-top: 5%;
   }
   .trending-now-conatiner-heading{
     text-align: center;
@@ -177,8 +178,8 @@
   }
   
   .thumbnail-image {
-    width: 160px;
-    height: 166px;
+    width: 130px;
+    height: 130px;
     object-fit: cover;
     border: 2px solid transparent;
     border-radius: 8px;

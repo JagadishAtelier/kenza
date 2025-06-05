@@ -37,6 +37,10 @@ function LatestBlog() {
   const duplicatedContent = [...imageContent, ...imageContent];
 
   return (
+    <>
+    <div style={{textAlign:"center",marginTop:"5%"}}>
+      <h1>LATEST BLOG</h1>
+    </div>
     <div className="blog-carousel-wrapper">
       <div className="blog-carousel-container">
         <div className="blog-carousel-track infinite" ref={trackRef}>
@@ -54,6 +58,7 @@ function LatestBlog() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

@@ -96,6 +96,10 @@ function Testimonial() {
   );
 
   return (
+    <>
+    <div style={{textAlign:"center"}}>
+      <h1>OUR CLIENT SAY</h1>
+    </div>
     <div className="testimonial-carousel-wrapper">
 
       <div className="testimonial-carousel-viewport">
@@ -136,6 +140,7 @@ function Testimonial() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
