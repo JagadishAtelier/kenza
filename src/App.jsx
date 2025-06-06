@@ -19,6 +19,7 @@ import Footer from './Components/Footer/Footer';
 import LatestBlog from './Components/LatestBlog/LatestBlog';
 import ViewAllProduct from './Components/ViewAllProduct/ViewAllProduct';
 import { CartProvider } from './Components/CartContext/CartContext';
+import PaymentPage from './Components/PaymentPage/PaymentPage';
 function HomePage() {
   return (
     <>
@@ -45,6 +46,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/product/:name" element={<TrendingNow />} />
           <Route path="/all-product" element={<ViewAllProduct />} />
+          <Route path="/payment" element={<PaymentPage/>} />
         </Routes>
         <Footer />
       </Router>

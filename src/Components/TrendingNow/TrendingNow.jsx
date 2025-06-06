@@ -151,7 +151,7 @@ function TrendingNow() {
   {addedToCart ? "✅ Added to Cart" : "ADD TO CART"}
 </button>
 
-            <button className="buy-btn">BUY IT NOW</button>
+            <button className="buy-btn" onClick={()=>navigate('/payment')}>BUY IT NOW</button>
           </div>
 
           <div className="product-dtl">
