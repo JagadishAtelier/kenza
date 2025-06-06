@@ -16,6 +16,7 @@ import TPImage8 from '../../Assets/p8.webp'
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { useCart } from '../CartContext/CartContext';
+
 const featuredProducts = [
   { image: TPImage1,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage2, text: "Aliqunaim Retrum Mollis", price: "$ 18.00",type:"organics" },
   { image: TPImage2,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage3, text: "American Grapes", price: "$ 17.00",type:"organics" },
@@ -66,7 +67,7 @@ function TrendingNow() {
           <img src={product.image} alt="Product" className="product-image" />
 
           <div className="thumbnail-container">
-            {[TNImage1, TNImage2, TNImage3, TNImage4,TNImage4].map((img, index) => (
+            {[TNImage1, TNImage2, TNImage3, TNImage4].map((img, index) => (
               <img
                 key={index}
                 src={img}

@@ -1,5 +1,6 @@
 import React,{useState}from 'react'
 import './NavbarBlack.css'
+import { useNavigate } from 'react-router-dom'
 import phoneSystemImage from '../../Assets/phoneSystemImage.png'
 import callSupport from '../../Assets/callSupport.png'
 import CartDrawer from '../CartDrawer/CartDrawer'
@@ -32,7 +33,9 @@ function NavbarBlack() {
     const [showSearchBox, setShowSearchBox] = useState(false);
     const [showNavDetails, setShowNavDetails] = useState(false);
     const [cartOpen, setCartOpen] = useState(false);
-    const [NavCart, setNavCart] = useState(false);
+    const [showLogin, setShowLogin] = useState(false);
+const [formType, setFormType] = useState('login'); // 'login' | 'register' | 'forgot'
+const navigate = useNavigate()
   return (
     <div style={{position:"relative"}}>
         <div className='navbar-black-container'>
@@ -60,17 +63,18 @@ function NavbarBlack() {
 
     <div className='navbar-white-container'>
         <div className='navbar-white-heading-and-details'>
-            <img src={logo}/>
+            <img src={logo} onClick={()=>navigate('/')} style={{cursor:"pointer"}}/>
             <div className='mail-account-item-container'>
-                <div className='navbar-white-icon-text'>
+                <div className='navbar-white-icon-text' style={{cursor:"pointer"}}>
                     <i class="bi bi-envelope"></i>
                     <p>info@gmail.com</p>
                 </div>
-                <div className='navbar-white-icon-text'>
+                <div className='navbar-white-icon-text' onClick={()=>setShowLogin(!showLogin)} style={{cursor:"pointer"}}>
                     <i class="bi bi-person"></i>
                     <p>Account</p>
                 </div>
-                <div className='navbar-white-icon-text'onClick={() => setCartOpen(true)}>
+
+                <div className='navbar-white-icon-text'onClick={() => setCartOpen(true)} style={{cursor:"pointer"}}>
                     <i class="bi bi-basket"></i>
                     <p>Item</p>
                 </div>
@@ -95,11 +99,11 @@ function NavbarBlack() {
       </div>
 
   <div className="nav-links">
-    <a href="#">Home</a>
-    <a href="#">Shop</a>
-    <a href="#">Blog</a>
-    <a href="#">Contact</a>
-    <a href="#">About Us</a>
+    <a href="/">Home</a>
+    <a href="/shop">Shop</a>
+    <a href="/blog">Blog</a>
+    <a href="/contact-us">Contact</a>
+    <a href="/about-us">About Us</a>
     <div className="view-more">
       View More <i className="bi bi-caret-down-fill ml-1 text-xs"></i>
     </div>
@@ -119,11 +123,45 @@ function NavbarBlack() {
 
      {/* Mobile Navbar */}
      <div className='black-nav-mobile'>
-      <p>Login</p>
+      <p onClick={()=>setShowLogin(!showLogin)}>Login</p>
+      
       <div className='mobile-vertical-line'></div>
-      <p>Create A Account</p>
+      <p onClick={()=>setShowLogin(!showLogin)}>Create A Account</p>
 
      </div>
+     {showLogin && (
+  <div className="nav-login-container animate-fade">
+    {formType === 'login' && (
+      <>
+        <h3>LOGIN</h3>
+        <input type='text' placeholder='Email' className='nav-login-container-input'/>
+        <input type='password' placeholder='Password' className='nav-login-container-input'/>
+        <p onClick={() => setFormType('forgot')} style={{cursor: 'pointer'}}>Forgot Password?</p>
+        <button>SIGN IN</button>
+        <p onClick={() => setFormType('register')} style={{cursor: 'pointer'}}>Create Account</p>
+      </>
+    )}
+    {formType === 'register' && (
+      <>
+        <h3>CREATE ACCOUNT</h3>
+        <input type='text' placeholder='Name' className='nav-login-container-input'/>
+        <input type='email' placeholder='Email' className='nav-login-container-input'/>
+        <input type='password' placeholder='Password' className='nav-login-container-input'/>
+        <button>REGISTER</button>
+        <p onClick={() => setFormType('login')} style={{cursor: 'pointer'}}>Already have an account? Login</p>
+      </>
+    )}
+    {formType === 'forgot' && (
+      <>
+        <h3>RESET PASSWORD</h3>
+        <input type='email' placeholder='Email' className='nav-login-container-input'/>
+        <button>Send Reset Link</button>
+        <p onClick={() => setFormType('login')} style={{cursor: 'pointer'}}>Back to Login</p>
+      </>
+    )}
+  </div>
+)}
+     
      <div className="navbar-mobile">
 
      <div className="mobile-menu">

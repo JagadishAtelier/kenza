@@ -345,4 +345,70 @@
       padding: 8px 20px;
     }
   }
+  .product-image {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .product-image:hover {
+    transform: scale(1.05);
+  }
+  .size-box {
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .size-box:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.05);
+  }
+  .color-dot {
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .color-dot:hover {
+    transform: scale(1.15);
+  }
+  .add-btn, .buy-btn {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease;
+  }
+  
+  .add-btn:hover, .buy-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .add-btn:active, .buy-btn:active {
+    transform: scale(0.95);
+  }
+  .details-section {
+    animation: fadeInRight 0.6s ease forwards;
+    opacity: 0;
+  }
+  
+  @keyframes fadeInRight {
+    from {
+      transform: translateX(40px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  .thumbnail-image {
+    transition: transform 0.3s ease, border 0.3s ease;
+  }
+  
+  .thumbnail-image:hover {
+    transform: scale(1.1);
+    border: 2px solid #000;
+  }
+  .time-box {
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .time-box:hover {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+  }
+              
+
   

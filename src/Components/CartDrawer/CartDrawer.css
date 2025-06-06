@@ -13,6 +13,7 @@
   
   .cart-drawer.open {
     right: 0;
+    animation: slideInDrawer 0.3s ease-in-out;
   }
   
   .cart-header {
@@ -184,4 +185,59 @@
       margin: 0;
     }
   }
-  
+  /* Slide-in from right with fade */
+@keyframes slideInDrawer {
+  from {
+    right: -100%;
+    opacity: 0;
+  }
+  to {
+    right: 0;
+    opacity: 1;
+  }
+}
+
+/* Scale up on hover */
+@keyframes zoomInImage {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.05);
+  }
+}
+
+/* Hover lift for cards */
+@keyframes liftCard {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-4px);
+  }
+}
+.cart-item img:hover,
+.recommend-item img:hover {
+  animation: zoomInImage 0.3s forwards;
+}
+.recommend-item {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.recommend-item:hover {
+  animation: liftCard 0.3s forwards;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.cart-buy-btn:hover,
+.cart-remove-btn:hover,
+.recommend-item button:hover {
+  transform: scale(1.05);
+  transition: all 0.2s ease-in-out;
+}
+
+.cart-buy-btn:active,
+.cart-remove-btn:active,
+.recommend-item button:active {
+  transform: scale(0.95);
+}
+
