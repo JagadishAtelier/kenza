@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import './ViewAllProduct.css'
 import { useNavigate } from 'react-router-dom'
 import vegImage from '../../Assets/view-all-wall-veg.webp'
@@ -118,6 +118,17 @@ const handleSortChange = (e) => {
           <line x1="0" y1="25" x2="40" y2="25" stroke="black" strokeWidth="5" />
         </svg>
       );
+      useEffect(() => {
+        const handleResize = () => {
+          if (window.innerWidth <= 768) {
+            setColumnCount(2); // Mobile default
+          }
+        };
+      
+        handleResize(); // Call once on mount
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+      }, []);
       
   return (
     <div className='view-all-container'>
@@ -273,11 +284,11 @@ const handleSortChange = (e) => {
         <div>
         <div className='view-all-right-align-icon'>
         <div onClick={() => setColumnCount(2)}><DoubleVerticalLine /></div>
-  <div onClick={() => setColumnCount(3)}><ThreeVerticalLines /></div>
-  <div onClick={() => setColumnCount(4)}><FourVerticalLines /></div>
-        <h6>View Products By Your Wish</h6>
+  <div onClick={() => setColumnCount(3)} className="hide-on-mobile"><ThreeVerticalLines /></div>
+  <div onClick={() => setColumnCount(4)} className="hide-on-mobile"><FourVerticalLines /></div>
+        <h6 className="hide-on-mobile">View Products By Your Wish</h6>
         <div className='view-all-sort-by-right'>
-        <h6>Sort By</h6>
+        <h6 className="hide-on-mobile">Sort By</h6>
         <select value={sortOption} onChange={handleSortChange}>
   <option>Featured</option>
   <option>Best Selling</option>

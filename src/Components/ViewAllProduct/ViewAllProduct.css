@@ -256,3 +256,66 @@
     justify-items: center;
     padding: 0 80px;
   }
+
+
+  
+  @media (max-width: 768px) {
+    .view-all-container {
+      flex-direction: column-reverse;
+      align-items: center;
+    }
+  
+    .view-all-left-side,
+    .view-all-right-side {
+      width: 90%;
+    }
+  
+    .view-all-right-align-icon {
+      width: 100%;
+      gap: 15px;
+      padding: 10px;
+      align-items: baseline;
+    }
+  
+    .view-all-right-grid-box-container {
+      grid-template-columns: repeat(1, 1fr);
+      padding:0;
+      gap: 0 !important;
+    }
+  
+    .view-all-left-banner {
+      width: 100%;
+      height: auto;
+    }
+  
+    .view-all-data-grid img {
+      width: 70%;
+      height: 100px;
+    }
+  
+    .view-all-grid-box-container {
+      grid-template-columns: repeat(1, 1fr);
+    }
+    .view-all-cat-section-left{
+      width: 100%;
+    }
+    .view-all-para-text{
+      width: 100%;
+      margin-left: -70px;
+    }
+    .view-all-star-overlay {
+      position: absolute;
+      bottom: 6px;
+      right: -15%;
+      padding: 4px 6px;
+      border-radius: 4px;
+    }
+    .view-all-data-grid{
+      align-items: center;
+    }
+    .hide-on-mobile {
+      display: none;
+    }
+  }
+
+  
