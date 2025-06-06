@@ -32,6 +32,7 @@ function NavbarBlack() {
     const [showSearchBox, setShowSearchBox] = useState(false);
     const [showNavDetails, setShowNavDetails] = useState(false);
     const [cartOpen, setCartOpen] = useState(false);
+    const [NavCart, setNavCart] = useState(false);
   return (
     <div style={{position:"relative"}}>
         <div className='navbar-black-container'>
@@ -159,9 +160,13 @@ function NavbarBlack() {
             </div>
           </div>
         )}
-       <i class="bi bi-bag"></i>
+       <div onClick={() => setCartOpen(true)} className='nav-cart-mobile'>
+            <i className="bi bi-bag"></i>
+          </div>
+        <CartDrawer show={cartOpen} onClose={() => setCartOpen(false)} />
      </div>
    </div>
+   <CartDrawer show={cartOpen} onClose={() => setCartOpen(false)} />
     </div>
   )
 }

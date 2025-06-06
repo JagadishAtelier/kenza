@@ -124,3 +124,38 @@
     color: #444;
   }
   
+  @media (max-width: 768px) {
+    .cart-drawer {
+      width: 70%; /* Full width on mobile */
+      right: -100%;
+    }
+  
+    .cart-item img,
+    .recommend-item img {
+      width: 100px;
+      height: 100px;
+    }
+  
+    .recommend-list {
+      max-height: 200px;
+    }
+  
+    .cart-body {
+      padding: 12px;
+    }
+  
+    .cart-header {
+      padding: 12px;
+    }
+  
+    .recommend-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .recommend-item button {
+      width: 100%;
+      text-align: center;
+    }
+  }
+  
