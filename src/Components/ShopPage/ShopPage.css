@@ -1,0 +1,23 @@
+.shop-page-shop-now-btn{
+    background-color: #3b9048;
+    width: 200px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    margin-left: 50px;
+    display: none;
+}
+.data-grid:hover .shop-page-shop-now-btn {
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    .data-grid:hover .shop-page-shop-now-btn {
+        display: none;
+      }
+      .shop-page-shop-now-btn{
+        display: none;
+        
+      }
+  }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Wallpaper.css';
 import wallpaperImage1 from '../../Assets/wallpaper1.webp';
 import wallpaperImage2 from '../../Assets/wallpaper2.webp';
-
+import { useNavigate } from 'react-router-dom';
 const wallpapers = [
   {
     image: wallpaperImage1,
@@ -25,7 +25,7 @@ const wallpapers = [
 function Wallpaper() {
   const extendedWallpapers = [...wallpapers, ...wallpapers];
   const slideCount = wallpapers.length;
-
+  const navigate = useNavigate()
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(true);
   const [textAnimationState, setTextAnimationState] = useState('enter'); // 'enter' or 'exit'
@@ -82,7 +82,7 @@ function Wallpaper() {
                 {item.heading} <span>{item.subHeading}</span>
               </h1>
               <p>{item.description}</p>
-              <button>{item.button}</button>
+              <button onClick={()=>navigate('/all-product')}>{item.button}</button>
             </div>
           </div>
         ))}

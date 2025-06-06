@@ -3,7 +3,7 @@ import './banner.css';
 import banner1 from '../../Assets/b1.webp';
 import banner2 from '../../Assets/b2.webp';
 import banner3 from '../../Assets/b3.webp';
-
+import { useNavigate } from 'react-router-dom';
 const bannerContent = [
   { image: banner1, para: "FRESH FOOD 20% OFF", heading: "Juicy Fruits" },
   { image: banner2, para: "FLAT 30% OFF FRUITS", heading: "Healthy Food" },
@@ -11,6 +11,7 @@ const bannerContent = [
 ];
 
 function Banner() {
+  const navigate  = useNavigate()
   return (
     <div className='banner-container'>
       {bannerContent.map((data, index) => {
@@ -25,7 +26,7 @@ function Banner() {
                 <span className='bold-word'>{firstWord}</span>{' '}
                 <span className='normal-word'>{remaining}</span>
               </h2>
-              <button>SHOP NOW</button>
+              <button onClick={()=>navigate('/all-product')}>SHOP NOW</button>
             </div>
           </div>
         );

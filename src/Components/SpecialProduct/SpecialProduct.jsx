@@ -8,6 +8,7 @@ import TPImage5 from '../../Assets/p5.webp'
 import TPImage6 from '../../Assets/p6.webp'
 import TPImage7 from '../../Assets/p8.webp'
 import TPImage8 from '../../Assets/p1.webp'
+import { useNavigate } from 'react-router-dom'
 const featuredProducts = [
     { image: TPImage1, text: "Printed Long Skrit", price: "$ 18.00" },
     { image: TPImage2, text: "Pellenteque Et Phatera", price: "$ 17.00" },
@@ -17,6 +18,7 @@ const featuredProducts = [
     { image: TPImage6, text: "Brown Bear Cushion", price: "$ 10.00" },
   ]
 function SpecialProduct() {
+  const navigate = useNavigate()
   return (
     <div className='special-conatiner'>
         <div className='spl-heading'>
@@ -24,7 +26,7 @@ function SpecialProduct() {
         </div>
     <div className='spl-grid-box-container'>
     {featuredProducts.map((data, index) => (
-      <div className='spl-data-grid' key={index}>
+      <div className='spl-data-grid' key={index}onClick={() => navigate(`/product/${data.text}`, { state: { product: data } })}>
         <div className='spl-image-wrapper'>
           <img src={data.image} alt={`spl-product-${index}`} />
           <div className='spl-star-overlay'>
@@ -47,7 +49,7 @@ function SpecialProduct() {
     ))}
   </div>
   <div className='spl-view-btn'>
-  <button className='spl-trending-product-view-all-btn'>VIEW ALL</button>
+  <button className='spl-trending-product-view-all-btn' onClick={()=>navigate('/all-product')}>VIEW ALL</button>
   </div>
   </div>
   )
