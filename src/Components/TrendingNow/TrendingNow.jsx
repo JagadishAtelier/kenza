@@ -66,7 +66,7 @@ function TrendingNow() {
           <img src={product.image} alt="Product" className="product-image" />
 
           <div className="thumbnail-container">
-            {[TNImage1, TNImage2, TNImage3, TNImage4].map((img, index) => (
+            {[TNImage1, TNImage2, TNImage3, TNImage4,TNImage4].map((img, index) => (
               <img
                 key={index}
                 src={img}

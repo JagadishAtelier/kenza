@@ -235,3 +235,121 @@
   .buy-btn{
     background-color: #1990c6;
   }
+
+
+  @media (max-width: 1024px) {
+    .product-container {
+      flex-direction: column;
+      align-items: center;
+      margin-left: 0;
+      gap: 20px;
+    }
+  
+    .image-section {
+      width: 100%;
+      height: auto;
+      position: static;
+    }
+  
+    .details-section {
+      overflow-x: auto;
+      padding: 0 10px;
+      width: 100%;
+    }
+  
+    .add-to-cart-buy-btn-div {
+      width: 100%;
+      gap: 10px;
+      align-items: center;
+    }
+  
+    .add-btn,
+    .buy-btn {
+      width: 90%;
+      padding: 10px;
+    }
+  
+    .product-dtl {
+      grid-template-columns: 1fr;
+      width: 100%;
+    }
+  
+    .stock-bar-track {
+      width: 80%;
+    }
+  
+    .feature-box {
+      width: 100%;
+      align-items: center;
+    }
+  
+    .thumbnail-container {
+      justify-content: flex-start;
+      overflow-x: auto;
+      padding: 10px;
+    }
+  
+    .thumbnail-image {
+      flex-shrink: 0;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .product-container {
+      gap: 10px;
+    }
+    .tabs{
+      flex-direction: column;
+    }
+    .thumbnail-container {
+      display: flex;
+      flex-direction: row;
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      gap: 10px;
+      padding: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+  
+    .thumbnail-image {
+      flex: 0 0 auto;
+      scroll-snap-align: center;
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      cursor: pointer;
+    }
+  
+    .thumbnail-image:hover {
+      border: 2px solid #000;
+    }
+  
+    .image-section {
+      width: 90%;
+    }
+  
+    .thumbnail-image {
+      width: 80px;
+      height: 80px;
+    }
+  
+    .rating-stars,
+    .discounted-price,
+    .tax-info,
+    .stock-status,
+    .time-box {
+      font-size: 16px;
+    }
+  
+    .add-btn,
+    .buy-btn {
+      font-size: 14px;
+      padding: 8px 20px;
+    }
+  }
+  
