@@ -123,10 +123,29 @@
     margin: 0;
     color: #444;
   }
+  .cart-drawer-remove-buy-btn-div{
+    display: flex;
+    gap: 20px;
+  }
+  .cart-buy-btn{
+    margin-top: 8px;
+    background-color: transparent;
+    border: none;
+    color: blue;
+    cursor: pointer;
+    
+  }
+  .cart-remove-btn {
+    margin-top: 8px;
+    background-color: transparent;
+    border: none;
+    color: red;
+    cursor: pointer;
+  }
   
   @media (max-width: 768px) {
     .cart-drawer {
-      width: 70%; /* Full width on mobile */
+      width: 80%; /* Full width on mobile */
       right: -100%;
     }
   
@@ -156,6 +175,13 @@
     .recommend-item button {
       width: 100%;
       text-align: center;
+    }
+    .cart-drawer-remove-buy-btn-div{
+      display: flex;
+      gap: 20px;
+    }
+    .cart-drawer-text-price p{
+      margin: 0;
     }
   }
   

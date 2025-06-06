@@ -51,10 +51,13 @@ function CartDrawer({ show, onClose }) {
         {cartItems.map((item, index) => (
           <div className="cart-item" key={index}>
             <img src={item.image} alt={item.text} />
-            <div>
+            <div className='cart-drawer-text-price'>
               <p><strong>{item.text}</strong></p>
               <p>1 x {item.price}</p>
-              <button onClick={() => removeFromCart(index)} className='remove-btn'>Remove</button>
+              <div className='cart-drawer-remove-buy-btn-div'>
+                <button onClick={() => removeFromCart(index)} className='cart-remove-btn'>Remove</button>
+                <button onClick={() => removeFromCart(index)} className='cart-buy-btn'>Buy Now</button>
+              </div>
             </div>
           </div>
         ))}

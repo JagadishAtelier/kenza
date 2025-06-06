@@ -16,13 +16,6 @@
     height: 100vh;
       
   }
-  .remove-btn {
-    margin-top: 8px;
-    background-color: transparent;
-    border: none;
-    color: red;
-    cursor: pointer;
-  }
   
   
   .product-image {
