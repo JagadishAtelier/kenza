@@ -20,6 +20,7 @@ import LatestBlog from './Components/LatestBlog/LatestBlog';
 import ViewAllProduct from './Components/ViewAllProduct/ViewAllProduct';
 import { CartProvider } from './Components/CartContext/CartContext';
 import PaymentPage from './Components/PaymentPage/PaymentPage';
+import NewsletterPopup from './Components/NewsletterPopup/NewsletterPopup';
 function HomePage() {
   return (
     <>
@@ -42,6 +43,7 @@ function App() {
     <CartProvider>
       <Router>
         <NavbarBlack />
+        <NewsletterPopup/>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/product/:name" element={<TrendingNow />} />
