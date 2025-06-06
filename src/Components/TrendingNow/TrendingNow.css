@@ -10,6 +10,10 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    position: sticky;
+    right: 0;
+    top: 0;
+    height: 100vh;
       
   }
   .remove-btn {
@@ -30,6 +34,10 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
+    overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scroll-snap-type: x mandatory;
   } 
   .rating-stars {
     font-size: 25px;
