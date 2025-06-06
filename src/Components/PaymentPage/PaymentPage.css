@@ -7,13 +7,16 @@
     width: 500px;
 }
 .payment-right-side-container{
-    width: 600px;
+    width: 500px;
     background-color: rgb(235, 234, 234);
     padding: 20px;
     height: 100vh;
     position: sticky;
     overflow-y: auto;
     top: 0;
+}
+.payment-right-side-container p{
+    margin: 0;
 }
 .payment-contact-text-login{
     display: flex;
