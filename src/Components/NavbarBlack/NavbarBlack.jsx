@@ -190,9 +190,6 @@ const navigate = useNavigate()
             <a href="#">Blog</a>
             <a href="#">Contact</a>
             <a href="#">About Us</a>
-            <div className="view-more">
-              View More <i className="bi bi-caret-down-fill ml-1 text-xs"></i>
-            </div>
           </div>
         )}
        <div onClick={() => setCartOpen(true)} className='nav-cart-mobile'>

@@ -92,3 +92,76 @@
 .contact-us-right-side p{
     color: gray;
 }
+
+@media (max-width: 1024px) {
+    .about-us-image-and-content {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .about-us-content,
+    .about-us-image-and-content img {
+      width: 90%;
+      height: auto;
+    }
+  
+    .about-page-icon-conatainer {
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+  
+    .about-page-icon-text {
+      width: 45%;
+    }
+  
+    .contact-us-image-content {
+      flex-direction: column;
+      text-align: center;
+      gap: 20px;
+    }
+  
+    .contact-us-image,
+    .contact-us-image-background {
+      position: static;
+      width: 90%;
+      height: auto;
+    }
+  
+    .contact-address-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .about-us-content {
+      font-size: 14px;
+      line-height: 22px;
+    }
+  
+    .about-page-icon-text {
+      width: 100%;
+    }
+  
+    .contact-us-image {
+      width: 90%;
+      height: auto;
+    }
+    .contact-us-image-background{
+        display: none;
+    }
+  
+    .contact-us-right-side p {
+      font-size: 14px;
+    }
+    .contact-us-right-side{
+        text-align: justify;
+    }
+    .unordered-list{
+        text-align: justify;
+    }
+    .about-page-icon-text p{
+        width: 90%;
+        text-align: center;
+    }
+  }
+  
