@@ -276,6 +276,7 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
+      width: 100px;
     }
     .nav-login-container{
       top: 45px !important;

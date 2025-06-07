@@ -187,7 +187,7 @@ const navigate = useNavigate()
           </button>
         </div>
         )}
-       <img src={logo}/>
+       <img src={logo} onClick={()=>navigate('/')}/>
        <div className='nav-links-mobile' onClick={() => setShowNavDetails(!showNavDetails)}><i class="bi bi-filter-left"></i></div>
        {showNavDetails && (
             <div className="nav-links">
