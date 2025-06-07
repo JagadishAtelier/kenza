@@ -191,7 +191,7 @@
     }
     .cart-drawer-remove-buy-btn-div{
       display: flex;
-      flex-direction: column;
+      flex-direction: column !important;
       gap: 20px;
     }
     .cart-drawer-text-price p{
