@@ -34,7 +34,12 @@ function AboutPage() {
         <h1>About Us</h1>
       </div>
       <div id="about-us" className='about-us-image-and-content'>
-        <img src={image}/>
+      <div className="animated-image-wrapper">
+  <img src={image} alt="about" className="animated-image" />
+  <div className="overlay top-overlay"></div>
+  <div className="overlay bottom-overlay"></div>
+</div>
+
         <div className='about-us-content'>
             <h1>We Have Everything You Need ?</h1>
             <p>Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit. Accessorize with a straw hat and you're ready for summer!</p>
@@ -77,7 +82,12 @@ function AboutPage() {
                 </ul>
             </div>
         </div>
-        <img src={image2}/>
+        <div className="animated-image-wrapper">
+  <img src={image2} alt="about" className="animated-image" />
+  <div className="overlay top-overlay"></div>
+  <div className="overlay bottom-overlay"></div>
+</div>
+
       </div>
 
 

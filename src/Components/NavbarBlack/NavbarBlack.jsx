@@ -20,13 +20,10 @@ import logo from '../../Assets/logo.png'
 //   {image : fruit6 , text : "TOMATO"},
 // ]
 const categories = [
-    "Electronics",
-    "Fashion",
-    "Jewelry",
-    "Home & Living",
-    "Beauty & Health",
-    "Toys",
-    "Books"
+    {text:"Organic",href :"/all-product"},
+    {text:"Accessories",href :"/all-product"},
+    {text:"Collection",href :"/all-product"},
+    {text:"Collection",href :"/all-product"},
   ];
 function NavbarBlack() {
     const [showCategories, setShowCategories] = useState(false);
@@ -91,7 +88,7 @@ const navigate = useNavigate()
           <ul className="categories-dropdown">
             {categories.map((category, index) => (
               <li key={index}>
-                <a href={`/category/${category.toLowerCase().replace(/ /g, '-')}`}>{category}</a>
+                <a href={category.href}>{category.text}</a>
               </li>
             ))}
           </ul>
@@ -176,7 +173,7 @@ const navigate = useNavigate()
           <ul className="categories-dropdown">
             {categories.map((category, index) => (
               <li key={index}>
-                <a href={`/category/${category.toLowerCase().replace(/ /g, '-')}`}>{category}</a>
+                <a href={category.href}>{category.text}</a>
               </li>
             ))}
           </ul>

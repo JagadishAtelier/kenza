@@ -285,7 +285,6 @@ const handleSortChange = (e) => {
         <div className='view-all-right-align-icon'>
         <div onClick={() => setColumnCount(2)}><DoubleVerticalLine /></div>
   <div onClick={() => setColumnCount(3)} className="hide-on-mobile"><ThreeVerticalLines /></div>
-  <div onClick={() => setColumnCount(4)} className="hide-on-mobile"><FourVerticalLines /></div>
         <h6 className="hide-on-mobile">View Products By Your Wish</h6>
         <div className='view-all-sort-by-right'>
         <h6 className="hide-on-mobile">Sort By</h6>

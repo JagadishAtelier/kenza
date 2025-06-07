@@ -6,29 +6,8 @@ const tabData = [
   { id: 'reviews', label: 'REVIEWS' },
   { id: 'questions', label: 'ANY QUESTIONS?' },
 ];
-const additionalInformation = [
-    'Is Discontinued By Manufacturer: No',
-'Rated: U/A (Parental Guidance)',
-'Language: English',
-'Package Dimensions: 18.03 x 13.76 x 1.48 cm; 80 Grams',
-'Director: Joss Whedon',
-'Media Format: Anamorphic, Dolby',
-'Run time: 2 hours and 21 minutes',
-'Release date: 13 September 2021',
-'Actors: Robert Downey Jr, Chris Evans, Mark Ruffalo, Scarlett Johansson, Chris Hemsworth',
-'Country of Origin: India',
-'Manufacturer: Sony DADC',
-'Item Weight: 80 g',
-]
-const aboutItemContent = [
-  { head: 'Brand', text: 'Ridex Gamestore' },
-  { head: 'Colour', text: '04 L.I.I.T - Party in a tiny pack!' },
-  { head: 'Media Format:', text: 'Anamorphic, Dolby' },
-  { head: 'Release date:', text: '13 September 2021' },
-  { head: 'Number of discs', text: '1' },
-  { head: 'Item Dimensions LxWxH', text: '24.7 x 10.6 x 24.7 Centimeters' },
-  { head: 'Item Weight', text: '690 g' },
-];
+
+const paragraphText = `Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit. Accessorize with a straw hat and you're ready for summer!`;
 
 const unorderedList = [
   'Comodous in tempor ullamcorper miaculis',
@@ -44,10 +23,50 @@ const orderedList = [
   'Proin molestie egestas orci ac suscipit risus posuere loremous',
 ];
 
-const paragraphText = `Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit. Accessorize with a straw hat and you're ready for summer!`;
+const reviewsData = [
+  {
+    name: 'Jeeva S.',
+    rating: 5,
+    comment: 'Absolutely loved it! Amazing packaging and fast delivery.',
+  },
+  {
+    name: 'Ananya P.',
+    rating: 4,
+    comment: 'Product quality is great. Would recommend!',
+  },
+];
+
+const questionsData = [
+  {
+    question: 'Is this available in other colors?',
+    answer: 'Currently, this product is available in black and white only.',
+  },
+  {
+    question: 'Does this come with a warranty?',
+    answer: 'Yes, it includes a 1-year manufacturer warranty.',
+  },
+];
 
 function Reviews() {
   const [activeTab, setActiveTab] = useState('description');
+  const [newReview, setNewReview] = useState('');
+  const [newQuestion, setNewQuestion] = useState('');
+  const [submittedReviews, setSubmittedReviews] = useState([]);
+  const [submittedQuestions, setSubmittedQuestions] = useState([]);
+
+  const handleReviewSubmit = () => {
+    if (newReview.trim()) {
+      setSubmittedReviews([...submittedReviews, { name: 'You', rating: 5, comment: newReview }]);
+      setNewReview('');
+    }
+  };
+
+  const handleQuestionSubmit = () => {
+    if (newQuestion.trim()) {
+      setSubmittedQuestions([...submittedQuestions, { question: newQuestion, answer: 'Pending answer...' }]);
+      setNewQuestion('');
+    }
+  };
 
   return (
     <div className="description-container">
@@ -66,32 +85,53 @@ function Reviews() {
       {activeTab === 'description' && (
         <div className="description-content">
           <p className="intro-text">{paragraphText}</p>
-
           <h4>Sample Unordered List</h4>
-          <ul>
-            {unorderedList.map((item, index) => (
-              <li key={index}>{item}</li>
-            ))}
-          </ul>
-
+          <ul>{unorderedList.map((item, i) => <li key={i}>{item}</li>)}</ul>
           <h4>Sample Ordered List</h4>
-          <ol>
-            {orderedList.map((item, index) => (
-              <li key={index}>{item}</li>
-            ))}
-          </ol>
-
+          <ol>{orderedList.map((item, i) => <li key={i}>{item}</li>)}</ol>
           <h4>Sample Paragraph Text</h4>
-          <blockquote>
-            {paragraphText} {paragraphText}
-          </blockquote>
+          <blockquote>{paragraphText} {paragraphText}</blockquote>
         </div>
       )}
-      {activeTab !== 'description' && (
-        <div className="placeholder">
-          <p>Content for "{tabData.find(tab => tab.id === activeTab).label}" goes here.</p>
-        </div>
-      )}
+
+{activeTab === 'reviews' && (
+  <div className="reviews-section">
+    <h4 className="section-heading">Customer Reviews</h4>
+    {[...reviewsData, ...submittedReviews].map((rev, idx) => (
+      <div key={idx} className="review-item">
+        <strong className="review-author">{rev.name}</strong> - <span className="review-stars">{'⭐'.repeat(rev.rating)}</span>
+        <p className="review-text">{rev.comment}</p>
+      </div>
+    ))}
+    <textarea
+      className="input-area"
+      value={newReview}
+      onChange={(e) => setNewReview(e.target.value)}
+      placeholder="Write your review..."
+    />
+    <button className="submit-btn" onClick={handleReviewSubmit}>Submit Review</button>
+  </div>
+)}
+
+{activeTab === 'questions' && (
+  <div className="questions-section">
+    <h4 className="section-heading">Customer Questions</h4>
+    {[...questionsData, ...submittedQuestions].map((q, idx) => (
+      <div key={idx} className="question-item">
+        <p className="question-text"><strong>Q:</strong> {q.question}</p>
+        <p className="answer-text"><strong>A:</strong> {q.answer}</p>
+      </div>
+    ))}
+    <textarea
+      className="input-area"
+      value={newQuestion}
+      onChange={(e) => setNewQuestion(e.target.value)}
+      placeholder="Ask a question..."
+    />
+    <button className="submit-btn" onClick={handleQuestionSubmit}>Submit Question</button>
+  </div>
+)}
+
     </div>
   );
 }

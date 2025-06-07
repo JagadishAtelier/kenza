@@ -90,7 +90,9 @@ function Footer() {
         {/* Mobile Footer */}
         <div className="mobile-footer">
           <div className="mobile-footer-section" onClick={() => toggleSection('store')}>
-            <h4>STORE INFORMATION</h4>
+            <div>
+              <h4>STORE INFORMATION</h4>
+            </div>
             {activeSection === 'store' && (
               <div>
                 <p><i className="bi bi-geo-alt"></i> 4005, Silver business point France</p>
