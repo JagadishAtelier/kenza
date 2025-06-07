@@ -104,9 +104,6 @@ const navigate = useNavigate()
     <a href="/blog">Blog</a>
     <a href="/contact-us">Contact</a>
     <a href="/about-us">About Us</a>
-    <div className="view-more">
-      View More <i className="bi bi-caret-down-fill ml-1 text-xs"></i>
-    </div>
   </div>
 
   <div className="nav-search">
