@@ -3,6 +3,7 @@ import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import './CartDrawer.css';
+import { useNavigate } from 'react-router-dom';
 import { useCart } from '../CartContext/CartContext';
 import TPImage1 from '../../Assets/p1.webp'
 import TPImage2 from '../../Assets/p2.webp'
@@ -23,8 +24,8 @@ const featuredProducts = [
     { image: TPImage4,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage8, text: "Organic Chilli", price: "$ 14.00" ,type:"organics"}
   ]
 function CartDrawer({ show, onClose }) {
-  const { cartItems, removeFromCart, addToCart } = useCart();
-
+  const { cartItems, removeFromCart,addToCart } = useCart();
+   const navigate = useNavigate() 
   return (
     <div className={`cart-drawer ${show ? 'open' : ''}`}>
       <div className="cart-header">
@@ -48,19 +49,28 @@ function CartDrawer({ show, onClose }) {
 
       <div className="cart-body">
         {/* Cart Items List */}
-        {cartItems.map((item, index) => (
-          <div className="cart-item" key={index}>
-            <img src={item.image} alt={item.text} />
-            <div className='cart-drawer-text-price'>
-              <p><strong>{item.text}</strong></p>
-              <p>1 x {item.price}</p>
-              <div className='cart-drawer-remove-buy-btn-div'>
-                <button onClick={() => removeFromCart(index)} className='cart-remove-btn'>Remove</button>
-                <button onClick={() => removeFromCart(index)} className='cart-buy-btn'>Buy Now</button>
-              </div>
-            </div>
+        {cartItems.map((item, index) => {
+  const numericPrice = parseFloat(item.price.replace('$', '').trim());
+  return (
+    <div className="cart-item" key={index}>
+      <img src={item.image} alt={item.text} />
+      <div className='cart-drawer-text-price'>
+        <div className='cart-drawer-item-text-div'>
+          <div className='cart-drawer-item-text'>
+            <p><strong>{item.text}</strong></p>
+            <p>{item.quantity || 1} x ${numericPrice.toFixed(2)} = ${(numericPrice * (item.quantity || 1)).toFixed(2)}</p>
           </div>
-        ))}
+        </div>
+
+        <div className='cart-drawer-remove-buy-btn-div'>
+          <button onClick={() => removeFromCart(index)} className='cart-remove-btn'>Remove</button>
+          <button onClick={() => navigate('/payment')} className='cart-buy-btn'>Buy Now</button>
+        </div>
+      </div>
+    </div>
+  );
+})}
+
 
         <hr />
 

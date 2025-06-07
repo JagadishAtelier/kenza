@@ -22,6 +22,9 @@ import { CartProvider } from './Components/CartContext/CartContext';
 import PaymentPage from './Components/PaymentPage/PaymentPage';
 import NewsletterPopup from './Components/NewsletterPopup/NewsletterPopup';
 import ShopPage from './Components/ShopPage/ShopPage';
+import CartPage from './Components/CartPage/CartPage';
+import BlogPage from './Components/BlogPage/BlogPage';
+import AboutPage from './Components/AboutPage/AboutPage';
 function HomePage() {
   return (
     <>
@@ -51,6 +54,9 @@ function App() {
           <Route path="/all-product" element={<ViewAllProduct />} />
           <Route path="/payment" element={<PaymentPage/>} />
           <Route path="/shop" element={<ShopPage/>} />
+          <Route path="/blog" element={<BlogPage/>} />
+          <Route path="/about-us" element={<AboutPage/>} />
+          {/* <Route path="/cart" element={<CartPage/>} /> */}
         </Routes>
         <Footer />
       </Router>

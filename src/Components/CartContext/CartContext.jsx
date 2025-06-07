@@ -1,16 +1,29 @@
+// Example in CartContext.js
 import React, { createContext, useContext, useState } from 'react';
 
-export const CartContext = createContext();
+const CartContext = createContext();
+
+export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
-  const addToCart = (product) => {
-    setCartItems((prevItems) => [...prevItems, product]);
+  const addToCart = (item, quantity = 1) => {
+    setCartItems(prevItems => {
+      const existingItemIndex = prevItems.findIndex(i => i.text === item.text);
+      if (existingItemIndex !== -1) {
+        const updatedItems = [...prevItems];
+        updatedItems[existingItemIndex].quantity =
+          (updatedItems[existingItemIndex].quantity || 1) + quantity;
+        return updatedItems;
+      } else {
+        return [...prevItems, { ...item, quantity }];
+      }
+    });
   };
 
-  const removeFromCart = (indexToRemove) => {
-    setCartItems((prevItems) => prevItems.filter((_, index) => index !== indexToRemove));
+  const removeFromCart = (index) => {
+    setCartItems(prevItems => prevItems.filter((_, i) => i !== index));
   };
 
   return (
@@ -19,5 +32,3 @@ export const CartProvider = ({ children }) => {
     </CartContext.Provider>
   );
 };
-
-export const useCart = () => useContext(CartContext);

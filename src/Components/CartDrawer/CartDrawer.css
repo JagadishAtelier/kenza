@@ -130,17 +130,29 @@
   }
   .cart-buy-btn{
     margin-top: 8px;
-    background-color: transparent;
-    border: none;
-    color: blue;
+    background-color: #3b9048;
+    color: white;
+    padding: 5px 30px;
     cursor: pointer;
+    border-radius: 10px;
+    border: none;
     
+  }
+  .cart-drawer-item-text-div{
+    display: flex;
+    gap: 50px;
+  }
+  .cart-remove-icon{
+    font-size: 20px;
+    cursor: pointer;
   }
   .cart-remove-btn {
     margin-top: 8px;
-    background-color: transparent;
+    background-color: rgb(213, 33, 33);
     border: none;
-    color: red;
+    padding: 5px 30px;
+    color: white;
+    border-radius: 10px;
     cursor: pointer;
   }
   
