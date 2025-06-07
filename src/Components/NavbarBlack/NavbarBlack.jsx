@@ -194,8 +194,15 @@ const navigate = useNavigate()
             <a href="/">Home</a>
             <a href="/shop">Shop</a>
             <a href="/blog">Blog</a>
-            <a href="#contact-us">Contact</a>
-            <a href="#about-us">About Us</a>
+            <p onClick={() => {
+  navigate('/about-us');
+  setTimeout(() => window.location.hash = '#about-us', 100);
+}}>About Us</p>
+
+<p onClick={() => {
+  navigate('/about-us');
+  setTimeout(() => window.location.hash = '#contact-us', 100);
+}}>Contact</p>
           </div>
         )}
        <div onClick={() => setCartOpen(true)} className='nav-cart-mobile'>
