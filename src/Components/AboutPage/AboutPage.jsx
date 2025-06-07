@@ -7,18 +7,33 @@ import icon2 from '../../Assets/ab2.webp'
 import icon3 from '../../Assets/ab3.webp' 
 import LocationMap from '../LocationMap/LocationMap'
 import contactImage from '../../Assets/contactImage.webp'
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 const iconContent = [
     {image : icon1 ,head : "FREE RESOURCES",para : "Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward"},
     {image : icon2 ,head : "MULTI-PURPOSE",para : "Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward"},
     {image : icon3 ,head : "FULLY RESPONSIVE",para : "Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward"},
 ]
 function AboutPage() {
+    const location = useLocation();
+
+    useEffect(() => {
+      if (location.hash) {
+        const target = document.querySelector(location.hash);
+        if (target) {
+          setTimeout(() => {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 100); // Delay to allow DOM to finish rendering
+        }
+      }
+    }, [location]);
+  
   return (
     <div className='about-page-contaniner'>
       <div className='about-us-heading'>
         <h1>About Us</h1>
       </div>
-      <div className='about-us-image-and-content'>
+      <div id="about-us" className='about-us-image-and-content'>
         <img src={image}/>
         <div className='about-us-content'>
             <h1>We Have Everything You Need ?</h1>
@@ -66,7 +81,7 @@ function AboutPage() {
       </div>
 
 
-      <div className='contact-us-container'>
+      <div  id="contact-us" className='contact-us-container'>
         <div className='contact-us-heading'>
             <h1>Contact Us</h1>
         </div>

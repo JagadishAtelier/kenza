@@ -85,8 +85,16 @@
     text-decoration: none;
     color: inherit;
   }
+  .nav-links p {
+    cursor: pointer;
+    
+  }
   
   .nav-links a:hover,
+  .nav-links .view-more:hover {
+    color: #3b9048;
+  }
+  .nav-links p:hover,
   .nav-links .view-more:hover {
     color: #3b9048;
   }
@@ -288,6 +296,10 @@
   position: relative;
   transition: color 0.3s ease;
 }
+.nav-links p {
+  position: relative;
+  transition: color 0.3s ease;
+}
 
 .nav-links a::after {
   content: '';
@@ -300,7 +312,25 @@
   transition: width 0.3s ease;
   border-radius: 2px;
 }
+.nav-links p::after {
+  content: '';
+  position: absolute;
+  bottom: -17px;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background-color: #3b9048;
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
 
+.nav-links p:hover {
+  color: #3b9048;
+}
+
+.nav-links p:hover::after {
+  width: 100%;
+}
 .nav-links a:hover {
   color: #3b9048;
 }
