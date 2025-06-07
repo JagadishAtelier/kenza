@@ -80,7 +80,7 @@
     .social-icons{
       justify-content: center;
         flex-wrap: wrap;
-        margin: 0px;
+        margin: 0px !important;
     }
     .mobile-footer {
       display: block !important;
@@ -123,6 +123,11 @@
     .footer-account-content p {
       font-size: 16px;
       text-align: center;
+    }
+    .icon{
+      width: 30px !important;
+    height: 30px !important;
+    align-items: end;
     }
   
     .information-container i {
