@@ -48,3 +48,45 @@
 .about-page-icon-text p{
     color: gray;
 }
+
+.contact-us-heading{
+    text-align: center;
+}
+.contact-us-container{
+    margin-top: 5%;
+}
+
+.contact-us-image-content{
+    margin-top: 4%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+
+}
+.contact-us-image{
+    height: 500px;
+    width: 600px;
+    object-fit: cover;
+    border-radius: 10px;
+    position: relative;
+    z-index: 1001;
+    opacity: 1;
+}
+.contact-us-image-background{
+    border: 5px solid rgb(194, 193, 193);
+    height: 560px;
+    z-index: -1;
+    width: 500px;
+    position: absolute;
+    top: 9%;
+    right: -6px;
+}
+.contact-address-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+.contact-us-right-side p{
+    color: gray;
+}
