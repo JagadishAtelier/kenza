@@ -98,7 +98,7 @@ const navigate = useNavigate()
           <ul className="categories-dropdown">
             {categories.map((category, index) => (
               <li key={index}>
-                <Link  href={category.href} state={{ product: category }}>{category.text}</Link >
+                <Link to={category.href} state={{ product: category }} onClick={() => setShowCategories(false)} >{category.text}</Link >
               </li>
             ))}
           </ul>
@@ -183,7 +183,7 @@ const navigate = useNavigate()
           <ul className="categories-dropdown">
             {categories.map((category, index) => (
               <li key={index}>
-                <Link  href={category.href} state={{ product: category }}>{category.text}</Link >
+                <Link  to={category.href} state={{ product: category }} onClick={() => setShowCategories(false)} >{category.text}</Link >
               </li>
             ))}
           </ul>

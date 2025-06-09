@@ -95,7 +95,7 @@ function Footer() {
             <h4>Learn</h4>
             {activeSection === 'account' && (
               <div>
-                {account.map((data, i) => <p key={i}>{data.text}</p>)}
+                {account.map((data, i) => <p key={i} onClick={()=> navigate(data.href,{ state: {product:data} })}>{data.text}</p>)}
               </div>
             )}
           </div>
@@ -104,7 +104,7 @@ function Footer() {
             <h4>Useful Links</h4>
             {activeSection === 'product' && (
               <div>
-                {product.map((data, i) => <p key={i}>{data.text}</p>)}
+                {product.map((data, i) => <p key={i} onClick={()=> navigate(data.href,{ state: {product:data} })}>{data.text}</p>)}
               </div>
             )}
           </div>
