@@ -5,7 +5,7 @@ import image2 from '../../Assets/l2.webp';
 import image3 from '../../Assets/l3.webp';
 import image4 from '../../Assets/l4.webp';
 import image5 from '../../Assets/l5.webp';
-
+import { useNavigate } from 'react-router-dom';
 const imageContent = [
   { image: image1, text: 'Sweet Summer Mangoes', para: 'Juicy and ripe, mangoes bring a tropical delight.' },
   { image: image2, text: 'Bunches of Bananas', para: 'A powerhouse of energy and potassium.' },
@@ -16,7 +16,7 @@ const imageContent = [
 
 function LatestBlog() {
   const trackRef = useRef(null);
-
+  const navigate = useNavigate()
   useEffect(() => {
     const track = trackRef.current;
     let start = 0;
@@ -45,7 +45,7 @@ function LatestBlog() {
       <div className="blog-carousel-container">
         <div className="blog-carousel-track infinite" ref={trackRef}>
           {duplicatedContent.map((data, index) => (
-            <div className="blog-card" key={index}>
+            <div className="blog-card" key={index} onClick={()=>navigate('/blog')}>
               <img src={data.image} alt={data.text} />
               <div className="blog-overlay">
                 <div>

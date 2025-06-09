@@ -21,6 +21,7 @@
   .blog-card {
     position: relative;
     overflow: hidden;
+    cursor: pointer;
   }
   
   .blog-card img {
