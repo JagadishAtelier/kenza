@@ -290,6 +290,17 @@
       margin: 10px !important;
 
     }
+    .cart-count-badge {
+      position: absolute !important;
+      top: -3px !important;
+      right: -11px !important;
+      font-size: 13px !important;
+      background-color: #3b9048 !important;
+      color: white !important;
+      padding: 0px 6px !important;
+      border-radius: 50% !important;
+      z-index: 10 !important;
+    }
 
   }
   /* Nav links hover: smooth color change and underline */
@@ -446,3 +457,19 @@
 .animate-fade {
   animation: fadeInScale 0.3s ease-in-out;
 }
+.cart-icon-with-count {
+  position: relative;
+  display: flex;
+  gap: 30px;
+}
+
+.cart-count-badge {
+  position: absolute;
+  top: 5px;
+  right: 34px;
+  font-size: 16px;
+  padding: 2px 6px;
+  border-radius: 50%;
+  z-index: 10;
+}
+

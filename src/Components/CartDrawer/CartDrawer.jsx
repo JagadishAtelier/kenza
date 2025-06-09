@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
@@ -24,8 +24,13 @@ const featuredProducts = [
     { image: TPImage4,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage8, text: "Organic Chilli", price: "$ 14.00" ,type:"organics"}
   ]
 function CartDrawer({ show, onClose }) {
-  const { cartItems, removeFromCart,addToCart } = useCart();
+  const { cartItems, removeFromCart,addToCart,updateQuantity  } = useCart();
+  
    const navigate = useNavigate() 
+   const [cartData, setCartData] = useState([]);
+   const handleQuantityChange = (index, type) => {
+    updateQuantity(index, type);
+  };
   return (
     <div className={`cart-drawer ${show ? 'open' : ''}`}>
       <div className="cart-header">
@@ -61,6 +66,17 @@ function CartDrawer({ show, onClose }) {
             <p>{item.quantity || 1} x ${numericPrice.toFixed(2)} = ${(numericPrice * (item.quantity || 1)).toFixed(2)}</p>
           </div>
         </div>
+        <div className="cart-item-price-container">
+              <div className="cart-item-quantity-container">
+                <div className="quantity-section">
+                  <div className="quantity-box">
+                    <button onClick={() => handleQuantityChange(index, 'dec')}>−</button>
+                    <span>{item.quantity}</span>
+                    <button onClick={() => handleQuantityChange(index, 'inc')}>+</button>
+                  </div>
+                </div>
+              </div>
+            </div>
 
         <div className='cart-drawer-remove-buy-btn-div'>
           <button onClick={() => removeFromCart(index)} className='cart-remove-btn'>Remove</button>
@@ -78,20 +94,44 @@ function CartDrawer({ show, onClose }) {
         <div className="recommend">
           <h4>You Might Also Like</h4>
           <div className="recommend-list">
-            {featuredProducts.map((item, index) => (
-              <div className="recommend-item" key={index}>
-                <img src={item.image} alt={item.text} />
-                <div>
-                  <p>{item.text}</p>
-                  <p>{item.price}</p>
-                  <button onClick={() => addToCart(item)}>Add to Cart</button>
-                </div>
-              </div>
-            ))}
+          {featuredProducts.map((item, index) => {
+  const isInCart = cartItems.some(ci => ci.text === item.text);
+  return (
+    <div className="recommend-item" key={index}>
+      <img src={item.image} alt={item.text} />
+      <div>
+        <p>{item.text}</p>
+        <p>{item.price}</p>
+        <button
+          onClick={() => addToCart(item)}
+          disabled={isInCart}
+        >
+          {isInCart ? 'Added' : 'Add to Cart'}
+        </button>
+      </div>
+    </div>
+    
+  );
+})}
+
           </div>
         </div>
       </div>
+      <div className='check-out-container'>
+      <div className='check-out-price'>
+        <h3>Total</h3>
+        <h3>Price</h3>
+      </div>
+      <div className='check-out-para'>
+        <p>Taxes and shipping calculated at checkout</p>
+      </div>
+      <div className='check-out-btn-div'>
+        <button style={{backgroundColor:"#3b9048"}}>CHECK OUT</button>
+      </div>
     </div>
+    </div>
+
+
   );
 }
 

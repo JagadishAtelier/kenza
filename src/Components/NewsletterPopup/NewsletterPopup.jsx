@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom'; // import useLocation
 import './NewsletterPopup.css';
-import image from '../../Assets/p1.webp'
+import image from '../../Assets/p1.webp';
 
 const NewsletterPopup = () => {
   const [showPopup, setShowPopup] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowPopup(true);
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, []);
+    // Show popup only if current path is home ("/")
+    if (location.pathname === '/') {
+      const timer = setTimeout(() => {
+        setShowPopup(true);
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [location.pathname]); // re-run if route changes
 
   const handleClose = () => {
     setShowPopup(false);
@@ -18,28 +24,24 @@ const NewsletterPopup = () => {
 
   return (
     <>
-      {showPopup && (
+      {showPopup && location.pathname === '/' && (
         <div className="newsletter-popup">
           <div className="newsletter-content">
             <div className='newsletter-image-text'>
-            <div className='newsletter-image'>
-            <button className="close-btn" onClick={handleClose}>
-              <i className="bi bi-x-lg"></i>
-            </button>
-            <div className="popup-left">
-              <img
-                src={image}
-                alt="Tomato"
-              />
+              <div className='newsletter-image'>
+                <button className="close-btn" onClick={handleClose}>
+                  <i className="bi bi-x-lg"></i>
+                </button>
+                <div className="popup-left">
+                  <img src={image} alt="Tomato" />
+                </div>
+              </div>
+              <div className="newsletter-text">
+                <h2>Join Our Newsletter And Get Discount</h2>
+                <p>Subscribe to the newsletter to receive updates about new products.</p>
+              </div>
             </div>
-            
-            </div>
-            <div className="newsletter-text">
-              <h2>Join Our Newsletter And Get Discount</h2>
-              <p>Subscribe to the newsletter to receive updates about new products.</p>
-            </div>
-            </div>
-              <div className='popup-inputs-button-icons'>
+            <div className='popup-inputs-button-icons'>
               <div className="form-row">
                 <input type="email" placeholder="Your email" />
                 <button>SUBSCRIBE</button>
@@ -54,7 +56,7 @@ const NewsletterPopup = () => {
                 <i className="bi bi-snapchat"></i>
                 <i className="bi bi-vimeo"></i>
               </div>
-              </div>
+            </div>
           </div>
         </div>
       )}

@@ -9,6 +9,8 @@
     z-index: 999;
     transition: right 0.3s ease-in-out;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
   }
   
   .cart-drawer.open {
@@ -32,6 +34,8 @@
   
   .cart-body {
     padding: 16px;
+    overflow-y: auto;
+  flex: 1;
   }
   
   .support,
@@ -254,3 +258,29 @@
   transform: scale(0.95);
 }
 
+
+.check-out-container{
+  width: 100%;
+  border-top: 1px solid #ddd;
+  padding: 16px;
+  background: white;
+}
+.check-out-price{
+  display: flex;
+  justify-content: space-between;
+}
+.check-out-para{
+  text-align: center;
+  color: gray;
+}
+.check-out-btn-div{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.check-out-btn-div button{
+ padding: 6px 30px;
+ border-radius: 10px;
+ border: none;
+ color: white;
+}

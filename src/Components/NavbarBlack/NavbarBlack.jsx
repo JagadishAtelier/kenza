@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import phoneSystemImage from '../../Assets/phoneSystemImage.png'
 import callSupport from '../../Assets/callSupport.png'
 import CartDrawer from '../CartDrawer/CartDrawer'
+import { useCart } from '../CartContext/CartContext'
 // import fruit1 from '../../Assets/carrot.png'
 // import fruit2 from '../../Assets/fruit2.png'
 // import fruit3 from '../../Assets/fruit3.png'
@@ -31,6 +32,8 @@ function NavbarBlack() {
     const [showNavDetails, setShowNavDetails] = useState(false);
     const [cartOpen, setCartOpen] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
+    const { cartItems } = useCart(); // Replace with your actual context structure
+    const itemCount = cartItems.length;
 const [formType, setFormType] = useState('login'); // 'login' | 'register' | 'forgot'
 const navigate = useNavigate()
   return (
@@ -72,8 +75,13 @@ const navigate = useNavigate()
                 </div>
 
                 <div className='navbar-white-icon-text'onClick={() => setCartOpen(true)} style={{cursor:"pointer"}}>
-                    <i class="bi bi-basket"></i>
-                    <p>Item</p>
+                <div className="cart-icon-with-count">
+  <i className="bi bi-basket"></i>
+  {cartItems.length > 0 && 
+  <span className="cart-count-badge">{cartItems.length}</span>}
+  <p>Item</p>
+</div>
+
                 </div>
                 <CartDrawer show={cartOpen} onClose={() => setCartOpen(false)} />
             </div>
@@ -206,7 +214,11 @@ const navigate = useNavigate()
           </div>
         )}
        <div onClick={() => setCartOpen(true)} className='nav-cart-mobile'>
-            <i className="bi bi-bag"></i>
+       <div className="cart-icon-with-count">
+  <i className="bi bi-bag"></i>
+  {cartItems.length > 0 && <span className="cart-count-badge">{cartItems.length}</span>}
+</div>
+
           </div>
         <CartDrawer show={cartOpen} onClose={() => setCartOpen(false)} />
      </div>
