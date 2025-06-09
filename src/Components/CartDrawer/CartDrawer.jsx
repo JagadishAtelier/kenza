@@ -126,7 +126,7 @@ function CartDrawer({ show, onClose }) {
         <p>Taxes and shipping calculated at checkout</p>
       </div>
       <div className='check-out-btn-div'>
-        <button style={{backgroundColor:"#3b9048"}}>CHECK OUT</button>
+        <button style={{backgroundColor:"#3b9048"}} onClick={()=>navigate('/payment')}>CHECK OUT</button>
       </div>
     </div>
     </div>
