@@ -9,6 +9,7 @@ import TPImage6 from '../../Assets/p6.webp'
 import TPImage7 from '../../Assets/p1.webp'
 import TPImage8 from '../../Assets/p8.webp'
 import { useCart } from '../CartContext/CartContext'
+import { useLocation } from 'react-router-dom'
 const featuredProducts = [
   { image: TPImage1,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage2, text: "Aliqunaim Retrum Mollis", price: "$ 18.00",type:"organics" },
   { image: TPImage2,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage3, text: "American Grapes", price: "$ 17.00",type:"organics" },
@@ -20,16 +21,23 @@ const featuredProducts = [
   { image: TPImage4,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage8, text: "Organic Chilli", price: "$ 14.00" ,type:"organics"}
 ]
 function PaymentPage() {
+  const location = useLocation();
+  const productFromState = location.state?.product;
+
   const [showContact, setShowContact] = useState(false);
 const [showDelivery, setShowDelivery] = useState(false);
 const [showPayment, setShowPayment] = useState(false);
 const [activeSection, setActiveSection] = useState('contact');
 const { cartItems } = useCart();
 
-const totalAmount = cartItems.reduce((total, product) => {
-  const price = parseFloat(product.price.replace('$', '').trim());
-  return total + price * (product.quantity || 1);
-}, 0);
+const totalAmount =
+  cartItems.reduce((total, item) => {
+    const price = parseFloat(item.price.replace('$', '').trim());
+    return total + price * (item.quantity || 1);
+  }, 0) +
+  (productFromState
+    ? parseFloat(productFromState.price.replace('$', '').trim())
+    : 0);
 
 
     const [paymentMethod, setPaymentMethod] = useState('card');
@@ -127,6 +135,16 @@ const totalAmount = cartItems.reduce((total, product) => {
         </div>
       </div>
     ))}
+  {productFromState && (
+    <div className="product-item-row" key="buy-now">
+      <img src={productFromState.image} alt={productFromState.text} className="product-thumb" />
+      <div className="product-info">
+        <p className="product-name">{productFromState.text}</p>
+        <p className="product-price">Qty: 1</p>
+        <p className="product-price">{productFromState.price}</p>
+      </div>
+    </div>
+  )}
   </div>
   <div className="product-total-amount">
     <strong>Total: ₹ {totalAmount.toFixed(2)}</strong>
@@ -204,6 +222,14 @@ const totalAmount = cartItems.reduce((total, product) => {
                   <p>Qty: {product.quantity}</p>
                 </div>
               ))}
+{productFromState && (
+    <div className='payment-data-grid' key="buy-now-summary">
+      <img src={productFromState.image} />
+      <p>{productFromState.text}</p>
+      <p>{productFromState.price}</p>
+      <p>Qty: 1</p>
+    </div>
+  )}
             </div>
         </div>
       
