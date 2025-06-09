@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom'; // import useLocation
+import { useLocation } from 'react-router-dom';
 import './NewsletterPopup.css';
 import image from '../../Assets/p1.webp';
 
@@ -8,15 +8,19 @@ const NewsletterPopup = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // Show popup only if current path is home ("/")
     if (location.pathname === '/') {
-      const timer = setTimeout(() => {
-        setShowPopup(true);
-      }, 1000);
+      const alreadyShown = localStorage.getItem('newsletterPopupShown');
 
-      return () => clearTimeout(timer);
+      if (!alreadyShown) {
+        const timer = setTimeout(() => {
+          setShowPopup(true);
+          localStorage.setItem('newsletterPopupShown', 'true'); // mark as shown
+        }, 1000);
+
+        return () => clearTimeout(timer);
+      }
     }
-  }, [location.pathname]); // re-run if route changes
+  }, [location.pathname]);
 
   const handleClose = () => {
     setShowPopup(false);
