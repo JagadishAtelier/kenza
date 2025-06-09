@@ -11,6 +11,7 @@ import TPImage6 from '../../Assets/p6.webp'
 import TPImage7 from '../../Assets/p1.webp'
 import TPImage8 from '../../Assets/p8.webp'
 import banner from '../../Assets/view-all-banner.webp'
+import { useLocation } from 'react-router-dom'
 const featuredProducts = [
     { image: TPImage1,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage2, text: "Aliqunaim Retrum Mollis", price: "$ 18.00",type:"organics" },
     { image: TPImage2,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage3, text: "American Grapes", price: "$ 17.00",type:"organics" },
@@ -49,6 +50,8 @@ const organicProduct = [
     {text:"Legumes"},
 ]
 function ViewAllProduct() {
+  const location = useLocation();
+  const product = location.state?.product;
     const [hoverIndex, setHoverIndex] = useState(null)
     const[showCategories,setShowCategories] = useState(false)
     const[showFruits,setShowFruits] = useState(false)
@@ -275,7 +278,7 @@ const handleSortChange = (e) => {
       </div>
 
       <div className='view-all-right-side'>
-        <h3>Vegetables</h3>
+        <h3>{product?.text}</h3>
         <p className='view-all-right-para'>Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit. Accessorize with a straw hat and you're ready for summer!</p>
         <br/>
         <p className='view-all-right-para'>Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit. Accessorize with a straw hat and you're ready for summer! Accessorize with a straw hat and you're ready for summer! Accessorize with a straw hat and you're ready for summer!...</p>

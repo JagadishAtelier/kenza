@@ -1,20 +1,18 @@
 import React, { useState } from 'react';
 import './Footer.css';
 import logo from '../../Assets/logo.png';
-
+import { useNavigate } from 'react-router-dom';
 const account = [
-  { text: 'My Account' },
-  { text: 'Personal info' },
-  { text: 'Orders' },
-  { text: 'Your Cart' },
-  { text: 'Addresses' },
+  { text: 'Organic',href : "/all-product" },
+  { text: 'Accessories',href : "/all-product" },
+  { text: 'Orders',href : "/all-product" },
+  { text: 'Collection',href : "/all-product" },
 ];
 const product = [
-  { text: 'Delivery' },
-  { text: 'Legal Notice' },
-  { text: 'FAQs' },
-  { text: 'New Product' },
-  { text: 'Best Sales' },
+  { text: 'Home',href : "/" },
+  { text: 'Shop',href : "/shop" },
+  { text: 'Blog',href : "/blog" },
+  { text: 'About Us',href : "/about-us" },
 ];
 const ourCompany = [
   { text: 'About Us' },
@@ -26,7 +24,7 @@ const ourCompany = [
 
 function Footer() {
   const [activeSection, setActiveSection] = useState(null);
-
+  const navigate = useNavigate()
   const toggleSection = (section) => {
     setActiveSection((prev) => (prev === section ? null : section));
   };
@@ -37,7 +35,7 @@ function Footer() {
         {/* Common Section */}
         <div className="logo-and-content">
           <div>
-          <img src={logo} alt="Logo" className="colored-icon"/>
+          <img src={logo} alt="Logo" className="colored-icon" onClick={()=>navigate('/')}/>
           </div>
           <p>
             KENZA is the subscription box for book lovers. We are dedicated to bringing you beautiful, unique editions of books and quality merchandise!
@@ -58,7 +56,7 @@ function Footer() {
             <h4>Learn</h4>
             <div className="footer-account-content">
               {account.map((data, index) => (
-                <p key={index}>{data.text}</p>
+                <p key={index} onClick={()=> navigate(data.href,{ state: {product:data} })}>{data.text}</p>
               ))}
             </div>
           </div>
@@ -66,7 +64,7 @@ function Footer() {
             <h4>Useful Links</h4>
             <div className="footer-account-content">
               {product.map((data, index) => (
-                <p key={index}>{data.text}</p>
+                <p key={index} onClick={()=> navigate(data.href,{ state: {product:data} })}>{data.text}</p>
               ))}
             </div>
           </div>

@@ -131,6 +131,7 @@
     }
     .logo-and-content {
       width: 100%;
+      margin: 0;
     }
     .mobile-footer-hr{
       color: white;

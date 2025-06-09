@@ -25,6 +25,7 @@ import ShopPage from './Components/ShopPage/ShopPage';
 import CartPage from './Components/CartPage/CartPage';
 import BlogPage from './Components/BlogPage/BlogPage';
 import AboutPage from './Components/AboutPage/AboutPage';
+import ScrollToTop from './Components/ScrollToTop/ScrollToTop';
 function HomePage() {
   return (
     <>
@@ -46,6 +47,7 @@ function App() {
   return (
     <CartProvider>
       <Router>
+        <ScrollToTop/>
         <NavbarBlack />
         <NewsletterPopup/>
         <Routes>

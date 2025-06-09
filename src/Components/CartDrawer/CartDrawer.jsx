@@ -25,7 +25,10 @@ const featuredProducts = [
   ]
 function CartDrawer({ show, onClose }) {
   const { cartItems, removeFromCart,addToCart,updateQuantity  } = useCart();
-  
+  const [showCartDrawer, setShowCartDrawer] = useState(false);
+
+<CartDrawer show={showCartDrawer} onClose={() => setShowCartDrawer(false)} />
+
    const navigate = useNavigate() 
    const [cartData, setCartData] = useState([]);
    const handleQuantityChange = (index, type) => {
@@ -80,7 +83,16 @@ function CartDrawer({ show, onClose }) {
 
         <div className='cart-drawer-remove-buy-btn-div'>
           <button onClick={() => removeFromCart(index)} className='cart-remove-btn'>Remove</button>
-          <button onClick={() => navigate('/payment')} className='cart-buy-btn'>Buy Now</button>
+          {/* <button
+  onClick={() => {
+    onClose(); // Close drawer
+    navigate('/payment', { state: { product: item } }); // Navigate with item
+  }}
+  className='cart-buy-btn'
+>
+  Buy Now
+</button> */}
+
         </div>
       </div>
     </div>
@@ -126,7 +138,7 @@ function CartDrawer({ show, onClose }) {
         <p>Taxes and shipping calculated at checkout</p>
       </div>
       <div className='check-out-btn-div'>
-        <button style={{backgroundColor:"#3b9048"}} onClick={()=>navigate('/payment')}>CHECK OUT</button>
+        <button style={{backgroundColor:"#3b9048"}} onClick={()=>{onClose();navigate('/payment')}}>CHECK OUT</button>
       </div>
     </div>
     </div>

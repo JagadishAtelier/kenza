@@ -1,6 +1,8 @@
 import React,{useState}from 'react'
 import './NavbarBlack.css'
 import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+
 import phoneSystemImage from '../../Assets/phoneSystemImage.png'
 import callSupport from '../../Assets/callSupport.png'
 import CartDrawer from '../CartDrawer/CartDrawer'
@@ -79,7 +81,7 @@ const navigate = useNavigate()
   <i className="bi bi-basket"></i>
   {cartItems.length > 0 && 
   <span className="cart-count-badge">{cartItems.length}</span>}
-  <p>{cartItems.length === 1 ? 'Item' : '0 Items'}</p>
+  <p>{cartItems.length === 1 ? 'Item' : 'Items'}</p>
 </div>
 
                 </div>
@@ -96,7 +98,7 @@ const navigate = useNavigate()
           <ul className="categories-dropdown">
             {categories.map((category, index) => (
               <li key={index}>
-                <a href={category.href}>{category.text}</a>
+                <Link  href={category.href} state={{ product: category }}>{category.text}</Link >
               </li>
             ))}
           </ul>
@@ -181,7 +183,7 @@ const navigate = useNavigate()
           <ul className="categories-dropdown">
             {categories.map((category, index) => (
               <li key={index}>
-                <a href={category.href}>{category.text}</a>
+                <Link  href={category.href} state={{ product: category }}>{category.text}</Link >
               </li>
             ))}
           </ul>

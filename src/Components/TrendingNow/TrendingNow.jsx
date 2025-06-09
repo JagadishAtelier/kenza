@@ -30,6 +30,7 @@ const featuredProducts = [
 function TrendingNow() {
   const { addToCart } = useCart();
   const [addedToCart, setAddedToCart] = useState(false);
+  
   const handleAddToCart = () => {
     addToCart({
       ...product,
