@@ -105,9 +105,9 @@
     }
   
     .blog-card img {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
+      width: 100% !important;
+      height: 230px !important;
+      object-fit: cover !important;
     }
   
     .blog-overlay {

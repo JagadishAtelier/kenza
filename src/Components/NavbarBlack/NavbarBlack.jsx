@@ -79,7 +79,7 @@ const navigate = useNavigate()
   <i className="bi bi-basket"></i>
   {cartItems.length > 0 && 
   <span className="cart-count-badge">{cartItems.length}</span>}
-  <p>Item</p>
+  <p>{cartItems.length === 1 ? 'Item' : '0 Items'}</p>
 </div>
 
                 </div>
