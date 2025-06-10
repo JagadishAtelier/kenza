@@ -146,4 +146,11 @@
       width: 60px;
     }
   }
+
+  .get-user-details-popup{
+    background-color: white;
+    height: 500px;
+    width: 500px;
+    z-index: 1001;
+  }
   

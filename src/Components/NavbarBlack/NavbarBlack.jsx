@@ -30,6 +30,7 @@ const categories = [
   ];
 function NavbarBlack() {
     const [showCategories, setShowCategories] = useState(false);
+    const [getUserDetails,setGetUserDetails] = useState(false)
     const [showSearchBox, setShowSearchBox] = useState(false);
     const [showNavDetails, setShowNavDetails] = useState(false);
     const [cartOpen, setCartOpen] = useState(false);
@@ -166,7 +167,7 @@ const navigate = useNavigate()
         <form onSubmit={(e) => {
       e.preventDefault(); // Prevent page refresh
       setShowLogin(false);
-      navigate('/profile-page');
+      setGetUserDetails(true);
     }}>
         <input type='text' placeholder='Name' className='nav-login-container-input' required/>
         <input type='email' placeholder='Email' className='nav-login-container-input' required/>
@@ -192,6 +193,60 @@ const navigate = useNavigate()
     )}
   </div>
 )}
+{getUserDetails && (
+  <div className="modal-overlay">
+    <div className="modal-box">
+      <div style={{textAlign:"center"}}>
+      <h3>Additional Details</h3>
+      </div>
+      <form onSubmit={(e) => {
+         e.preventDefault();
+         const formData = new FormData(e.target);
+         const userDetails = {
+           name: formData.get('name'),
+           email: formData.get('email'),
+           phone: formData.get('phone'),
+           dob: formData.get('dob'),
+           gender: formData.get('gender'),
+         };
+         localStorage.setItem('userDetails', JSON.stringify(userDetails));
+         setGetUserDetails(false);
+         navigate('/profile-page');
+      }}>
+        <div className='modal-details-container'>
+          <div>
+        <div className='modal-details-content'>
+          <h5>Name</h5>
+          <input name="name" type="text" placeholder="Name" required />
+        </div>
+        <div className='modal-details-content'>
+          <h5>Email</h5>
+          <input name="email" type="text" placeholder="Email" required />
+        </div>
+        <div className='modal-details-content'>
+          <h5>Phone</h5>
+          <input name="phone" type="text" placeholder="Phone" required />
+        </div>
+        </div>
+        <div>
+        <div className='modal-details-content'>
+          <h5>Date of Birth</h5>
+          <input name="dob" type="date" placeholder="Date of Birth" required />
+        </div>
+        <div  className='modal-details-content'>
+          <h5>Gender</h5>
+          <input name="gender" type="text" placeholder="Gender" required />
+        </div>
+        </div>
+
+        <button type="submit" className='submit-btn-modal'>Submit</button>
+        </div>
+      </form>
+      <button className="close-btn" onClick={() => setGetUserDetails(false)}>Close</button>
+    </div>
+  </div>
+)}
+
      
      <div className="navbar-mobile">
 

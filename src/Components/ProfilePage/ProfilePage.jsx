@@ -5,6 +5,13 @@ import { useLocation } from 'react-router-dom';
 import { useCart } from '../CartContext/CartContext';
 import { useWishlist } from '../WishlistContext/WishlistContext';
 function ProfilePage() {
+    const [userDetails, setUserDetails] = useState({});
+    useEffect(() => {
+        const savedDetails = localStorage.getItem('userDetails');
+        if (savedDetails) {
+          setUserDetails(JSON.parse(savedDetails));
+        }
+      }, []);
     const { orderedItems, cartItems } = useCart();
     const { wishlist  } = useWishlist();
     const [activeSection, setActiveSection] = useState('profile'); // 'profile' or 'address'
@@ -23,14 +30,15 @@ function ProfilePage() {
           setConfirmedOrders(location.state.confirmedOrders);
         }
       }, [location.state]);
-    const [user, setUser] = useState({
-        name: 'Your Name',
-        email: 'yourmail@gmail.com',
-        phone: '+91 Your phone number',
-        dob: 'Date of Borth',
-        gender: 'Female',
-        profilePic: '',
-      });
+    
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    dob: '',
+    gender: '',
+    profilePic: '',
+  });
     
       const [addresses, setAddresses] = useState([
         {
@@ -63,7 +71,34 @@ function ProfilePage() {
           setAddresses([]); // Or remove specific address if multiple
         }
       };
-      
+      useEffect(() => {
+        const savedDetails = localStorage.getItem('userDetails');
+        if (savedDetails) {
+          const parsed = JSON.parse(savedDetails);
+          setUserDetails(parsed);
+          setUser({
+            name: parsed.name || '',
+            email: parsed.email || '',
+            phone: parsed.phone || '',
+            dob: parsed.dob || '',
+            gender: parsed.gender || '',
+            profilePic: '',
+          });
+        }
+      }, []);
+    
+    const handleSaveProfile = () => {
+        // Save the updated user details to localStorage
+        const updatedDetails = {
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+            dob: user.dob,
+            gender: user.gender,
+        };
+        localStorage.setItem('userDetails', JSON.stringify(updatedDetails));
+        setIsEditingProfile(false);
+    };
   return (
     <div className='profile-page-container'>
     <div className='profile-page-left'>
