@@ -22,7 +22,7 @@
     padding: 20px;
 }
 .profile-page-right{
-    width: 900px;
+    width: 750px;
 }
 .profile-page-personal-details{
     display: flex;
@@ -104,3 +104,46 @@
 .profile-page-right-my-profile p{
     color: gray;
 }
+@media (max-width: 768px) {
+    .profile-page-container {
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+  
+    .profile-page-left,
+    .profile-page-right {
+      width: 90%;
+    }
+  
+    .profile-page-right-my-profile {
+      width: 100%;
+    }
+  
+    .form-group,
+    .form-group-address {
+      align-items:baseline;
+    }
+  
+    .form-group h5,
+    .form-group-address h5 {
+      width: 100%;
+    }
+  
+    .form-group-button {
+      flex-direction: column;
+      gap: 15px;
+      width: 100%;
+    }
+  
+    .profile-image-content-div {
+      gap: 10px;
+      text-align: center;
+    }
+  
+    .profile-image-content-div img {
+      height: 60px;
+      width: 60px;
+    }
+  }
+  
