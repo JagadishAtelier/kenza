@@ -26,6 +26,8 @@ import CartPage from './Components/CartPage/CartPage';
 import BlogPage from './Components/BlogPage/BlogPage';
 import AboutPage from './Components/AboutPage/AboutPage';
 import ScrollToTop from './Components/ScrollToTop/ScrollToTop';
+import ProfilePage from './Components/ProfilePage/ProfilePage';
+import { WishlistProvider } from './Components/WishlistContext/WishlistContext';
 function HomePage() {
   return (
     <>
@@ -45,7 +47,9 @@ function HomePage() {
 
 function App() {
   return (
+    <WishlistProvider>
     <CartProvider>
+
       <Router>
         <ScrollToTop/>
         <NavbarBlack />
@@ -58,11 +62,13 @@ function App() {
           <Route path="/shop" element={<ShopPage/>} />
           <Route path="/blog" element={<BlogPage/>} />
           <Route path="/about-us" element={<AboutPage/>} />
+          <Route path="/profile-page" element={<ProfilePage/>} />
           {/* <Route path="/cart" element={<CartPage/>} /> */}
         </Routes>
         <Footer />
       </Router>
     </CartProvider>
+    </WishlistProvider>
   );
 }
 

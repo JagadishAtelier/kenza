@@ -6,7 +6,7 @@ export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
-
+  const [orderedItems, setOrderedItems] = useState([]);
   const addToCart = (item) => {
     setCartItems(prevItems => {
       const existingItemIndex = prevItems.findIndex(i => i.text === item.text);
@@ -21,7 +21,13 @@ export const CartProvider = ({ children }) => {
       }
     });
   };
-
+  const placeOrder = () => {
+    setOrderedItems(prev => [...prev, ...cartItems]);
+    setCartItems([]); // clear cart after placing order
+  };
+  const clearCart = () => {
+    setCartItems([]);
+  };
   const removeFromCart = (index) => {
     setCartItems(prevItems => prevItems.filter((_, i) => i !== index));
   };
@@ -43,7 +49,7 @@ export const CartProvider = ({ children }) => {
   
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity }}>
+    <CartContext.Provider value={{ cartItems, addToCart,orderedItems, removeFromCart, updateQuantity,placeOrder,clearCart }}>
       {children}
     </CartContext.Provider>
   );

@@ -1,0 +1,103 @@
+.profile-image-content-div{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.profile-image-content-div img{
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.profile-page-container{
+    margin-top: 7%;
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+}
+.profile-page-left{
+    width: 300px;
+    border: 1px solid rgb(232, 231, 231);
+    border-radius: 10px;
+    padding: 20px;
+}
+.profile-page-right{
+    width: 900px;
+}
+.profile-page-personal-details{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.profile-page-personal-details i{
+    font-size: 20px;
+}
+.profile-page-personal-details h6{
+    margin: 0;
+}
+.profile-page-right-my-profile{
+    width: 80%;
+    border: 1px solid rgb(232, 231, 231);
+    border-radius: 10px;
+    padding: 20px;
+}
+.form-group{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.form-group input{
+    height: 50px;
+    border:none;
+    width: 100%;
+}
+.form-group h5{
+    width: 200px;
+}
+.form-group select{
+    height: 50px;
+    border:none;
+    width: 100%;
+}
+.save-btn{
+    background-color: #3b9048;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 5px 20px;
+}
+.edit-btn{
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 5px 20px;
+}
+.form-group-button{
+    display: flex;
+    gap: 30px;
+    margin-top: 5%;
+}
+.delete-btn{
+    background-color:rgb(133, 3, 3);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 5px 20px;
+}
+.form-group-address{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.form-group-address input{
+    height: 50px;
+    border:none;
+    width: 100%;
+}
+.form-group-address h5{
+    width: 400px;
+}

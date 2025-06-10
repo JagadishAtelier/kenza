@@ -51,7 +51,7 @@ function TreandingProduct() {
   if (selectedCategory === 'featured') productsToDisplay = featuredProducts
   else if (selectedCategory === 'new') productsToDisplay = newArrivals
   else if (selectedCategory === 'best') productsToDisplay = bestSellers
-
+  
   return (
     <div className='trending-product-container'>
       <h1>TRENDING PRODUCT</h1>
@@ -101,7 +101,8 @@ function TreandingProduct() {
                   <i className="bi bi-star-fill"></i>
                 </div>
                 <div className='hover-icons'>
-                  <i className="bi bi-heart"></i>
+                  <i className="bi bi-heart"
+                    style={{ cursor: 'pointer' }}></i>
                   <i className="bi bi-eye"></i>
                 </div>
               </div>

@@ -10,6 +10,7 @@ import TPImage7 from '../../Assets/p1.webp'
 import TPImage8 from '../../Assets/p8.webp'
 import { useCart } from '../CartContext/CartContext'
 import { useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 const featuredProducts = [
   { image: TPImage1,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage2, text: "Aliqunaim Retrum Mollis", price: "$ 18.00",type:"organics" },
   { image: TPImage2,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage3, text: "American Grapes", price: "$ 17.00",type:"organics" },
@@ -21,14 +22,30 @@ const featuredProducts = [
   { image: TPImage4,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage8, text: "Organic Chilli", price: "$ 14.00" ,type:"organics"}
 ]
 function PaymentPage() {
+  const navigate = useNavigate()
   const location = useLocation();
   const productFromState = location.state?.product;
-
+  const [orderConfirmed, setOrderConfirmed] = useState(false);
   const [showContact, setShowContact] = useState(false);
 const [showDelivery, setShowDelivery] = useState(false);
 const [showPayment, setShowPayment] = useState(false);
 const [activeSection, setActiveSection] = useState('contact');
-const { cartItems } = useCart();
+const { placeOrder, clearCart, cartItems } = useCart();
+const handleConfirmOrder = () => {
+  const confirmedOrders = productFromState ? [productFromState] : cartItems;
+
+  setOrderConfirmed(true);
+
+  // Clear cart if needed
+  clearCart();
+
+  // Navigate to profile with confirmedOrders
+  navigate('/profile', {
+    state: {
+      confirmedOrders
+    }
+  });
+};
 
 const totalAmount =
   cartItems.reduce((total, item) => {
@@ -46,23 +63,28 @@ const totalAmount =
     const [securityCode, setSecurityCode] = useState('');
     const [nameOnCard, setNameOnCard] = useState('');
     const [useShippingAsBilling, setUseShippingAsBilling] = useState(true);
-    const handleSubmit = () => {
-        if (paymentMethod === 'card') {
-          if (!cardNumber || !expiry || !securityCode || !nameOnCard) {
-            alert('Please fill all card details.');
-            return;
-          }
-          alert(`Payment method: Credit Card\nName: ${nameOnCard}`);
-        } else {
-          alert('Payment method: Cash on Delivery (COD)');
-        }
-    
-        // Clear form (optional)
-        setCardNumber('');
-        setExpiry('');
-        setSecurityCode('');
-        setNameOnCard('');
-      };
+
+const handleSubmit = () => {
+  if (paymentMethod === 'card') {
+    if (!cardNumber || !expiry || !securityCode || !nameOnCard) {
+      alert('Please fill all card details.');
+      return;
+    }
+    alert(`Payment method: Credit Card\nName: ${nameOnCard}`);
+  } else {
+    alert('Payment method: Cash on Delivery (COD)');
+  }
+  
+  const confirmedOrders = productFromState ? [productFromState] : cartItems;
+  console.log("✅ Confirmed Orders:", confirmedOrders);
+  placeOrder(confirmedOrders); // ✅ Save order globally
+  clearCart(); // ✅ Clear the cart
+
+  setOrderConfirmed(true);
+
+  navigate('/profile-page'); // ✅ Profile page will now access order from context
+};
+
     
   return (
     <div className='payment-page-container'>
