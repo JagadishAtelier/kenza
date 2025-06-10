@@ -1,25 +1,19 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 const WishlistContext = createContext();
 
 export const WishlistProvider = ({ children }) => {
   const [wishlist, setWishlist] = useState([]);
 
-  // Load wishlist from localStorage on mount
-  useEffect(() => {
-    const storedWishlist = localStorage.getItem('wishlist');
-    if (storedWishlist) {
-      setWishlist(JSON.parse(storedWishlist));
+  const addToWishlist = (product) => {
+    // Avoid duplicates
+    if (!wishlist.find((item) => item.text === product.text)) {
+      setWishlist([...wishlist, product]);
     }
-  }, []);
-
-  // Save to localStorage when wishlist changes
-  useEffect(() => {
-    localStorage.setItem('wishlist', JSON.stringify(wishlist));
-  }, [wishlist]);
+  };
 
   return (
-    <WishlistContext.Provider value={{ wishlist, setWishlist }}>
+    <WishlistContext.Provider value={{ wishlist, addToWishlist }}>
       {children}
     </WishlistContext.Provider>
   );

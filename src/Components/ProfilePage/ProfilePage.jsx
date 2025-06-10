@@ -3,13 +3,18 @@ import './ProfilePage.css'
 import profileImge from '../../Assets/blog1.webp'
 import { useLocation } from 'react-router-dom';
 import { useCart } from '../CartContext/CartContext';
+import { useWishlist } from '../WishlistContext/WishlistContext';
 function ProfilePage() {
     const { orderedItems, cartItems } = useCart();
+    const { wishlist  } = useWishlist();
     const [activeSection, setActiveSection] = useState('profile'); // 'profile' or 'address'
     const [isEditingProfile, setIsEditingProfile] = useState(false);
     const location = useLocation();
     const productFromState = location.state?.product; // for Buy Now item
     const [confirmedOrders, setConfirmedOrders] = useState([]);  
+    useEffect(() => {
+        console.log("✅ wishlist  Items from Context:", wishlist ); // <--- Log here
+      }, [wishlist ]);
     // useEffect(() => {
     //     console.log("✅ Ordered Items from Context:", orderedItems); // <--- Log here
     //   }, [orderedItems]);
@@ -19,10 +24,10 @@ function ProfilePage() {
         }
       }, [location.state]);
     const [user, setUser] = useState({
-        name: 'Jeeva Sumathi',
-        email: 'jeeva@example.com',
-        phone: '+91 98765 43210',
-        dob: '1995-03-10',
+        name: 'Your Name',
+        email: 'yourmail@gmail.com',
+        phone: '+91 Your phone number',
+        dob: 'Date of Borth',
         gender: 'Female',
         profilePic: '',
       });
@@ -92,6 +97,33 @@ function ProfilePage() {
             <h6>My Wishlist</h6>
         </div>
       </div>
+
+      <hr className='profile-page-hr-line'/>
+
+      <div className='profile-page-personal-details-div'>
+        <div className='profile-page-personal-details' style={{cursor:"pointer"}} onClick={() => setActiveSection('Preferences')}>
+            <i class="bi bi-cart-check"></i>
+            <h6>About My Preferences</h6>
+        </div>
+        <div className='profile-page-personal-details'style={{ cursor: "pointer" }} onClick={() => setActiveSection('Instructions')}>
+            <i class="bi bi-heart"></i>
+            <h6>Delivery Instructions</h6>
+        </div>
+      </div>
+
+
+      <hr className='profile-page-hr-line'/>
+
+      <div className='profile-page-personal-details-div'>
+        <div className='profile-page-personal-details' style={{cursor:"pointer"}} onClick={() => setActiveSection('Details')}>
+            <i class="bi bi-cart-check"></i>
+            <h6>Subscription Details</h6>
+        </div>
+      </div>
+
+      
+
+
     </div>
     <div className='profile-page-right'>
     {activeSection === 'profile' && (
@@ -177,7 +209,7 @@ function ProfilePage() {
 </div>
         </div>
      )}
-     {/* {activeSection === 'wishlist' && (
+     {activeSection === 'wishlist' && (
   <div className='payment-right-side-container'>
     <div className='payment-right-heading'>
       <h1>My Wishlist</h1>
@@ -196,7 +228,7 @@ function ProfilePage() {
       )}
     </div>
   </div>
-)} */}
+)}
 
 
 {activeSection === 'orders' && (
@@ -232,6 +264,93 @@ function ProfilePage() {
       )}
     </div>
   </div>
+)}
+{activeSection === 'Preferences' &&(
+    <div className='profile-page-right-my-profile'>
+        <h1>About My Preferences</h1>
+        <br/>
+        <h5>What It Is</h5>
+        <p>The "My Preferences" section allows users to define and manage their dietary or shopping preferences so the website/app can personalize recommendations, filters, and search results accordingly.</p>
+        <br/>
+        <h5> Purpose</h5>
+        <ul>
+            <li>Personalized Experience: Tailor product listings to user preferences.</li>
+            <li>Health & Lifestyle Support: Support users with dietary restrictions (e.g., diabetic, keto, vegan).</li>
+            <li>Improved Recommendations: Recommend relevant products or combos.</li>
+            <li>Better Filters/Search: Let users auto-filter what not to show.</li>
+        </ul>
+        <br/>
+        <h5>How It Can Be Implemented</h5>
+        <h5>1. Profile Section UI</h5>
+        <p>A "My Preferences" form with toggles, checkboxes, or multiselect dropdowns.Free text input for custom preferences (e.g., "Avoid bitter vegetables").</p>
+        <br/>
+        <h5>2. Saving Preferences</h5>
+        <p>Save in user profile (database) when logged in.Use localStorage or cookies for guest users.</p>
+        <br/>
+        <h5> Benefits to Users</h5>
+        <ul>
+            <li>Saves time browsing.</li>
+            <li>Builds trust by showing relevant items.</li>
+            <li>Supports health needs automatically.</li>
+            <li>Encourages more purchases with accurate suggestions.</li>
+        </ul>
+    </div>
+)}
+{activeSection === 'Instructions' &&(
+    <div className='profile-page-right-my-profile'>
+        <h1>Delivery Instructions</h1>
+        <br/>
+        <h5>What It Is</h5>
+        <p>Delivery Instructions allow users to provide specific guidance to delivery agents or the platform to ensure smooth and accurate delivery of their orders.</p>
+        <br/>
+        <h5>Purpose</h5>
+        <ul>
+            <li>Help delivery agents find the address easily.</li>
+            <li>Prevent missed deliveries due to unclear directions.</li>
+            <li>Support users with unique needs (e.g., elderly, gated societies).</li>
+            <li>Improve overall delivery success and customer satisfaction.</li>
+        </ul>
+        <br/>
+        <h5>Benefits</h5>
+        <ul>
+            <li>Improves First-Time Delivery Success Rate.</li>
+            <li>Reduces Confusion or Miscommunication.</li>
+            <li>Enhances Customer Experience (especially for high-touch items like groceries).</li>
+            <li>Increases Trust by respecting user instructions.</li>
+        </ul>
+    </div>
+)}
+{activeSection === 'Details' &&(
+    <div className='profile-page-right-my-profile'>
+        <h1>Subscription Details</h1>
+        <br/>
+        <p>Our subscription service is designed to ensure you receive the freshest vegetables at your doorstep on a regular basis — without the hassle of reordering every time. Here’s everything you need to know:</p>
+        <br/>
+        <h5>What’s Included</h5>
+        <ul>
+            <li>Fresh & Seasonal Vegetables: Curated selection of locally-sourced, farm-fresh vegetables.</li>
+            <li>Customizable Boxes: Choose your preferences – organic, leafy greens, root vegetables, or mixed.</li>
+            <li>Flexible Quantities: Select from small (for individuals), medium (for couples), or large (for families).</li>
+            <li>Add-on Options: Include fruits, herbs, or exotic vegetables with your subscription.</li>
+        </ul>
+        <br/>
+        <h5>Delivery Frequency</h5>
+        <ul>
+            <li>Weekly (Most Popular): Fresh vegetables delivered once a week.</li>
+            <li>Bi-Weekly: Every two weeks, ideal for moderate users.</li>
+            <li>Monthly: Once a month, great for occasional vegetable users or long-shelf-life items.</li>
+            <li>Choose Your Slot: Morning or evening delivery options available.</li>
+            <li>Timely Reminders: Get SMS/email reminders before your scheduled delivery.</li>
+        </ul>
+        <br/>
+        <h5>Benefits</h5>
+        <ul>
+            <li>Freshness Guarantee</li>
+            <li>Free doorstep delivery</li>
+            <li>Priority support for subscribers</li>
+            <li>Surprise free items on select orders</li>
+        </ul>
+    </div>
 )}
 
 

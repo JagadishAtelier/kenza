@@ -9,6 +9,7 @@ import TPImage6 from '../../Assets/p6.webp'
 import TPImage7 from '../../Assets/p1.webp'
 import TPImage8 from '../../Assets/p8.webp'
 import { useNavigate } from 'react-router-dom'
+import { useWishlist } from '../WishlistContext/WishlistContext'
 // Products with hover images added
 const featuredProducts = [
   { image: TPImage1,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage2, text: "Aliqunaim Retrum Mollis", price: "$ 18.00",type:"organics" },
@@ -47,6 +48,7 @@ function TreandingProduct() {
   const [selectedCategory, setSelectedCategory] = useState('featured')
   const [hoverIndex, setHoverIndex] = useState(null)
   const navigate = useNavigate()
+  const { addToWishlist } = useWishlist();
   let productsToDisplay
   if (selectedCategory === 'featured') productsToDisplay = featuredProducts
   else if (selectedCategory === 'new') productsToDisplay = newArrivals
@@ -101,8 +103,14 @@ function TreandingProduct() {
                   <i className="bi bi-star-fill"></i>
                 </div>
                 <div className='hover-icons'>
-                  <i className="bi bi-heart"
-                    style={{ cursor: 'pointer' }}></i>
+                <i 
+                    className="bi bi-heart"
+                    style={{ cursor: 'pointer' }}
+                    onClick={(e) => {
+                      e.stopPropagation(); // prevent navigating
+                      addToWishlist(data); // 👈 add to wishlist
+                    }}
+                  ></i>
                   <i className="bi bi-eye"></i>
                 </div>
               </div>

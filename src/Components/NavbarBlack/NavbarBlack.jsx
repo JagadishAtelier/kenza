@@ -147,28 +147,46 @@ const navigate = useNavigate()
     {formType === 'login' && (
       <>
         <h3>LOGIN</h3>
-        <input type='text' placeholder='Email' className='nav-login-container-input'/>
-        <input type='password' placeholder='Password' className='nav-login-container-input'/>
+        <form onSubmit={(e) => {
+      e.preventDefault(); // Prevent page refresh
+      setShowLogin(false);
+      navigate('/profile-page');
+    }}>
+        <input type='text' placeholder='Email' className='nav-login-container-input' required/>
+        <input type='password' placeholder='Password' className='nav-login-container-input' required/>
         <p onClick={() => setFormType('forgot')} style={{cursor: 'pointer'}}>Forgot Password?</p>
-        <button>SIGN IN</button>
+        <button type="submit">SIGN IN</button>
+        </form>
         <p onClick={() => setFormType('register')} style={{cursor: 'pointer'}}>Create Account</p>
       </>
     )}
     {formType === 'register' && (
       <>
         <h3>CREATE ACCOUNT</h3>
-        <input type='text' placeholder='Name' className='nav-login-container-input'/>
-        <input type='email' placeholder='Email' className='nav-login-container-input'/>
-        <input type='password' placeholder='Password' className='nav-login-container-input'/>
-        <button>REGISTER</button>
+        <form onSubmit={(e) => {
+      e.preventDefault(); // Prevent page refresh
+      setShowLogin(false);
+      navigate('/profile-page');
+    }}>
+        <input type='text' placeholder='Name' className='nav-login-container-input' required/>
+        <input type='email' placeholder='Email' className='nav-login-container-input' required/>
+        <input type='password' placeholder='Password' className='nav-login-container-input' required/>
+        <button type="submit">REGISTER</button>
+        </form>
         <p onClick={() => setFormType('login')} style={{cursor: 'pointer'}}>Already have an account? Login</p>
       </>
     )}
     {formType === 'forgot' && (
       <>
         <h3>RESET PASSWORD</h3>
-        <input type='email' placeholder='Email' className='nav-login-container-input'/>
-        <button>Send Reset Link</button>
+        <form onSubmit={(e) => {
+      e.preventDefault(); // Prevent page refresh
+      setShowLogin(false);
+      navigate('/profile-page');
+    }}>
+        <input type='email' placeholder='Email' className='nav-login-container-input' required/>
+        <button onClick={()=>{setShowLogin(!showLogin);navigate('/profile-page')}}>Send Reset Link</button>
+        </form>
         <p onClick={() => setFormType('login')} style={{cursor: 'pointer'}}>Back to Login</p>
       </>
     )}
