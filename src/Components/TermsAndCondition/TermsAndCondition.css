@@ -1,0 +1,30 @@
+.terms-and-condition-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    line-height: 1.6;
+    font-size: 16px;
+    margin-top: 7%;
+    border: 1px solid rgb(231, 229, 229);
+    box-sizing: border-box;
+}
+
+.terms-and-condition-container li {
+    color: black !important;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .terms-and-condition-container {
+        padding: 20px 15px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .terms-and-condition-container {
+        padding: 15px 10px;
+        font-size: 14px;
+    }
+}

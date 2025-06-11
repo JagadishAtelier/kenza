@@ -7,12 +7,15 @@ const account = [
   { text: 'Accessories',href : "/all-product" },
   { text: 'Orders',href : "/all-product" },
   { text: 'Collection',href : "/all-product" },
+  { text: 'About Us',href : "/about-us" },
 ];
 const product = [
   { text: 'Home',href : "/" },
   { text: 'Shop',href : "/shop" },
   { text: 'Blog',href : "/blog" },
-  { text: 'About Us',href : "/about-us" },
+  { text: 'Terms & Conditions',href : "/terms-and-condition" },
+  { text: 'Privacy Policy',href : "/privacy-policy" },
+  { text: 'Refund Policy',href : "/refund-policy" },
 ];
 const ourCompany = [
   { text: 'About Us' },

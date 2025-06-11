@@ -28,6 +28,9 @@ import AboutPage from './Components/AboutPage/AboutPage';
 import ScrollToTop from './Components/ScrollToTop/ScrollToTop';
 import ProfilePage from './Components/ProfilePage/ProfilePage';
 import { WishlistProvider } from './Components/WishlistContext/WishlistContext';
+import TermsAndCondition from './Components/TermsAndCondition/TermsAndCondition';
+import PrivacyPolicy from './Components/PrivacyPolicy/PrivacyPolicy';
+import RefundPolicy from './Components/RefundPolicy/RefundPolicy';
 function HomePage() {
   return (
     <>
@@ -63,6 +66,9 @@ function App() {
           <Route path="/blog" element={<BlogPage/>} />
           <Route path="/about-us" element={<AboutPage/>} />
           <Route path="/profile-page" element={<ProfilePage/>} />
+          <Route path="/terms-and-condition" element={<TermsAndCondition/>} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy/>} />
+          <Route path="/refund-policy" element={<RefundPolicy/>} />
           {/* <Route path="/cart" element={<CartPage/>} /> */}
         </Routes>
         <Footer />
