@@ -34,6 +34,11 @@ function CartDrawer({ show, onClose }) {
    const handleQuantityChange = (index, type) => {
     updateQuantity(index, type);
   };
+  const totalAmount = cartItems.reduce((total, item) => {
+    const numericPrice = parseFloat((item.price || "0").replace('$', '').trim());
+    return total + numericPrice * (item.quantity || 1);
+  }, 0);
+  
   return (
     <div className={`cart-drawer ${show ? 'open' : ''}`}>
       <div className="cart-header">
@@ -132,13 +137,13 @@ function CartDrawer({ show, onClose }) {
       <div className='check-out-container'>
       <div className='check-out-price'>
         <h3>Total</h3>
-        <h3>Price</h3>
+        <h3>₹{totalAmount}.00</h3>
       </div>
       <div className='check-out-para'>
         <p>Taxes and shipping calculated at checkout</p>
       </div>
       <div className='check-out-btn-div'>
-        <button style={{backgroundColor:"#3b9048"}} onClick={()=>{onClose();navigate('/payment')}}>CHECK OUT</button>
+        <button style={{backgroundColor:"#3b9048"}} onClick={()=>{onClose();navigate('/payment')}} disabled={cartItems.length === 0}>CHECK OUT</button>
       </div>
     </div>
     </div>

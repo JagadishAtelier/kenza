@@ -31,6 +31,24 @@ const [showDelivery, setShowDelivery] = useState(false);
 const [showPayment, setShowPayment] = useState(false);
 const [activeSection, setActiveSection] = useState('contact');
 const { placeOrder, clearCart, cartItems } = useCart();
+
+const [contactInfo, setContactInfo] = useState('');
+const [addressInfo, setAddressInfo] = useState({
+  firstName: '',
+  lastName: '',
+  address: '',
+  city: '',
+  state: '',
+  pincode: ''
+});
+const isContactValid = contactInfo.trim() !== '';
+const isDeliveryValid =
+  addressInfo.firstName.trim() !== '' &&
+  addressInfo.lastName.trim() !== '' &&
+  addressInfo.address.trim() !== '' &&
+  addressInfo.city.trim() !== '' &&
+  addressInfo.state.trim() !== '' &&
+  addressInfo.pincode.trim() !== '';
 const handleConfirmOrder = () => {
   const confirmedOrders = productFromState ? [productFromState] : cartItems;
 
@@ -70,7 +88,7 @@ const handleSubmit = () => {
       alert('Please fill all card details.');
       return;
     }
-    alert(`Payment method: Credit Card\nName: ${nameOnCard}`);
+    alert("Paid Successfully");
   } else {
     alert('Payment method: Cash on Delivery (COD)');
   }
@@ -81,66 +99,143 @@ const handleSubmit = () => {
   clearCart(); // ✅ Clear the cart
 
   setOrderConfirmed(true);
-
+  localStorage.setItem('savedAddress', JSON.stringify(addressInfo));
+  const formattedAddress = {
+    type: "Home",
+    house: addressInfo.house,
+    street: addressInfo.street,
+    landMark: addressInfo.landMark,
+    city: addressInfo.city,
+    district: addressInfo.district,
+    state: addressInfo.state,
+    pincode: addressInfo.pincode,
+    phone: addressInfo.phone
+  };
+  
+  localStorage.setItem('savedAddress', JSON.stringify(formattedAddress));
+  console.log(formattedAddress)
+  console.log(addressInfo)
   navigate('/profile-page'); // ✅ Profile page will now access order from context
 };
-
     
   return (
     <div className='payment-page-container'>
         <div className='payment-left-side-container'>
         <div className='payent-page-contact-container'>
   <div className='payment-contact-text-login'>
-    <h4>Contact</h4>
-    <button onClick={() => setActiveSection('contact')} className='info-edit-btn'>Edit</button>
+    <h4>Contact  {!isContactValid && <span style={{ color: 'red', fontSize: '14px' }}> (Incomplete)</span>}</h4>
+    <button onClick={() => setActiveSection('contact')} className='info-edit-btn'>Add</button>
   </div>
 
   {activeSection === 'contact' ? (
     <>
-      <input type='text' placeholder='Email or Mobile Phone Number' className='payment-text-box' />
+      <input type='text' placeholder='Email or Mobile Phone Number' className='payment-text-box' value={contactInfo}
+  onChange={(e) => setContactInfo(e.target.value)}/>
       <div className='payment-page-checkbox-input-text'>
-        <input type='checkbox' className='payment-check-box' />
+        <input type='checkbox' className='payment-check-box' required/>
         <p>Email me with news and offers</p>
       </div>
     </>
   ) : (
-    <p>Contact Info: Not Provided</p>
+    <p>Contact Info: {contactInfo || 'Not Provided'}</p>
   )}
 </div>
 
 
 <div className='payment-delivery-conatiner-left'>
   <div className='payment-contact-text-login'>
-    <h4>Delivery</h4>
-    <button onClick={() => setActiveSection('delivery')} className='info-edit-btn'>Edit</button>
+    <h4>Delivery {!isDeliveryValid && <span style={{ color: 'red', fontSize: '14px' }}> (Incomplete)</span>}</h4>
+    <button onClick={() => setActiveSection('delivery')} className='info-edit-btn'>Add</button>
   </div>
 
   {activeSection === 'delivery' ? (
-    <>
-      <select className='delivery-country-select-box'>
-        <option>India</option>
-        <option>United States</option>
-        <option>United Kingdom</option>
-      </select>
-      <div className='delivery-name-container'>
-        <input type='text' placeholder='First Name' className='payment-delivery-name-box' />
-        <input type='text' placeholder='Last Name' className='payment-delivery-name-box' />
-      </div>
-      <input type='text' placeholder='Address' className='payment-text-box' />
-      <input type='text' placeholder='Apartment,Suite,etc(Optional)' className='payment-text-box' />
-      <div className='delivery-name-container'>
-        <input type='text' placeholder='City' className='payment-text-box' />
-        <input type='text' placeholder='State' className='payment-text-box' />
-        <input type='text' placeholder='Pincode' className='payment-text-box' />
-      </div>
-      <div className='payment-page-checkbox-input-text'>
-        <input type='checkbox' className='payment-check-box' />
-        <p>Save this information for next time</p>
-      </div>
-    </>
-  ) : (
-    <p>Delivery Address: Not Selected</p>
-  )}
+  <>
+    <select className='delivery-country-select-box' required>
+      <option>India</option>
+      <option>United States</option>
+      <option>United Kingdom</option>
+    </select>
+
+    <div className='delivery-name-container'>
+      <input type='text' placeholder='First Name' className='payment-delivery-name-box'
+        value={addressInfo.firstName}
+        onChange={(e) => setAddressInfo({ ...addressInfo, firstName: e.target.value })}
+        required />
+      <input type='text' placeholder='Last Name' className='payment-delivery-name-box'
+        value={addressInfo.lastName}
+        onChange={(e) => setAddressInfo({ ...addressInfo, lastName: e.target.value })}
+        required />
+    </div>
+
+    <input type='text' placeholder='House Number'
+      className='payment-text-box'
+      value={addressInfo.house}
+      onChange={(e) => setAddressInfo({ ...addressInfo, house: e.target.value })}
+      required />
+
+    <input type='text' placeholder='Street Name'
+      className='payment-text-box'
+      value={addressInfo.street}
+      onChange={(e) => setAddressInfo({ ...addressInfo, street: e.target.value })}
+      required />
+
+    <input type='text' placeholder='Landmark'
+      className='payment-text-box'
+      value={addressInfo.landMark}
+      onChange={(e) => setAddressInfo({ ...addressInfo, landMark: e.target.value })}
+      required />
+
+    <input type='text' placeholder='Address'
+      className='payment-text-box'
+      value={addressInfo.address}
+      onChange={(e) => setAddressInfo({ ...addressInfo, address: e.target.value })}
+      required />
+
+    <div className='delivery-name-container'>
+      <input type='text' placeholder='City'
+        className='payment-text-box'
+        value={addressInfo.city}
+        onChange={(e) => setAddressInfo({ ...addressInfo, city: e.target.value })}
+        required />
+
+      <input type='text' placeholder='District'
+        className='payment-text-box'
+        value={addressInfo.district}
+        onChange={(e) => setAddressInfo({ ...addressInfo, district: e.target.value })}
+        required />
+
+      <input type='text' placeholder='State'
+        className='payment-text-box'
+        value={addressInfo.state}
+        onChange={(e) => setAddressInfo({ ...addressInfo, state: e.target.value })}
+        required />
+    </div>
+
+    <input type='text' placeholder='Pincode'
+      className='payment-text-box'
+      value={addressInfo.pincode}
+      onChange={(e) => setAddressInfo({ ...addressInfo, pincode: e.target.value })}
+      required />
+
+    <input type='text' placeholder='Phone Number'
+      className='payment-text-box'
+      value={addressInfo.phone}
+      onChange={(e) => setAddressInfo({ ...addressInfo, phone: e.target.value })}
+      required />
+
+    <div className='payment-page-checkbox-input-text'>
+      <input type='checkbox' className='payment-check-box' />
+      <p>Save this information for next time</p>
+    </div>
+  </>
+) : (
+  <p>
+    {addressInfo.firstName
+      ? `${addressInfo.firstName} ${addressInfo.lastName}, ${addressInfo.house}, ${addressInfo.street}, ${addressInfo.landMark}, ${addressInfo.address}, ${addressInfo.city}, ${addressInfo.district}, ${addressInfo.state} - ${addressInfo.pincode}, Phone: ${addressInfo.phone}`
+      : 'Delivery Address: Not Selected'}
+  </p>
+)}
+
 </div>
 {/* Product Details Section under Delivery */}
 <div className="product-details-under-delivery">
@@ -177,7 +272,7 @@ const handleSubmit = () => {
 <div className="payment-container">
   <div className='payment-contact-text-login'>
     <h2>Payment</h2>
-    <button onClick={() => setActiveSection('payment')} className='info-edit-btn'>Edit</button>
+    <button onClick={() => setActiveSection('payment')} className='info-edit-btn'>Add</button>
   </div>
   <p className="secure-text">All transactions are secure and encrypted.</p>
 
@@ -224,7 +319,22 @@ const handleSubmit = () => {
     <p>Payment Method: Not Selected</p>
   )}
 
-  <button className="pay-btn" onClick={handleSubmit}>Pay now</button>
+  <button
+  className="pay-btn"
+  onClick={handleSubmit}
+  disabled={
+    !contactInfo ||
+    !addressInfo.firstName ||
+    !addressInfo.lastName ||
+    !addressInfo.address ||
+    !addressInfo.city ||
+    !addressInfo.state ||
+    !addressInfo.pincode
+  }
+>
+  Pay now
+</button>
+
 </div>
 
             

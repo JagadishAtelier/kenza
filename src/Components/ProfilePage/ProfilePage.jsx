@@ -6,12 +6,27 @@ import { useCart } from '../CartContext/CartContext';
 import { useWishlist } from '../WishlistContext/WishlistContext';
 function ProfilePage() {
     const [userDetails, setUserDetails] = useState({});
+    const [savedAddress, setSavedAddress] = useState(null);
     useEffect(() => {
         const savedDetails = localStorage.getItem('userDetails');
         if (savedDetails) {
           setUserDetails(JSON.parse(savedDetails));
         }
       }, []);
+      useEffect(() => {
+        const addressFromStorage = localStorage.getItem('savedAddress');
+        if (addressFromStorage) {
+          const parsedAddress = JSON.parse(addressFromStorage);
+          setSavedAddress(parsedAddress);
+      
+          // Update addresses state to show in form
+          setAddresses([{
+            ...parsedAddress,
+            LanndMark: parsedAddress.landMark || "", // normalize key mismatch if any
+          }]);
+        }
+      }, []);
+      
     const { orderedItems, cartItems } = useCart();
     const { wishlist  } = useWishlist();
     const [activeSection, setActiveSection] = useState('profile'); // 'profile' or 'address'
@@ -42,15 +57,15 @@ function ProfilePage() {
     
       const [addresses, setAddresses] = useState([
         {
-          type: 'Home',
-          house:"#123",
-          street:"4th Cross",
-          LanndMark : "Near XYZ Supermarket",
-          city :"Chennai",
-          district:"Chennai District",
-          state:"Tamil Nadu",
-          pincode:"600040",
-          phone: '+91 98765 43210',
+          type: '',
+          house:"",
+          street:"",
+          LanndMark : "",
+          city :"",
+          district:"",
+          state:"",
+          pincode:"",
+          phone: '',
         }
       ]);
     
@@ -86,6 +101,8 @@ function ProfilePage() {
           });
         }
       }, []);
+      
+      
     
     const handleSaveProfile = () => {
         // Save the updated user details to localStorage
@@ -99,6 +116,15 @@ function ProfilePage() {
         localStorage.setItem('userDetails', JSON.stringify(updatedDetails));
         setIsEditingProfile(false);
     };
+    const handleSaveAddress = () => {
+      const updatedDetails = {
+        ...userDetails,
+        address: addresses[0]
+      };
+      localStorage.setItem('userDetails', JSON.stringify(updatedDetails));
+      setIsEditingProfile(false);
+    };
+    
   return (
     <div className='profile-page-container'>
     <div className='profile-page-left'>
