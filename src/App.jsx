@@ -59,7 +59,7 @@ function App() {
         <NewsletterPopup/>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/product/:name" element={<TrendingNow />} />
+          <Route path="/product/:id" element={<TrendingNow />} />
           <Route path="/all-product" element={<ViewAllProduct />} />
           <Route path="/payment" element={<PaymentPage/>} />
           <Route path="/shop" element={<ShopPage/>} />
