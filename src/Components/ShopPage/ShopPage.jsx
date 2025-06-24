@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './ShopPage.css'
 import TPImage1 from '../../Assets/p1.webp'
 import TPImage2 from '../../Assets/p2.webp'
@@ -9,6 +9,7 @@ import TPImage6 from '../../Assets/p6.webp'
 import TPImage7 from '../../Assets/p1.webp'
 import TPImage8 from '../../Assets/p8.webp'
 import { useNavigate } from 'react-router-dom'
+import { getAllProducts } from '../../Api/productApi'
 // Products with hover images added
 const featuredProducts = [
   { image: TPImage1,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage2, text: "Aliqunaim Retrum Mollis", price: "$ 18.00",type:"organics" },
@@ -21,14 +22,29 @@ const featuredProducts = [
   { image: TPImage4,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage8, text: "Organic Chilli", price: "$ 14.00" ,type:"organics"}
 ]
 function ShopPage() {
+  const [allProducts,setAllProducts] = useState([])
     const navigate = useNavigate()
+    const [loading, setLoading] = useState(true)
+    useEffect(()=>{
+      const fetchProducts = async()=>{
+        try {
+          const allProductsResponse = await getAllProducts();
+          const allProducts = allProductsResponse.data;
+          setAllProducts(allProducts)
+        } catch (error) {
+          console.error("Failed to fetch products", error)
+          setLoading(false)
+        }
+      }
+      fetchProducts()
+    },[])
   return (
     <div>
         <div style={{marginTop:"7%",textAlign:"center"}}>
             <h1>COLLECTION</h1>
         </div>
     <div className='grid-box-container'>
-    {featuredProducts.map((data, index) => {
+    {allProducts.map((data, index) => {
 
       return (
         <div 
@@ -37,24 +53,23 @@ function ShopPage() {
         >
           <div className='image-wrapper' onClick={() => navigate('/all-product')}>
             <img 
-              src={data.image} 
+              src={data.images?.[0]} 
               alt={`product-${index}`} 
             />
-            <div className='star-overlay'>
-              <i className="bi bi-star-fill"></i>
-              <i className="bi bi-star-fill"></i>
-              <i className="bi bi-star-fill"></i>
-              <i className="bi bi-star-fill"></i>
-              <i className="bi bi-star-fill"></i>
-            </div>
             <div className='hover-icons'>
               <i className="bi bi-heart"></i>
               <i className="bi bi-eye"></i>
             </div>
           </div>
-          <p>{data.text}</p>
+          <div className='star-overlay'>
+              <i className="bi bi-star-fill"></i>
+              <i className="bi bi-star-fill"></i>
+              <i className="bi bi-star-fill"></i>
+              <i className="bi bi-star-fill"></i>
+              <i className="bi bi-star-fill"></i>
+            </div>
+          <p>{data.name}</p>
           <p>{data.price}</p>
-          <button className='shop-page-shop-now-btn' onClick={() => navigate('/all-product')}>SHOP NOW</button>
         </div>
       )
     })}

@@ -72,9 +72,9 @@ function SpecialProduct() {
                   <i className="bi bi-star-fill"></i>
                 </div>
 
-                <div className="spl-para-text text-center">
+                <div className="spl-para-text">
                   <p className="spl-product-name">{product.name}</p>
-                  <p className="spl-product-price">₹ {product.price}</p>
+                  <p className="spl-product-price">{product.price}</p>
                 </div>
               </div>
             );
