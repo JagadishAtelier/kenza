@@ -46,6 +46,7 @@
 .navbar-white-icon-text{
     display: flex;
     gap: 10px;
+    align-items: center;
     position: relative;
 }
 .navbar-white-icon-text i{
@@ -54,7 +55,7 @@
 }
 .navbar-white-icon-text p{
     font-size: 16px;
-    margin-top: 7px;
+    margin: 0;
 }
 .navbar {
     display: flex;
@@ -468,7 +469,8 @@
 .cart-icon-with-count {
   position: relative;
   display: flex;
-  gap: 30px;
+  align-items: center;
+  gap: 10px;
 }
 
 .cart-count-badge {
@@ -543,4 +545,48 @@
 }
 .modal-details-content h5{
   width: 200px;
+}
+.user-dropdown-wrapper {
+  position: relative;
+}
+
+.user-dropdown-panel {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 280px;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 1rem;
+  z-index: 999;
+  border-radius: 6px;
+}
+
+.user-dropdown-panel input {
+  display: block;
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+.user-dropdown-panel button {
+  width: 100%;
+  padding: 10px;
+  background-color: #000;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.user-dropdown-panel p {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-align: center;
+  color: #333;
+}
+
+.user-dropdown-panel p:hover {
+  color: #000;
 }
