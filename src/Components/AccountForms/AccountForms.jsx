@@ -38,7 +38,7 @@ const AccountForms = ({
               e.preventDefault();
               setRegisterError('');
               try {
-                const result = await createAccount({
+                await createAccount({
                   name: registerName,
                   email: registerEmail,
                   password: registerPassword,
@@ -92,7 +92,7 @@ const AccountForms = ({
         setLoginError('');
         setLoginSuccess('');
         try {
-          const result = await loginUser({
+          await loginUser({
             email: loginEmail,
             password: loginPassword
           });

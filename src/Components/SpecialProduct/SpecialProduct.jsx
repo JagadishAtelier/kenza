@@ -52,6 +52,20 @@ function SpecialProduct() {
                     alt={product.name}
                     onError={(e) => (e.target.src = '/fallback-image.jpg')}
                   />
+                </div>
+
+                
+
+                <div className="spl-para-text text-start">
+                  <div className="spl-star-overlay center-stars">
+                  <i className="bi bi-star-fill"></i>
+                  <i className="bi bi-star-fill"></i>
+                  <i className="bi bi-star-fill"></i>
+                  <i className="bi bi-star"></i>
+                  <i className="bi bi-star"></i>
+                </div>
+                  <p className="spl-product-name">{product.name}</p>
+                  <p className="spl-product-price">₹ {product.price}</p>
                   <div className="spl-hover-icons">
                     <i
                       className="bi bi-heart"
@@ -62,19 +76,6 @@ function SpecialProduct() {
                     ></i>
                     <i className="bi bi-eye"></i>
                   </div>
-                </div>
-
-                <div className="spl-star-overlay center-stars">
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                </div>
-
-                <div className="spl-para-text">
-                  <p className="spl-product-name">{product.name}</p>
-                  <p className="spl-product-price">{product.price}</p>
                 </div>
               </div>
             );

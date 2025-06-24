@@ -247,7 +247,7 @@ function ViewAllProduct() {
                   </div>
                 </div>
                 <p>{data.name}</p>
-                <p>₹ {data.price}</p>
+                <p>{data.price}</p>
                 <div className="dots-container">
                   <span className={`dot ${hoverIndex === index ? 'active' : ''}`}></span>
                   <span className={`dot ${hoverIndex !== index ? 'active' : ''}`}></span>

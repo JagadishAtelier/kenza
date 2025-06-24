@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./NavbarBlack.css";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -6,6 +6,7 @@ import AccountForms from "../AccountForms/AccountForms";
 import phoneSystemImage from "../../Assets/phoneSystemImage.png";
 import callSupport from "../../Assets/callSupport.png";
 import CartDrawer from "../CartDrawer/CartDrawer";
+import { getAllCategories } from "../../Api/categoryApi";
 import { useCart } from "../CartContext/CartContext";
 // import fruit1 from '../../Assets/carrot.png'
 // import fruit2 from '../../Assets/fruit2.png'
@@ -14,6 +15,7 @@ import { useCart } from "../CartContext/CartContext";
 // import fruit5 from '../../Assets/fruit6.webp'
 // import fruit6 from '../../Assets/fruit5.webp'
 import logo from "../../Assets/logo.png";
+import SearchBar from "../SearchBar/SearchBar";
 // const blackNavData = [
 //   {image : fruit1 , text : "CARROT"},
 //   {image : fruit2 , text : "POTATO"},
@@ -22,12 +24,12 @@ import logo from "../../Assets/logo.png";
 //   {image : fruit5 , text : "PAPAYA"},
 //   {image : fruit6 , text : "TOMATO"},
 // ]
-const categories = [
-  { text: "Organic", href: "/all-product" },
-  { text: "Accessories", href: "/all-product" },
-  { text: "Collection", href: "/all-product" },
-  { text: "Collection", href: "/all-product" },
-];
+// const categories = [
+//   { text: "Organic", href: "/all-product" },
+//   { text: "Accessories", href: "/all-product" },
+//   { text: "Collection", href: "/all-product" },
+//   { text: "Collection", href: "/all-product" },
+// ];
 function NavbarBlack() {
   const [showCategories, setShowCategories] = useState(false);
   const [getUserDetails, setGetUserDetails] = useState(false);
@@ -36,9 +38,25 @@ function NavbarBlack() {
   const [cartOpen, setCartOpen] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const { cartItems } = useCart(); // Replace with your actual context structure
-  const itemCount = cartItems.length;
+  // const itemCount = cartItems.length;
   const [formType, setFormType] = useState("login"); // 'login' | 'register' | 'forgot'
   const navigate = useNavigate();
+
+const [categories, setCategories] = useState([]);
+
+useEffect(() => {
+  const fetchCategories = async () => {
+    try {
+      const data = await getAllCategories();
+      setCategories(data);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
+
+  fetchCategories();
+}, []);
+
   return (
     <div style={{ position: "relative" }}>
       <div className="navbar-black-container">
@@ -114,14 +132,14 @@ function NavbarBlack() {
 
             {showCategories && (
               <ul className="categories-dropdown">
-                {categories.map((category, index) => (
-                  <li key={index}>
+                {categories.map((category) => (
+                  <li key={category._id}>
                     <Link
-                      to={category.href}
+                      to={`/all-product`}
                       state={{ product: category }}
                       onClick={() => setShowCategories(false)}
                     >
-                      {category.text}
+                      {category.name}
                     </Link>
                   </li>
                 ))}
@@ -152,12 +170,13 @@ function NavbarBlack() {
             </p>
           </div>
 
-          <div className="nav-search">
+          {/* <div className="nav-search">
             <input type="text" placeholder="Search" />
             <button>
               <i className="bi bi-search"></i>
             </button>
-          </div>
+          </div> */}
+          <SearchBar/>
         </div>
       </div>
 
