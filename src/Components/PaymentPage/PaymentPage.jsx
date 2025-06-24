@@ -247,7 +247,7 @@ const handleSubmit = () => {
         <div className="product-info">
           <p className="product-name">{product.name}</p>
           <p className="product-price">Qty: {product.quantity}</p>
-          <p className="product-price">{product.price}</p>
+          <p className="product-price">₹{product.price}</p>
 
         </div>
       </div>
@@ -258,7 +258,7 @@ const handleSubmit = () => {
       <div className="product-info">
         <p className="product-name">{productFromState.name}</p>
         <p className="product-price">Qty: 1</p>
-        <p className="product-price">{productFromState.price}</p>
+        <p className="product-price">₹{productFromState.price}</p>
       </div>
     </div>
   )}
@@ -350,7 +350,7 @@ const handleSubmit = () => {
                 <div className='payment-data-grid'>
                   <img src={product.images?.[0]}/>
                   <p>{product.name}</p>
-                  <p>{product.price}</p>
+                  <p>₹{product.price}</p>
                   <p>Qty: {product.quantity}</p>
                 </div>
               ))}
@@ -358,7 +358,7 @@ const handleSubmit = () => {
     <div className='payment-data-grid' key="buy-now-summary">
       <img src={productFromState.images?.[0]} />
       <p>{productFromState.name}</p>
-      <p>{productFromState.price}</p>
+      <p>₹{productFromState.price}</p>
       <p>Qty: 1</p>
     </div>
   )}
