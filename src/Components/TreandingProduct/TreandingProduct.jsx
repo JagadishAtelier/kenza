@@ -24,7 +24,7 @@ function TreandingProduct() {
         setFeaturedProducts(allProducts.data.slice(0, 8))
         setNewArrivals(allProducts.data.slice(8, 16))
         setBestSellers(allProducts.data.slice(16, 24))
-
+        console.log("productList :",allProducts)
         setLoading(false)
       } catch (error) {
         console.error("Failed to fetch products", error)

@@ -19,7 +19,7 @@ function TrendingNow() {
   const [product, setProduct] = useState(null);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [hoverIndex, setHoverIndex] = useState(null);
-  const [mainImage, setMainImage] = useState(TNImage1);
+  const [mainImage, setMainImage] = useState();
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("S");
   const [selectedColor, setSelectedColor] = useState("yellow");
@@ -28,11 +28,18 @@ function TrendingNow() {
   useEffect(() => {
     const fetchProductData = async () => {
       try {
-        const productData = await getProductById(id);
-        setProduct(productData);
-        setMainImage(productData.images?.[0] || TNImage1);
+        const response = await getProductById(id);
+        const productData = response.data;
+        console.log("trendingNow:",productData)
+        console.log("Fetched product images:", productData.images);
 
-        const allProducts = await getAllProducts();
+        setProduct(productData);
+        setMainImage(productData.images && productData.images.length > 0 ? productData.images[0] : TNImage1);
+        console.log("Main Image set to:", productData.images?.[0] || TNImage1);
+
+        const allProductsResponse = await getAllProducts();
+        const allProducts = allProductsResponse.data;
+        console.log("Filtered products source:", allProducts);
         const filtered = allProducts
           .filter((p) => p._id !== productData._id)
           .slice(0, 8);
@@ -71,17 +78,20 @@ function TrendingNow() {
         <div className="product-container">
           <div className="image-section">
             <img src={mainImage} alt="Product" className="product-image" />
-            <div className="thumbnail-container">
-              {[TNImage1, TNImage2, TNImage3, TNImage4].map((img, index) => (
-                <img
-                  key={index}
-                  src={img}
-                  alt={`thumb-${index}`}
-                  className="thumbnail-image"
-                  onClick={() => setMainImage(img)}
-                />
-              ))}
-            </div>
+            {product.images?.length > 1 && (
+  <div className="thumbnail-container">
+    {product.images.map((img, index) => (
+      <img
+        key={index}
+        src={img}
+        alt={`thumb-${index}`}
+        className="thumbnail-image"
+        onClick={() => setMainImage(img)}
+      />
+    ))}
+  </div>
+)}
+
           </div>
 
           <div className="details-section">

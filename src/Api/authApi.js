@@ -1,5 +1,26 @@
 // src/api/authApi.js
 const BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api/auth`; 
+export const createAccount = async ({ name, email, password }) => {
+  try {
+    const response = await fetch(`${BASE_URL}/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error('Register Error Details:', data); // 👈 shows backend error
+      throw new Error(data.message || 'Failed to create account');
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Register Error:', error);
+    throw new Error(error.message || 'Network error');
+  }
+};
 
 export const loginUser = async ({ email, password }) => {
   try {

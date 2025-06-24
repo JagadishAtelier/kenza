@@ -1,8 +1,9 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import './CartDrawer.css';
+import { getAllProducts } from '../../Api/productApi';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../CartContext/CartContext';
 import TPImage1 from '../../Assets/p1.webp'
@@ -26,16 +27,25 @@ const featuredProducts = [
 function CartDrawer({ show, onClose }) {
   const { cartItems, removeFromCart,addToCart,updateQuantity  } = useCart();
   const [showCartDrawer, setShowCartDrawer] = useState(false);
-
+  const [allproduct,setAllProducts] = useState([]);
 <CartDrawer show={showCartDrawer} onClose={() => setShowCartDrawer(false)} />
-
+  console.log("CartPage cartItems:", cartItems)
    const navigate = useNavigate() 
-   const [cartData, setCartData] = useState([]);
    const handleQuantityChange = (index, type) => {
     updateQuantity(index, type);
   };
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const allProductsResponse = await getAllProducts();
+      const allProducts = allProductsResponse.data;
+      setAllProducts(allProducts); // 🔁 Fix: Use correct variable
+    };
+  
+    fetchProducts(); // 🟢 Call the async function
+  }, []);
+  
   const totalAmount = cartItems.reduce((total, item) => {
-    const numericPrice = parseFloat((item.price || "0").replace('$', '').trim());
+    const numericPrice = parseFloat(item.price.replace(/[^\d.]/g, '')) || 0;
     return total + numericPrice * (item.quantity || 1);
   }, 0);
   
@@ -63,10 +73,11 @@ function CartDrawer({ show, onClose }) {
       <div className="cart-body">
         {/* Cart Items List */}
         {cartItems.map((item, index) => {
-  const numericPrice = parseFloat(item.price.replace('$', '').trim());
+const numericPrice = parseFloat(item.price.replace(/[^\d.]/g, '')) || 0;
+const itemTotal = numericPrice * (item.quantity || 1);
   return (
     <div className="cart-item" key={index}>
-      <img src={item.image} alt={item.text} />
+      <img src={item.images?.[0]} alt={item.text} />
       <div className='cart-drawer-text-price'>
         <div className='cart-drawer-item-text-div'>
           <div className='cart-drawer-item-text'>
@@ -111,13 +122,13 @@ function CartDrawer({ show, onClose }) {
         <div className="recommend">
           <h4>You Might Also Like</h4>
           <div className="recommend-list">
-          {featuredProducts.map((item, index) => {
+          {allproduct.map((item, index) => {
   const isInCart = cartItems.some(ci => ci.text === item.text);
   return (
     <div className="recommend-item" key={index}>
-      <img src={item.image} alt={item.text} />
+      <img src={item.images?.[0]} alt={item.text} />
       <div>
-        <p>{item.text}</p>
+        <p>{item.name}</p>
         <p>{item.price}</p>
         <button
           onClick={() => addToCart(item)}

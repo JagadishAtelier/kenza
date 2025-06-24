@@ -7,9 +7,11 @@ export const useCart = () => useContext(CartContext);
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [orderedItems, setOrderedItems] = useState([]);
+  console.log("cartItems:", cartItems);
   const addToCart = (item) => {
+    console.log("Item added to cart:", item);
     setCartItems(prevItems => {
-      const existingItemIndex = prevItems.findIndex(i => i.text === item.text);
+      const existingItemIndex = prevItems.findIndex(i => i._id === item._id);
       if (existingItemIndex !== -1) {
         // Reset quantity to 1 if item already exists
         const updatedItems = [...prevItems];

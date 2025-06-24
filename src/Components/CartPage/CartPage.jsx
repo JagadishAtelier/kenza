@@ -1,53 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import './CartPage.css';
-import { useLocation, useNavigate } from 'react-router-dom';
-
+import {useNavigate } from 'react-router-dom';
+import { useCart } from '../CartContext/CartContext';
 function CartPage() {
-  const location = useLocation();
   const navigate = useNavigate();
-  const incomingProduct = location.state?.product;
+  const { cartItems, updateQuantity } = useCart();
+  console.log("CartPage cartItems:", cartItems)
+  // useEffect(() => {
+  //   if (incomingProduct) {
+  //     setCartItems((prevItems) => {
+  //       const existingIndex = prevItems.findIndex(
+  //         (item) => item.name === incomingProduct.name
+  //       );
+  //       if (existingIndex !== -1) {
+  //         const updatedItems = [...prevItems];
+  //         updatedItems[existingIndex].quantity += 1;
+  //         return updatedItems;
+  //       } else {
+  //         const rawPrice = incomingProduct.price?.toString().replace(/[^\d.]/g, '');
+  //         const price = Number(rawPrice);
 
-  const [cartItems, setCartItems] = useState([]);
-
-  useEffect(() => {
-    if (incomingProduct) {
-      setCartItems((prevItems) => {
-        const existingIndex = prevItems.findIndex(
-          (item) => item.text === incomingProduct.text
-        );
-
-        if (existingIndex !== -1) {
-          const updatedItems = [...prevItems];
-          updatedItems[existingIndex].quantity += 1;
-          return updatedItems;
-        } else {
-          const rawPrice = incomingProduct.price?.toString().replace(/[^\d.]/g, '');
-          const price = Number(rawPrice);
-
-          return [
-            ...prevItems,
-            {
-              ...incomingProduct,
-              price,
-              quantity: 1,
-            },
-          ];
-        }
-      });
-    }
-  }, [incomingProduct]);
+  //         return [
+  //           ...prevItems,
+  //           {
+  //             ...incomingProduct,
+  //             price,
+  //             quantity: 1,
+  //           },
+  //         ];
+  //       }
+  //     });
+  //   }
+  // }, [incomingProduct]);
 
   const handleQuantityChange = (index, type) => {
-    setCartItems((prevItems) => {
-      const updated = [...prevItems];
-      if (type === 'inc') {
-        updated[index].quantity += 1;
-      } else if (type === 'dec') {
-        updated[index].quantity = Math.max(1, updated[index].quantity - 1);
-      }
-      return updated;
-    });
+    updateQuantity(index, type); // from context
   };
+  
 
   if (cartItems.length === 0) {
     return (
@@ -88,8 +77,8 @@ function CartPage() {
             {/* Product Info */}
             <div className="cart-item-product-container">
               <div className="cart-item-product-container-image-text">
-                <img src={product.image} alt="product" />
-                <h6>{product.text}</h6>
+                <img src={product.images?.[0]} alt="product" />
+                <h6>{product.name}</h6>
               </div>
             </div>
 

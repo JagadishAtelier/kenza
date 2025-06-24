@@ -67,11 +67,11 @@ const handleConfirmOrder = () => {
 
 const totalAmount =
   cartItems.reduce((total, item) => {
-    const price = parseFloat(item.price.replace('$', '').trim());
+    const price = parseFloat(item.price.replace(/[^\d.]/g, '')) || 0;
     return total + price * (item.quantity || 1);
   }, 0) +
   (productFromState
-    ? parseFloat(productFromState.price.replace('$', '').trim())
+    ? parseFloat(productFromState.price.replace(/[^\d.]/g, '')) || 0
     : 0);
 
 
@@ -243,9 +243,9 @@ const handleSubmit = () => {
   <div className="product-items-list">
     {cartItems.map((product, index) => (
       <div className="product-item-row" key={index}>
-        <img src={product.image} alt={product.text} className="product-thumb" />
+        <img src={product.images?.[0]} alt={product.text} className="product-thumb" />
         <div className="product-info">
-          <p className="product-name">{product.text}</p>
+          <p className="product-name">{product.name}</p>
           <p className="product-price">Qty: {product.quantity}</p>
           <p className="product-price">{product.price}</p>
 
@@ -254,9 +254,9 @@ const handleSubmit = () => {
     ))}
   {productFromState && (
     <div className="product-item-row" key="buy-now">
-      <img src={productFromState.image} alt={productFromState.text} className="product-thumb" />
+      <img src={productFromState.images?.[0]} alt={productFromState.text} className="product-thumb" />
       <div className="product-info">
-        <p className="product-name">{productFromState.text}</p>
+        <p className="product-name">{productFromState.name}</p>
         <p className="product-price">Qty: 1</p>
         <p className="product-price">{productFromState.price}</p>
       </div>
@@ -348,16 +348,16 @@ const handleSubmit = () => {
             <div className='payment-grid-container'>
               {cartItems.map((product,index)=>(
                 <div className='payment-data-grid'>
-                  <img src={product.image}/>
-                  <p>{product.text}</p>
+                  <img src={product.images?.[0]}/>
+                  <p>{product.name}</p>
                   <p>{product.price}</p>
                   <p>Qty: {product.quantity}</p>
                 </div>
               ))}
 {productFromState && (
     <div className='payment-data-grid' key="buy-now-summary">
-      <img src={productFromState.image} />
-      <p>{productFromState.text}</p>
+      <img src={productFromState.images?.[0]} />
+      <p>{productFromState.name}</p>
       <p>{productFromState.price}</p>
       <p>Qty: 1</p>
     </div>
