@@ -82,7 +82,7 @@ const itemTotal = numericPrice * (item.quantity || 1);
         <div className='cart-drawer-item-text-div'>
           <div className='cart-drawer-item-text'>
             <p><strong>{item.text}</strong></p>
-            <p>{item.quantity || 1} x ${numericPrice.toFixed(2)} = ${(numericPrice * (item.quantity || 1)).toFixed(2)}</p>
+            <p>{item.quantity || 1} x ₹{numericPrice.toFixed(2)} = ₹{(numericPrice * (item.quantity || 1)).toFixed(2)}</p>
           </div>
         </div>
         <div className="cart-item-price-container">
@@ -129,7 +129,7 @@ const itemTotal = numericPrice * (item.quantity || 1);
       <img src={item.images?.[0]} alt={item.text} />
       <div>
         <p>{item.name}</p>
-        <p>{item.price}</p>
+        <p>₹{item.price}</p>
         <button
           onClick={() => addToCart(item)}
           disabled={isInCart}

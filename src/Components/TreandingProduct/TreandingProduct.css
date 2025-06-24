@@ -42,9 +42,6 @@
   
   /* Positioning the star rating on top of the image */
   .star-overlay {
-    position: absolute;
-    top: 81%;
-    right: 32%;
     padding: 4px 6px;
     border-radius: 4px;
   }
