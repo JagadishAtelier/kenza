@@ -100,7 +100,7 @@ function TrendingNow() {
 
             <div className="price">
               <span className="original-price">₹60000</span>
-              <span className="discounted-price">₹{product.price}</span>
+              <span className="discounted-price">{product.price}</span>
               <span className="tax-info">Tax included.</span>
             </div>
 
