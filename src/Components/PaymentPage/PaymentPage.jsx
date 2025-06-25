@@ -1,5 +1,7 @@
 import React,{useState} from 'react'
 import './PaymentPage.css'
+import { createOrder } from '../../Api/orderApi';
+
 import TPImage1 from '../../Assets/p1.webp'
 import TPImage2 from '../../Assets/p2.webp'
 import TPImage3 from '../../Assets/p3.webp'
@@ -67,12 +69,13 @@ const handleConfirmOrder = () => {
 
 const totalAmount =
   cartItems.reduce((total, item) => {
-    const price = parseFloat(item.price.replace(/[^\d.]/g, '')) || 0;
+    const price = parseFloat(item.productId?.price?.replace(/[^\d.]/g, '') || '0');
     return total + price * (item.quantity || 1);
   }, 0) +
   (productFromState
-    ? parseFloat(productFromState.price.replace(/[^\d.]/g, '')) || 0
+    ? parseFloat(productFromState.price?.replace(/[^\d.]/g, '') || '0')
     : 0);
+
 
 
     const [paymentMethod, setPaymentMethod] = useState('card');
@@ -82,41 +85,63 @@ const totalAmount =
     const [nameOnCard, setNameOnCard] = useState('');
     const [useShippingAsBilling, setUseShippingAsBilling] = useState(true);
 
-const handleSubmit = () => {
-  if (paymentMethod === 'card') {
-    if (!cardNumber || !expiry || !securityCode || !nameOnCard) {
-      alert('Please fill all card details.');
-      return;
-    }
-    alert("Paid Successfully");
-  } else {
-    alert('Payment method: Cash on Delivery (COD)');
-  }
-  
-  const confirmedOrders = productFromState ? [productFromState] : cartItems;
-  console.log("✅ Confirmed Orders:", confirmedOrders);
-  placeOrder(confirmedOrders); // ✅ Save order globally
-  clearCart(); // ✅ Clear the cart
+    const handleSubmit = async () => {
+      const storedUser = localStorage.getItem("userDetails");
+const userId = storedUser ? JSON.parse(storedUser)._id : null;
 
-  setOrderConfirmed(true);
-  localStorage.setItem('savedAddress', JSON.stringify(addressInfo));
-  const formattedAddress = {
-    type: "Home",
-    house: addressInfo.house,
-    street: addressInfo.street,
-    landMark: addressInfo.landMark,
-    city: addressInfo.city,
-    district: addressInfo.district,
-    state: addressInfo.state,
-    pincode: addressInfo.pincode,
-    phone: addressInfo.phone
-  };
-  
-  localStorage.setItem('savedAddress', JSON.stringify(formattedAddress));
-  console.log(formattedAddress)
-  console.log(addressInfo)
-  navigate('/profile-page'); // ✅ Profile page will now access order from context
+if (!userId) {
+  alert("User not logged in. Please login to place order.");
+  return;
+}
+
+      if (paymentMethod === 'card') {
+        if (!cardNumber || !expiry || !securityCode || !nameOnCard) {
+          alert('Please fill all card details.');
+          return;
+        }
+        alert('Paid Successfully');
+      } else {
+        alert('Payment method: Cash on Delivery (COD)');
+      }
+    
+      const productsToOrder = productFromState
+        ? [{ productId: productFromState._id || productFromState.id, quantity: 1 }]
+        : cartItems.map((item) => ({
+            productId: item.productId?._id || item.productId?.id || item._id,
+            quantity: item.quantity || 1,
+          }));
+          // Generate a simple custom order ID like "ORD20250625-1234"
+const generateOrderId = () => {
+  const random = Math.floor(1000 + Math.random() * 9000);
+  const date = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+  return `ORD${date}-${random}`;
 };
+console.log("🛒 productsToOrder:", productsToOrder);
+
+const orderData = {
+  id: generateOrderId(),
+  buyer: userId,
+  location: `${addressInfo.city}, ${addressInfo.state}, ${addressInfo.pincode}`,
+  status: 'Completed',
+  paymentMethod: paymentMethod === 'card' ? 'Credit Card' : 'Cash on Delivery',
+  paymentDate: new Date(),
+  products: productsToOrder,
+  total: totalAmount,
+};
+
+
+
+    
+      try {
+        console.log("🟡 Order Data Sending to API:", orderData);
+        const savedOrder = await createOrder(orderData);
+        console.log('✅ Order saved:', savedOrder);
+      } catch (err) {
+        console.error('❌ Error creating order:', err);
+        alert('Error placing order. Please try again.');
+      }
+    };
+    
     
   return (
     <div className='payment-page-container'>
@@ -241,17 +266,19 @@ const handleSubmit = () => {
 <div className="product-details-under-delivery">
   <h4>Product Details</h4>
   <div className="product-items-list">
-    {cartItems.map((product, index) => (
-      <div className="product-item-row" key={index}>
-        <img src={product.images?.[0]} alt={product.text} className="product-thumb" />
-        <div className="product-info">
-          <p className="product-name">{product.name}</p>
-          <p className="product-price">Qty: {product.quantity}</p>
-          <p className="product-price">₹{product.price}</p>
-
-        </div>
-      </div>
-    ))}
+  {cartItems.map((item, index) => {
+              const product = item.productId || item;
+              return (
+                <div className="product-item-row" key={index}>
+                  <img src={product.images?.[0]} alt={product.name} className="product-thumb" />
+                  <div className="product-info">
+                    <p className="product-name">{product.name}</p>
+                    <p className="product-price">Qty: {item.quantity}</p>
+                    <p className="product-price">₹{product.price}</p>
+                  </div>
+                </div>
+              );
+            })}
   {productFromState && (
     <div className="product-item-row" key="buy-now">
       <img src={productFromState.images?.[0]} alt={productFromState.text} className="product-thumb" />
@@ -346,14 +373,17 @@ const handleSubmit = () => {
               <h1>Items</h1>
             </div>
             <div className='payment-grid-container'>
-              {cartItems.map((product,index)=>(
-                <div className='payment-data-grid'>
-                  <img src={product.images?.[0]}/>
-                  <p>{product.name}</p>
-                  <p>₹{product.price}</p>
-                  <p>Qty: {product.quantity}</p>
-                </div>
-              ))}
+            {cartItems.map((item, index) => {
+            const product = item.productId || item;
+            return (
+              <div className='payment-data-grid' key={index}>
+                <img src={product.images?.[0]} />
+                <p>{product.name}</p>
+                <p>₹{product.price}</p>
+                <p>Qty: {item.quantity}</p>
+              </div>
+            );
+          })}
 {productFromState && (
     <div className='payment-data-grid' key="buy-now-summary">
       <img src={productFromState.images?.[0]} />

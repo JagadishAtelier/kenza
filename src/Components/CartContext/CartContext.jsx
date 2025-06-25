@@ -1,58 +1,70 @@
-import React, { createContext, useContext, useState } from 'react';
+// src/context/CartContext.jsx
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import {
+  getCartByUser,
+  addProductToCart,
+  removeProductFromCart
+} from '../../Api/cartApi';
 
 const CartContext = createContext();
 
-export const useCart = () => useContext(CartContext);
-
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
-  const [orderedItems, setOrderedItems] = useState([]);
-  console.log("cartItems:", cartItems);
-  const addToCart = (item) => {
-    console.log("Item added to cart:", item);
-    setCartItems(prevItems => {
-      const existingItemIndex = prevItems.findIndex(i => i._id === item._id);
-      if (existingItemIndex !== -1) {
-        // Reset quantity to 1 if item already exists
-        const updatedItems = [...prevItems];
-        updatedItems[existingItemIndex].quantity = 1;
-        return updatedItems;
-      } else {
-        // Add new item with quantity 1
-        return [...prevItems, { ...item, quantity: 1 }];
+  const user = JSON.parse(localStorage.getItem('userDetails'));
+
+  // Fetch cart items on load
+  useEffect(() => {
+    const fetchCart = async () => {
+      if (!user?._id) return;
+      try {
+        const res = await getCartByUser(user._id);
+        setCartItems(res); // `res` should be an array of cart products
+      } catch (err) {
+        console.error("❌ Fetch cart error", err);
       }
-    });
-  };
-  const placeOrder = () => {
-    setOrderedItems(prev => [...prev, ...cartItems]);
-    setCartItems([]); // clear cart after placing order
-  };
-  const clearCart = () => {
-    setCartItems([]);
-  };
-  const removeFromCart = (index) => {
-    setCartItems(prevItems => prevItems.filter((_, i) => i !== index));
+    };
+    fetchCart();
+  }, [user]);
+
+  // Add product to cart
+  const addToCart = async (product) => {
+    if (!user?._id) return;
+    try {
+      await addProductToCart(user._id, product._id, 1);
+      const existing = cartItems.find(item => item.productId._id === product._id);
+
+      if (existing) {
+        setCartItems(prev =>
+          prev.map(item =>
+            item.productId._id === product._id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          )
+        );
+      } else {
+        setCartItems(prev => [...prev, { productId: product, quantity: 1 }]);
+      }
+    } catch (err) {
+      console.error("❌ Add to cart error", err);
+    }
   };
 
-  const updateQuantity = (index, type) => {
-    setCartItems(prevItems => {
-      const updated = [...prevItems];
-      const currentQty = parseInt(updated[index].quantity || 1);
-  
-      if (type === 'inc') {
-        updated[index].quantity = currentQty + 1;
-      } else if (type === 'dec') {
-        updated[index].quantity = Math.max(1, currentQty - 1);
-      }
-  
-      return updated;
-    });
+  // Remove product from cart
+  const removeFromCart = async (productId) => {
+    if (!user?._id) return;
+    try {
+      await removeProductFromCart(user._id, productId);
+      setCartItems(prev => prev.filter(item => item.productId._id !== productId));
+    } catch (err) {
+      console.error("❌ Remove from cart error", err);
+    }
   };
-  
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart,orderedItems, removeFromCart, updateQuantity,placeOrder,clearCart }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
       {children}
     </CartContext.Provider>
   );
 };
+
+export const useCart = () => useContext(CartContext);

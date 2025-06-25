@@ -3,7 +3,7 @@ import './TreandingProduct.css'
 import { useNavigate } from 'react-router-dom'
 import { useWishlist } from '../WishlistContext/WishlistContext'
 import { getAllProducts } from '../../Api/productApi'
-
+import { addProductToWishlist } from '../../Api/wishlistApi'
 function TreandingProduct() {
   const [selectedCategory, setSelectedCategory] = useState('featured')
   const [hoverIndex, setHoverIndex] = useState(null)
@@ -13,7 +13,7 @@ function TreandingProduct() {
   const [loading, setLoading] = useState(true)
 
   const navigate = useNavigate()
-  const { addToWishlist } = useWishlist()
+  const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -104,14 +104,26 @@ if (selectedCategory === 'featured') {
                     <i className="bi bi-star-fill"></i>
                   </div>
                   <div className='hover-icons'>
-                    <i
-                      className="bi bi-heart"
-                      style={{ cursor: 'pointer' }}
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        addToWishlist(product)
-                      }}
-                    ></i>
+                  <i
+  className={`bi ${
+    wishlist.some((item) => item._id === product._id)
+      ? 'bi-heart-fill text-danger'
+      : 'bi-heart'
+  }`}
+  style={{ cursor: 'pointer' }}
+  onClick={(e) => {
+    e.stopPropagation();
+
+    // toggle wishlist
+    if (wishlist.some((item) => item._id === product._id)) {
+      removeFromWishlist(product._id);
+    } else {
+      addToWishlist(product);
+      console.log("🆕 Adding to wishlist:", product);
+    }
+  }}
+></i>
+
                     <i className="bi bi-eye"></i>
                   </div>
                 </div>

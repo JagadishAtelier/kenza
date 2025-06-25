@@ -34,24 +34,39 @@ const AccountForms = ({
         <>
           <h3>CREATE ACCOUNT</h3>
           <form
-            onSubmit={async (e) => {
-              e.preventDefault();
-              setRegisterError('');
-              try {
-                await createAccount({
-                  name: registerName,
-                  email: registerEmail,
-                  password: registerPassword,
-                });
-                setRegisterSuccess('Account created successfully!');
-                setGetUserDetails(true); // Or store user in state if returned
-                setShowLogin(false);
-                navigate('/profile-page');
-              } catch (err) {
-                setRegisterError(err.message || 'Account creation failed.');
-              }
-            }}
-          >
+  onSubmit={async (e) => {
+    e.preventDefault();
+    setRegisterError('');
+
+    // ✅ Define userData first
+    const userData = {
+      name: registerName,
+      email: registerEmail,
+      password: registerPassword,
+    };
+
+    // ✅ Log it to console
+    console.log('Registering User:', userData);
+
+    try {
+      // ✅ Use the userData object
+      const response = await createAccount(userData);
+      console.log("✅ Registered user:", response.newUser);
+      
+      const createdUser = response?.newUser;
+      if (createdUser && createdUser._id) {
+        localStorage.setItem('userDetails', JSON.stringify(createdUser));
+      }
+      setRegisterSuccess('Account created successfully!');
+      setGetUserDetails(true);
+      setShowLogin(false);
+      navigate('/profile-page');
+    } catch (err) {
+      setRegisterError(err.message || 'Account creation failed.');
+    }
+  }}
+>
+
             <input
               type="text"
               placeholder="Name"
@@ -91,23 +106,27 @@ const AccountForms = ({
         e.preventDefault();
         setLoginError('');
         setLoginSuccess('');
+      
         try {
-          await loginUser({
+          const response = await loginUser({
             email: loginEmail,
             password: loginPassword
           });
-
+      
+          const loggedInUser = response?.user; // Adjust based on API response shape
+          console.log("login user",loggedInUser)
+          if (loggedInUser && loggedInUser._id) {
+            localStorage.setItem('userDetails', JSON.stringify(loggedInUser));
+          }
+      
           setLoginSuccess('Login successful!');
           setShowLogin(false);
-
-          // Optional: Store user/token if returned
-          // localStorage.setItem('token', result.token);
-
           navigate('/profile-page');
         } catch (err) {
           setLoginError(err.message || 'Login failed');
         }
       }}
+      
     >
       <input
         type="email"

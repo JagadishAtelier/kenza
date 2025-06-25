@@ -4,15 +4,65 @@ import profileImge from '../../Assets/blog1.webp'
 import { useLocation } from 'react-router-dom';
 import { useCart } from '../CartContext/CartContext';
 import { useWishlist } from '../WishlistContext/WishlistContext';
+import { getOrdersByUser } from '../../Api/orderApi';
+import { getWishlistByUser } from '../../Api/wishlistApi';
 function ProfilePage() {
     const [userDetails, setUserDetails] = useState({});
     const [savedAddress, setSavedAddress] = useState(null);
+    const [wishlistItems, setWishlistItems] = useState([]);
+    const [orderList, setOrderList] = useState([]);
+    useEffect(() => {
+      const fetchOrders = async () => {
+        const savedDetails = localStorage.getItem('userDetails');
+        if (!savedDetails) return;
+    
+        const user = JSON.parse(savedDetails);
+        try {
+          const orders = await getOrdersByUser(user._id);
+          setOrderList(orders);
+          console.log("✅ Orders:", orders);
+        } catch (err) {
+          console.error("❌ Error fetching orders:", err);
+        }
+      };
+    
+      fetchOrders();
+    }, []);
     useEffect(() => {
         const savedDetails = localStorage.getItem('userDetails');
         if (savedDetails) {
           setUserDetails(JSON.parse(savedDetails));
         }
       }, []);
+      useEffect(() => {
+        const fetchWishlist = async () => {
+          const savedDetails = localStorage.getItem('userDetails');
+          if (!savedDetails) {
+            console.error("❌ No user details found in localStorage");
+            return;
+          }
+      
+          const user = JSON.parse(savedDetails);
+          const userId = user._id || user.id; // ✅ fallback logic
+      
+          if (!userId) {
+            console.error("❌ User ID not found in localStorage");
+            return;
+          }
+      
+          try {
+            const wishlistData = await getWishlistByUser(userId);
+            console.log("✅ Wishlist details from profile page:", wishlistData);
+            setWishlistItems(wishlistData); // Fallback to empty
+          } catch (err) {
+            console.error("❌ Error fetching wishlist:", err);
+          }
+        };
+      
+        fetchWishlist();
+      }, []);
+      
+      
       useEffect(() => {
         const addressFromStorage = localStorage.getItem('savedAddress');
         if (addressFromStorage) {
@@ -28,15 +78,11 @@ function ProfilePage() {
       }, []);
       
     const { orderedItems, cartItems } = useCart();
-    const { wishlist  } = useWishlist();
     const [activeSection, setActiveSection] = useState('profile'); // 'profile' or 'address'
     const [isEditingProfile, setIsEditingProfile] = useState(false);
     const location = useLocation();
     const productFromState = location.state?.product; // for Buy Now item
     const [confirmedOrders, setConfirmedOrders] = useState([]);  
-    useEffect(() => {
-        console.log("✅ wishlist  Items from Context:", wishlist ); // <--- Log here
-      }, [wishlist ]);
     // useEffect(() => {
     //     console.log("✅ Ordered Items from Context:", orderedItems); // <--- Log here
     //   }, [orderedItems]);
@@ -276,14 +322,14 @@ function ProfilePage() {
       <h1>My Wishlist</h1>
     </div>
     <div className='payment-grid-container'>
-      {wishlist.length === 0 ? (
+      {wishlistItems.length === 0 ? (
         <p>No items in your wishlist.</p>
       ) : (
-        wishlist.map((item, index) => (
+        wishlistItems.map((item, index) => (
           <div className='payment-data-grid' key={index}>
-            <img src={item.image} alt="wishlist product"/>
-            <p>{item.text}</p>
-            <p>₹{item.price}</p>
+            <img src={item.product?.images?.[0]} alt="wishlist product" />
+            <p>{item.product?.name}</p>
+            <p>{item.product?.price}</p>
           </div>
         ))
       )}
@@ -293,39 +339,34 @@ function ProfilePage() {
 
 
 {activeSection === 'orders' && (
-  <div className='payment-right-side-container'>
-    <div className='payment-right-heading'>
-      <h1>My Orders</h1>
-    </div>
-    <div className='payment-grid-container'>
-      {orderedItems.length === 0 && !productFromState ? (
-        <p>No items ordered yet.</p>
-      ) : (
-        <>
-          {orderedItems.map((product, index) => (
-            <div className='payment-data-grid' key={index}>
-              <img src={product.image} alt="product"/>
-              <p>{product.text}</p>
-              <p>₹{product.price}</p>
-              <p>Qty: {product.quantity}</p>
+          <div className='payment-right-side-container'>
+            <div className='payment-right-heading'>
+              <h1>My Orders</h1>
             </div>
-          ))}
-          {orderedItems.length === 0 && (
-                <p style={{ padding: "1rem" }}>You have not ordered anything yet.</p>
+            <div className='payment-grid-container'>
+              {orderList.length === 0 ? (
+                <p>No items ordered yet.</p>
+              ) : (
+                orderList.map((order, index) => (
+                  <div className='order-block' key={index}>
+                    <h4>Order ID: {order.id}</h4>
+                    <p>Status: {order.status}</p>
+                    <p>Total: ₹{order.total}</p>
+                    {order.products.map((item, idx) => (
+                      <div className='payment-data-grid' key={idx}>
+                        <img src={item.productId?.images?.[0]} alt={item.productId?.name} />
+                        <p>{item.productId?.name}</p>
+                        <p>Qty: {item.quantity}</p>
+                        <p>₹{item.productId?.price}</p>
+                      </div>
+                    ))}
+                    <hr />
+                  </div>
+                ))
               )}
-          {productFromState && (
-            <div className='payment-data-grid' key="buy-now-summary">
-              <img src={productFromState.image} alt="product"/>
-              <p>{productFromState.text}</p>
-              <p>₹{productFromState.price}</p>
-              <p>Qty: 1</p>
             </div>
-          )}
-        </>
-      )}
-    </div>
-  </div>
-)}
+          </div>
+        )}
 {activeSection === 'Preferences' &&(
     <div className='profile-page-right-my-profile'>
         <h1>About My Preferences</h1>

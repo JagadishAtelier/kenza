@@ -8,9 +8,9 @@ import TNImage4 from '../../Assets/trendingNowImage4.webp';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCart } from '../CartContext/CartContext';
 import { getProductById, getAllProducts } from '../../Api/productApi';
-
+import { addProductToCart } from "../../Api/cartApi";
 function TrendingNow() {
-  const { addToCart } = useCart();
+  const { cartItems,addToCart } = useCart();
   const navigate = useNavigate();
   const { id } = useParams();
   console.log(id);
@@ -57,18 +57,20 @@ function TrendingNow() {
     setQuantity((prev) => (type === "inc" ? prev + 1 : Math.max(1, prev - 1)));
   };
 
-  const handleAddToCart = () => {
-    if (product) {
-      addToCart({
-        ...product,
-        quantity,
-        selectedSize,
-        selectedColor,
-      });
+  const handleAddToCart = async () => {
+    if (!product) return;
+  
+    try {
+      await addToCart(product); // ✅ uses context function (already does backend call)
       setAddedToCart(true);
       setTimeout(() => setAddedToCart(false), 1500);
+    } catch (err) {
+      console.error("❌ Error adding to cart:", err);
+      alert("Failed to add to cart.");
     }
   };
+  
+  
 
   if (!product) return <p className="text-center p-10">Loading product...</p>;
 

@@ -25,15 +25,26 @@ const featuredProducts = [
     { image: TPImage4,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage8, text: "Organic Chilli", price: "$ 14.00" ,type:"organics"}
   ]
 function CartDrawer({ show, onClose }) {
-  const { cartItems, removeFromCart,addToCart,updateQuantity  } = useCart();
+  const { cartItems, removeFromCart, addToCart, updateQuantity } = useCart();
   const [showCartDrawer, setShowCartDrawer] = useState(false);
   const [allproduct,setAllProducts] = useState([]);
 <CartDrawer show={showCartDrawer} onClose={() => setShowCartDrawer(false)} />
-  console.log("CartPage cartItems:", cartItems)
    const navigate = useNavigate() 
    const handleQuantityChange = (index, type) => {
     updateQuantity(index, type);
   };
+  const handleAddToCart = async (product) => {
+    if (!product) return;
+  
+    try {
+      await addToCart(product); // Uses your CartContext function
+      // Optionally show some feedback
+    } catch (err) {
+      console.error("❌ Error adding to cart:", err);
+      alert("Failed to add to cart.");
+    }
+  };
+  
   useEffect(() => {
     const fetchProducts = async () => {
       const allProductsResponse = await getAllProducts();
@@ -45,7 +56,8 @@ function CartDrawer({ show, onClose }) {
   }, []);
   
   const totalAmount = cartItems.reduce((total, item) => {
-    const numericPrice = parseFloat(item.price.replace(/[^\d.]/g, '')) || 0;
+    const priceStr = item?.productId?.price || "0";
+    const numericPrice = typeof priceStr === "string" ? parseFloat(priceStr.replace(/[^\d.]/g, '')) : priceStr;
     return total + numericPrice * (item.quantity || 1);
   }, 0);
   
@@ -73,11 +85,15 @@ function CartDrawer({ show, onClose }) {
       <div className="cart-body">
         {/* Cart Items List */}
         {cartItems.map((item, index) => {
-const numericPrice = parseFloat(item.price.replace(/[^\d.]/g, '')) || 0;
-const itemTotal = numericPrice * (item.quantity || 1);
+  const product = item?.productId;
+  if (!product) return null; // Skip if productId not populated
+
+  const priceStr = product.price || "0";
+  const numericPrice = typeof priceStr === "string" ? parseFloat(priceStr.replace(/[^\d.]/g, '')) : Number(priceStr);
+  const quantity = item.quantity || 1;
   return (
     <div className="cart-item" key={index}>
-      <img src={item.images?.[0]} alt={item.text} />
+      <img src={product.images?.[0]} alt={item.text} />
       <div className='cart-drawer-text-price'>
         <div className='cart-drawer-item-text-div'>
           <div className='cart-drawer-item-text'>
@@ -98,7 +114,13 @@ const itemTotal = numericPrice * (item.quantity || 1);
             </div>
 
         <div className='cart-drawer-remove-buy-btn-div'>
-          <button onClick={() => removeFromCart(index)} className='cart-remove-btn'>Remove</button>
+        <button
+  onClick={() => removeFromCart(item.productId._id)}
+  className='cart-remove-btn'
+>
+  Remove
+</button>
+
           {/* <button
   onClick={() => {
     onClose(); // Close drawer
@@ -131,11 +153,12 @@ const itemTotal = numericPrice * (item.quantity || 1);
         <p>{item.name}</p>
         <p>₹{item.price}</p>
         <button
-          onClick={() => addToCart(item)}
-          disabled={isInCart}
-        >
-          {isInCart ? 'Added' : 'Add to Cart'}
-        </button>
+  onClick={() => handleAddToCart(item)}
+  disabled={isInCart}
+>
+  {isInCart ? 'Added' : 'Add to Cart'}
+</button>
+
       </div>
     </div>
     
