@@ -31,7 +31,7 @@
 .view-all-categories-container-inner-heading{
     padding: 5px;
     color: gray;
-}
+} 
 .input-checkbox{
     display: flex;
     align-items: center;
@@ -281,9 +281,9 @@
     }
   
     .view-all-right-grid-box-container {
-      grid-template-columns: repeat(1, 1fr);
+      grid-template-columns: repeat(1, 1fr) !important;
       padding:0;
-      gap: 0 !important;
+      gap: 2rem !important;
     }
   
     .view-all-left-banner {

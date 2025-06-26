@@ -119,7 +119,7 @@ function ViewAllProduct() {
   if (loading) {
   return (
     <div className="kenzo-loader-wrapper">
-      {"Loading..".split("").map((letter, index) => (
+      {"kenzo...".split("").map((letter, index) => (
         <span
           key={index}
           className="kenzo-letter"
@@ -205,7 +205,7 @@ function ViewAllProduct() {
 
       <div className='view-all-right-side'>
         <h3>{product?.name}</h3>
-        <p className='view-all-right-para'>Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit...</p>
+        <p className='view-all-right-para'></p>
         <img src={vegImage} alt="veg" />
 
         <div className='view-all-right-align-icon'>

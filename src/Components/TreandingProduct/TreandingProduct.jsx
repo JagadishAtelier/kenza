@@ -3,7 +3,7 @@ import './TreandingProduct.css'
 import { useNavigate } from 'react-router-dom'
 import { useWishlist } from '../WishlistContext/WishlistContext'
 import { getAllProducts } from '../../Api/productApi'
-import { addProductToWishlist } from '../../Api/wishlistApi'
+// import { addProductToWishlist } from '../../Api/wishlistApi'
 function TreandingProduct() {
   const [selectedCategory, setSelectedCategory] = useState('featured')
   const [hoverIndex, setHoverIndex] = useState(null)
@@ -128,7 +128,7 @@ if (selectedCategory === 'featured') {
                   </div>
                 </div>
                 <p>{product.name}</p>
-                <p>{product.price}</p>
+               <p><strong className='text-success fw-bold fs-5'>₹ {product.price}</strong></p> 
                 <div className="dots-container">
                   <span className={`dot ${activeDot === 0 ? 'active' : ''}`}></span>
                   <span className={`dot ${activeDot === 1 ? 'active' : ''}`}></span>
