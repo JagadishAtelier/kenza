@@ -162,7 +162,7 @@ const totalAmount =
         console.log('✅ Order saved:', savedOrder);
         setOrderConfirmed(true);
         clearCart();
-        navigate('/profile', {
+        navigate('/payment-success', {
           state: {
             confirmedOrders: productFromState ? [productFromState] : cartItems
           }

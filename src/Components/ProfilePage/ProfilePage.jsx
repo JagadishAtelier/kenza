@@ -202,38 +202,65 @@ function ProfilePage() {
           alert("❌ Address update failed");
         }
       };
-    useEffect(() => {
-      const fetchUserDetails = async () => {
-        const user = JSON.parse(localStorage.getItem("userDetails"));
-        if (!user || !user._id) return;
-  
-        try {
-          const data = await getCustomerDetails(user._id);
-          const customer = data?.userDetails || data;
-          setUserDetails(customer);
-          console.log('customerDetails from profile page',customer)
-          setUser({
-            name: customer.userId?.name || '',
-            email: customer.userId?.email || '',
-            phone: customer.phone || '',
-            dob: customer.DOB ? customer.DOB.slice(0, 10) : '',
-            gender: customer.gender || '',
-            profilePic: '',
-          });          
-        } catch (error) {
-          console.error("❌ Failed to fetch user profile:", error);
-        }
-      };
-  
-      fetchUserDetails();
-    }, []);
+      useEffect(() => {
+        const fetchUserDetails = async () => {
+          const user = JSON.parse(localStorage.getItem("userDetails"));
+          if (!user || !user._id) return;
+      
+          try {
+            const data = await getCustomerDetails(user._id);
+      
+            console.log("📦 Raw response from getCustomerDetails API:", data);
+      
+            // Destructure or fallback
+            const customer = data?.userDetails || data;
+      
+            console.log("✅ Parsed Customer Object:", customer);
+      
+            // Check individual fields
+            console.log("🧾 Name:", customer.userId?.name || user.name);
+            console.log("✉️ Email:", customer.userId?.email || user.email);
+            console.log("📞 Phone:", customer.phone);
+            console.log("🎂 DOB:", customer.DOB);
+            console.log("⚧ Gender:", customer.gender);
+      
+            // Update UI state
+            setUserDetails(customer);
+            setUser({
+              name: customer.userId?.name || user.name,
+              email: customer.userId?.email || user.email,
+              phone: customer.phone || '',
+              dob: customer.DOB ? customer.DOB.slice(0, 10) : '',
+              gender: customer.gender || '',
+              profilePic: '',
+            });
+      
+          } catch (error) {
+            console.warn("❌ No customer details yet. Skipping setUser.");
+            console.error(error);
+            setUser({
+              name: user.name || '',
+              email: user.email || '',
+              phone: '',
+              dob: '',
+              gender: '',
+              profilePic: '',
+            });
+          }
+        };
+      
+        fetchUserDetails();
+      }, []);
+      
+      
     
   return (
     <div className='profile-page-container'>
     <div className='profile-page-left'>
       <div className='profile-image-content-div'>
         <img src={profileImge}/>
-        <h4>Sami</h4>
+        <h4>{userDetails?.userId?.name || userDetails?.name || 'User'}</h4>
+
       </div>
 
       <hr className='profile-page-hr-line'/>

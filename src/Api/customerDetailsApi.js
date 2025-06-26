@@ -1,6 +1,6 @@
 import axios from 'axios';
+const BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api/customer-details`; // ✅ Use the dash!
 
-const BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api/customer-details`;
 
 export const createCustomerDetails = async (details) => {
   // details = { userId, phone, DOB, gender }
@@ -12,6 +12,7 @@ export const getCustomerDetails = async (userId) => {
   const res = await axios.get(`${BASE_URL}/${userId}`);
   return res.data;
 };
+
 
 export const updateCustomerDetails = async (userId, updatedData) => {
   // updatedData = { phone, DOB, gender }

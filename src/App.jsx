@@ -31,6 +31,7 @@ import { WishlistProvider } from './Components/WishlistContext/WishlistContext';
 import TermsAndCondition from './Components/TermsAndCondition/TermsAndCondition';
 import PrivacyPolicy from './Components/PrivacyPolicy/PrivacyPolicy';
 import RefundPolicy from './Components/RefundPolicy/RefundPolicy';
+import OrderConfirmed from './Components/OrderConfirmed/OrderConfirmed'
 function HomePage() {
   return (
     <>
@@ -69,6 +70,7 @@ function App() {
           <Route path="/terms-and-condition" element={<TermsAndCondition/>} />
           <Route path="/privacy-policy" element={<PrivacyPolicy/>} />
           <Route path="/refund-policy" element={<RefundPolicy/>} />
+          <Route path="/payment-success" element={<OrderConfirmed/>} />
           {/* <Route path="/cart" element={<CartPage/>} /> */}
         </Routes>
         <Footer />
