@@ -274,11 +274,20 @@
       z-index: 1;
       background-color: white;
       text-align: center;
+      padding: 1rem 0rem;
+      border: 1px solid #d3d3d3;
       display: flex;
+      border-radius: 6px;
       flex-direction: column;
       gap: 20px;
-      width: 100px;
+      /* width: 100px; */
     }
+    .nav-links a {
+    position: relative;
+    text-align: start;
+    padding: 0rem 2rem;
+    transition: color 0.3s ease;
+}
     .nav-login-container{
       top: 45px !important;
       right: 60px !important;
