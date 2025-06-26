@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import './PaymentPage.css'
 import { createOrder } from '../../Api/orderApi';
+import { createCustomerAddress } from '../../Api/customerAddressApi';
 
 import TPImage1 from '../../Assets/p1.webp'
 import TPImage2 from '../../Assets/p2.webp'
@@ -36,21 +37,25 @@ const { placeOrder, clearCart, cartItems } = useCart();
 
 const [contactInfo, setContactInfo] = useState('');
 const [addressInfo, setAddressInfo] = useState({
-  firstName: '',
-  lastName: '',
-  address: '',
+  house: '',
+  street: '',
+  landMark: '',
+  district: '',
   city: '',
   state: '',
   pincode: ''
 });
+
 const isContactValid = contactInfo.trim() !== '';
 const isDeliveryValid =
-  addressInfo.firstName.trim() !== '' &&
-  addressInfo.lastName.trim() !== '' &&
-  addressInfo.address.trim() !== '' &&
-  addressInfo.city.trim() !== '' &&
-  addressInfo.state.trim() !== '' &&
-  addressInfo.pincode.trim() !== '';
+  addressInfo.house?.trim() !== '' &&
+  addressInfo.street?.trim() !== '' &&
+  addressInfo.landMark?.trim() !== '' &&
+  addressInfo.city?.trim() !== '' &&
+  addressInfo.district?.trim() !== '' &&
+  addressInfo.state?.trim() !== '' &&
+  addressInfo.pincode?.trim() !== '';
+
 const handleConfirmOrder = () => {
   const confirmedOrders = productFromState ? [productFromState] : cartItems;
 
@@ -87,13 +92,13 @@ const totalAmount =
 
     const handleSubmit = async () => {
       const storedUser = localStorage.getItem("userDetails");
-const userId = storedUser ? JSON.parse(storedUser)._id : null;
-
-if (!userId) {
-  alert("User not logged in. Please login to place order.");
-  return;
-}
-
+      const userId = storedUser ? JSON.parse(storedUser)._id : null;
+    
+      if (!userId) {
+        alert("User not logged in. Please login to place order.");
+        return;
+      }
+    
       if (paymentMethod === 'card') {
         if (!cardNumber || !expiry || !securityCode || !nameOnCard) {
           alert('Please fill all card details.');
@@ -104,43 +109,70 @@ if (!userId) {
         alert('Payment method: Cash on Delivery (COD)');
       }
     
+      // 🟢 Save address to DB
+      const addressData = {
+        userId,
+        houseNo: addressInfo.house,
+        street: addressInfo.street,
+        landMark: addressInfo.landMark,
+        city: addressInfo.city,
+        district: addressInfo.district,
+        state: addressInfo.state,
+        pincode: addressInfo.pincode
+      };
+    
+      try {
+        console.log("📦 Address Payload:", addressData);
+        const savedAddress = await createCustomerAddress(addressData);
+        console.log('✅ Address saved:', savedAddress);
+      } catch (err) {
+        console.error('❌ Error saving address:', err);
+        alert('Error saving address. Please try again.');
+        return;
+      }
+    
+      // 🛒 Order Data
       const productsToOrder = productFromState
         ? [{ productId: productFromState._id || productFromState.id, quantity: 1 }]
         : cartItems.map((item) => ({
             productId: item.productId?._id || item.productId?.id || item._id,
             quantity: item.quantity || 1,
           }));
-          // Generate a simple custom order ID like "ORD20250625-1234"
-const generateOrderId = () => {
-  const random = Math.floor(1000 + Math.random() * 9000);
-  const date = new Date().toISOString().slice(0, 10).replace(/-/g, '');
-  return `ORD${date}-${random}`;
-};
-console.log("🛒 productsToOrder:", productsToOrder);
-
-const orderData = {
-  id: generateOrderId(),
-  buyer: userId,
-  location: `${addressInfo.city}, ${addressInfo.state}, ${addressInfo.pincode}`,
-  status: 'Completed',
-  paymentMethod: paymentMethod === 'card' ? 'Credit Card' : 'Cash on Delivery',
-  paymentDate: new Date(),
-  products: productsToOrder,
-  total: totalAmount,
-};
-
-
-
+    
+      const generateOrderId = () => {
+        const random = Math.floor(1000 + Math.random() * 9000);
+        const date = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+        return `ORD${date}-${random}`;
+      };
+    
+      const orderData = {
+        id: generateOrderId(),
+        buyer: userId,
+        location: `${addressInfo.city}, ${addressInfo.state}, ${addressInfo.pincode}`,
+        status: 'Completed',
+        paymentMethod: paymentMethod === 'card' ? 'Credit Card' : 'Cash on Delivery',
+        paymentDate: new Date(),
+        products: productsToOrder,
+        total: totalAmount,
+      };
     
       try {
         console.log("🟡 Order Data Sending to API:", orderData);
         const savedOrder = await createOrder(orderData);
         console.log('✅ Order saved:', savedOrder);
+        setOrderConfirmed(true);
+        clearCart();
+        navigate('/profile', {
+          state: {
+            confirmedOrders: productFromState ? [productFromState] : cartItems
+          }
+        });
       } catch (err) {
         console.error('❌ Error creating order:', err);
         alert('Error placing order. Please try again.');
       }
     };
+    
     
     
   return (
@@ -181,16 +213,6 @@ const orderData = {
       <option>United Kingdom</option>
     </select>
 
-    <div className='delivery-name-container'>
-      <input type='text' placeholder='First Name' className='payment-delivery-name-box'
-        value={addressInfo.firstName}
-        onChange={(e) => setAddressInfo({ ...addressInfo, firstName: e.target.value })}
-        required />
-      <input type='text' placeholder='Last Name' className='payment-delivery-name-box'
-        value={addressInfo.lastName}
-        onChange={(e) => setAddressInfo({ ...addressInfo, lastName: e.target.value })}
-        required />
-    </div>
 
     <input type='text' placeholder='House Number'
       className='payment-text-box'
@@ -208,12 +230,6 @@ const orderData = {
       className='payment-text-box'
       value={addressInfo.landMark}
       onChange={(e) => setAddressInfo({ ...addressInfo, landMark: e.target.value })}
-      required />
-
-    <input type='text' placeholder='Address'
-      className='payment-text-box'
-      value={addressInfo.address}
-      onChange={(e) => setAddressInfo({ ...addressInfo, address: e.target.value })}
       required />
 
     <div className='delivery-name-container'>
@@ -240,12 +256,6 @@ const orderData = {
       className='payment-text-box'
       value={addressInfo.pincode}
       onChange={(e) => setAddressInfo({ ...addressInfo, pincode: e.target.value })}
-      required />
-
-    <input type='text' placeholder='Phone Number'
-      className='payment-text-box'
-      value={addressInfo.phone}
-      onChange={(e) => setAddressInfo({ ...addressInfo, phone: e.target.value })}
       required />
 
     <div className='payment-page-checkbox-input-text'>
@@ -346,21 +356,23 @@ const orderData = {
     <p>Payment Method: Not Selected</p>
   )}
 
-  <button
+<button
   className="pay-btn"
   onClick={handleSubmit}
   disabled={
-    !contactInfo ||
-    !addressInfo.firstName ||
-    !addressInfo.lastName ||
-    !addressInfo.address ||
-    !addressInfo.city ||
-    !addressInfo.state ||
-    !addressInfo.pincode
+    !contactInfo.trim() ||
+    !addressInfo.house?.trim() ||
+    !addressInfo.street?.trim() ||
+    !addressInfo.landMark?.trim() ||
+    !addressInfo.city?.trim() ||
+    !addressInfo.district?.trim() ||
+    !addressInfo.state?.trim() ||
+    !addressInfo.pincode?.trim()
   }
 >
   Pay now
 </button>
+
 
 </div>
 

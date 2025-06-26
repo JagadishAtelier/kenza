@@ -59,9 +59,12 @@ export const CartProvider = ({ children }) => {
       console.error("❌ Remove from cart error", err);
     }
   };
-
+  const clearCart = () => {
+    setCartItems([]);
+  };
+  
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart,clearCart,setCartItems}}>
       {children}
     </CartContext.Provider>
   );

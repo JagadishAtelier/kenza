@@ -8,6 +8,8 @@ import callSupport from "../../Assets/callSupport.png";
 import CartDrawer from "../CartDrawer/CartDrawer";
 import { getAllCategories } from "../../Api/categoryApi";
 import { useCart } from "../CartContext/CartContext";
+import { createCustomerDetails } from "../../Api/customerDetailsApi";
+
 // import fruit1 from '../../Assets/carrot.png'
 // import fruit2 from '../../Assets/fruit2.png'
 // import fruit3 from '../../Assets/fruit3.png'
@@ -202,24 +204,37 @@ useEffect(() => {
               <h3>Additional Details</h3>
             </div>
             <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                const formData = new FormData(e.target);
-                const userDetails = {
-                  name: formData.get("name"),
-                  email: formData.get("email"),
-                  phone: formData.get("phone"),
-                  dob: formData.get("dob"),
-                  gender: formData.get("gender"),
-                };
-                localStorage.setItem(
-                  "userDetails",
-                  JSON.stringify(userDetails)
-                );
-                setGetUserDetails(false);
-                navigate("/profile-page");
-              }}
-            >
+  onSubmit={async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+
+    // Get user ID from localStorage (assuming it's saved after login/register)
+    const userId = JSON.parse(localStorage.getItem("userDetails"))?._id;
+    console.log("userId from form",userId)
+    if (!userId) {
+      alert("User not logged in");
+      return;
+    }
+
+    const userDetails = {
+      userId,
+      phone: formData.get("phone"),
+      DOB: formData.get("dob"),
+      gender: formData.get("gender"),
+    };
+
+    try {
+      const res = await createCustomerDetails(userDetails);
+      console.log("Saved to DB:", res);
+      setGetUserDetails(false);
+      navigate("/profile-page");
+    } catch (err) {
+      console.error("Failed to save user details:", err);
+      alert("Error saving user details");
+    }
+  }}
+>
+
               <div className="modal-details-container">
                 <div>
                   <div className="modal-details-content">
