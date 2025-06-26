@@ -4,7 +4,7 @@ import { getAllProducts } from '../../Api/productApi';
 import { useNavigate, useLocation } from 'react-router-dom';
 import vegImage from '../../Assets/view-all-wall-veg.webp';
 import banner from '../../Assets/view-all-banner.webp';
-
+import {getAllCategories} from '../../Api/categoryApi'
 const categories = [
   "cucumber", "cherry tomatoes", "broccoli", "cabbage", "brussels sprouts", "aubergine"
 ];
@@ -21,7 +21,7 @@ function ViewAllProduct() {
   const navigate = useNavigate();
 
   const [hoverIndex, setHoverIndex] = useState(null);
-  const [showCategories, setShowCategories] = useState(false);
+  const [showCategories, setShowCategories] = useState(null); // track open category index
   const [showFruits, setShowFruits] = useState(false);
   const [showOragnicProduct, setShowOragnicProduct] = useState(false);
   const [columnCount, setColumnCount] = useState(3);
@@ -30,24 +30,38 @@ function ViewAllProduct() {
   const [sortedProducts, setSortedProducts] = useState([]);
   const [newProducts, setNewProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [fetchedCategories, setFetchedCategories] = useState([]);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await getAllProducts();
-        const fetched = res.data;
-        setAllProducts(fetched);
-        setSortedProducts(fetched);
-        setNewProducts(fetched.slice(0, 3));
-        setLoading(false);
-      } catch (error) {
-        console.error("Failed to load products", error);
-        setLoading(false);
-      }
-    };
+useEffect(() => {
+  const fetchProducts = async () => {
+    try {
+      const res = await getAllProducts();
+      const fetched = res.data;
+      setAllProducts(fetched);
+      setSortedProducts(fetched);
+      setNewProducts(fetched.slice(0, 3));
+      setLoading(false);
+    } catch (error) {
+      console.error("Failed to load products", error);
+      setLoading(false);
+    }
+  };
 
-    fetchProducts();
-  }, []);
+  const fetchCategory = async () => {
+    try {
+      const res = await getAllCategories();
+      console.log("Fetched categories:", res); // 👈 log the full response
+      setFetchedCategories(res);
+    } catch (error) {
+      console.error("Failed to load category", error);
+    }
+  };
+  
+
+  fetchProducts();
+  fetchCategory();
+}, []);
+
 
   const handleSortChange = (e) => {
     const option = e.target.value;
@@ -135,29 +149,36 @@ function ViewAllProduct() {
   return (
     <div className='view-all-container'>
       <div className='view-all-left-side'>
-        <div className='view-all-cat-section-left'>
-          <h5 className='view-all-categories-container-heading'>CATEGORIES</h5>
-          <div onClick={() => setShowCategories(!showCategories)}>
-            <h5 className='view-all-categories-container-inner-heading'>Vegitables</h5>
-          </div>
-          {showCategories && (
-            <ul className="view-all-categories-dropdown">{categories.map((c, i) => <p key={i}>{c}</p>)}</ul>
-          )}
+      <div className='view-all-cat-section-left'>
+  <h5 className='view-all-categories-container-heading'>CATEGORIES</h5>
 
-          <div onClick={() => setShowFruits(!showFruits)}>
-            <h5 className='view-all-categories-container-inner-heading'>Fruits</h5>
-          </div>
-          {showFruits && (
-            <ul className="view-all-categories-dropdown">{fruits.map((c, i) => <p key={i}>{c.text}</p>)}</ul>
-          )}
+  {fetchedCategories.map((category, index) => (
+    <div key={index}>
+      <div onClick={() =>
+        setShowCategories(prev =>
+          prev === index ? null : index
+        )
+      }>
+        <h5 className='view-all-categories-container-inner-heading'>
+          {category.name}
+        </h5>
+      </div>
 
-          <div onClick={() => setShowOragnicProduct(!showOragnicProduct)}>
-            <h5 className='view-all-categories-container-inner-heading'>Organic Product</h5>
-          </div>
-          {showOragnicProduct && (
-            <ul className="view-all-categories-dropdown">{organicProduct.map((c, i) => <p key={i}>{c.text}</p>)}</ul>
+      {showCategories === index && (
+        <ul className="view-all-categories-dropdown">
+          {category.subcategories?.length > 0 ? (
+            category.subcategories.map((sub, i) => (
+              <li key={i}>{sub}</li>
+            ))
+          ) : (
+            <li>No subcategories</li>
           )}
-        </div>
+        </ul>
+      )}
+    </div>
+  ))}
+</div>
+
 
         <br />
 

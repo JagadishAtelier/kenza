@@ -6,6 +6,9 @@ import { useCart } from '../CartContext/CartContext';
 import { useWishlist } from '../WishlistContext/WishlistContext';
 import { getOrdersByUser } from '../../Api/orderApi';
 import { getWishlistByUser } from '../../Api/wishlistApi';
+import { getCustomerDetails } from '../../Api/customerDetailsApi';
+import { updateCustomerDetails,updateUserBasicInfo } from '../../Api/customerDetailsApi';
+import { getCustomerAddress,updateCustomerAddress  } from '../../Api/customerAddressApi';
 function ProfilePage() {
     const [userDetails, setUserDetails] = useState({});
     const [savedAddress, setSavedAddress] = useState(null);
@@ -63,19 +66,37 @@ function ProfilePage() {
       }, []);
       
       
+
       useEffect(() => {
-        const addressFromStorage = localStorage.getItem('savedAddress');
-        if (addressFromStorage) {
-          const parsedAddress = JSON.parse(addressFromStorage);
-          setSavedAddress(parsedAddress);
+        const fetchUserAddress = async () => {
+          const stored = JSON.parse(localStorage.getItem('userDetails'));
+          const userId = stored?._id || stored?.userId;
+          if (!userId) return;
       
-          // Update addresses state to show in form
-          setAddresses([{
-            ...parsedAddress,
-            LanndMark: parsedAddress.landMark || "", // normalize key mismatch if any
-          }]);
-        }
+          try {
+            const addressData = await getCustomerAddress(userId);
+            console.log('📦 Address from API:', addressData);
+      
+            const formattedAddress = {
+              house: addressData.houseNo,
+              street: addressData.street,
+              LanndMark: addressData.landMark,
+              city: addressData.city,
+              district: addressData.district,
+              state: addressData.state,
+              pincode: addressData.pincode,
+              phone: stored.phone || ''
+            };
+      
+            setAddresses([formattedAddress]);
+          } catch (error) {
+            console.error('❌ Failed to fetch address:', error);
+          }
+        };
+      
+        fetchUserAddress();
       }, []);
+      
       
     const { orderedItems, cartItems } = useCart();
     const [activeSection, setActiveSection] = useState('profile'); // 'profile' or 'address'
@@ -132,51 +153,114 @@ function ProfilePage() {
           setAddresses([]); // Or remove specific address if multiple
         }
       };
-      useEffect(() => {
-        const savedDetails = localStorage.getItem('userDetails');
-        if (savedDetails) {
-          const parsed = JSON.parse(savedDetails);
-          setUserDetails(parsed);
-          setUser({
-            name: parsed.name || '',
-            email: parsed.email || '',
-            phone: parsed.phone || '',
-            dob: parsed.dob || '',
-            gender: parsed.gender || '',
-            profilePic: '',
-          });
+      const handleSaveProfile = async () => {
+        const stored = JSON.parse(localStorage.getItem('userDetails'));
+        const userId = stored?._id || stored?.userId;
+      
+        if (!userId) return alert("User ID not found");
+      
+        try {
+          const payload = {
+            phone: user.phone,
+            DOB: user.dob,
+            gender: user.gender
+          };
+          const res = await updateCustomerDetails(userId, payload);
+          await updateUserBasicInfo(userId, { name: user.name, email: user.email });
+
+      
+          alert("✅ Profile updated in database!");
+          setIsEditingProfile(false);
+        } catch (err) {
+          console.error("❌ Error updating customer details:", err);
+          alert("Failed to update profile");
         }
+      };
+      const handleSaveAddress = async () => {
+        const stored = JSON.parse(localStorage.getItem('userDetails'));
+        const userId = stored?._id || stored?.userId;
+      
+        if (!userId) return alert("User ID not found");
+      
+        const updatedData = {
+          houseNo: addresses[0].house,
+          street: addresses[0].street,
+          landMark: addresses[0].LanndMark,
+          city: addresses[0].city,
+          district: addresses[0].district,
+          state: addresses[0].state,
+          pincode: addresses[0].pincode,
+        };
+      
+        try {
+          const res = await updateCustomerAddress(userId, updatedData);
+          console.log("✅ Address updated in DB:", res);
+          alert("✅ Address updated successfully!");
+          setIsEditingProfile(false);
+        } catch (error) {
+          console.error("❌ Failed to update address:", error);
+          alert("❌ Address update failed");
+        }
+      };
+      useEffect(() => {
+        const fetchUserDetails = async () => {
+          const user = JSON.parse(localStorage.getItem("userDetails"));
+          if (!user || !user._id) return;
+      
+          try {
+            const data = await getCustomerDetails(user._id);
+      
+            console.log("📦 Raw response from getCustomerDetails API:", data);
+      
+            // Destructure or fallback
+            const customer = data?.userDetails || data;
+      
+            console.log("✅ Parsed Customer Object:", customer);
+      
+            // Check individual fields
+            console.log("🧾 Name:", customer.userId?.name || user.name);
+            console.log("✉️ Email:", customer.userId?.email || user.email);
+            console.log("📞 Phone:", customer.phone);
+            console.log("🎂 DOB:", customer.DOB);
+            console.log("⚧ Gender:", customer.gender);
+      
+            // Update UI state
+            setUserDetails(customer);
+            setUser({
+              name: customer.userId?.name || user.name,
+              email: customer.userId?.email || user.email,
+              phone: customer.phone || '',
+              dob: customer.DOB ? customer.DOB.slice(0, 10) : '',
+              gender: customer.gender || '',
+              profilePic: '',
+            });
+      
+          } catch (error) {
+            console.warn("❌ No customer details yet. Skipping setUser.");
+            console.error(error);
+            setUser({
+              name: user.name || '',
+              email: user.email || '',
+              phone: '',
+              dob: '',
+              gender: '',
+              profilePic: '',
+            });
+          }
+        };
+      
+        fetchUserDetails();
       }, []);
       
       
-    
-    const handleSaveProfile = () => {
-        // Save the updated user details to localStorage
-        const updatedDetails = {
-            name: user.name,
-            email: user.email,
-            phone: user.phone,
-            dob: user.dob,
-            gender: user.gender,
-        };
-        localStorage.setItem('userDetails', JSON.stringify(updatedDetails));
-        setIsEditingProfile(false);
-    };
-    const handleSaveAddress = () => {
-      const updatedDetails = {
-        ...userDetails,
-        address: addresses[0]
-      };
-      localStorage.setItem('userDetails', JSON.stringify(updatedDetails));
-      setIsEditingProfile(false);
-    };
     
   return (
     <div className='profile-page-container'>
     <div className='profile-page-left'>
       <div className='profile-image-content-div'>
         <img src={profileImge}/>
-        <h4>Sami</h4>
+        <h4>{userDetails?.userId?.name || userDetails?.name || 'User'}</h4>
+
       </div>
 
       <hr className='profile-page-hr-line'/>
@@ -265,7 +349,11 @@ function ProfilePage() {
     <button className="edit-btn" onClick={() => setIsEditingProfile(true)}>Edit</button>
   ) : (
     <>
-      <button className="save-btn" onClick={() => setIsEditingProfile(false)}>Save Changes</button>
+      <button className="save-btn" onClick={async () => {
+  await handleSaveProfile();
+  setIsEditingProfile(false);
+}}>Save Changes</button>
+
       <button className="edit-btn" onClick={() => setIsEditingProfile(false)}>Cancel</button>
     </>
   )}
@@ -308,9 +396,8 @@ function ProfilePage() {
     <button className="edit-btn" onClick={() => setIsEditingProfile(true)}>Edit</button>
   ) : (
     <>
-      <button className="save-btn" onClick={() => setIsEditingProfile(false)}>Save Changes</button>
+      <button className="save-btn" onClick={handleSaveAddress}>Save Changes</button>
       <button className="edit-btn" onClick={() => setIsEditingProfile(false)}>Cancel</button>
-      <button className="delete-btn" onClick={handleDeleteAddress}>Delete</button>
     </>
   )}
 </div>
