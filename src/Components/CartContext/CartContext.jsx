@@ -1,9 +1,10 @@
-// src/context/CartContext.jsx
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import {
   getCartByUser,
   addProductToCart,
-  removeProductFromCart
+  removeProductFromCart,
+  // Optional: include if your backend supports quantity updates
+  // updateCartQuantity 
 } from '../../Api/cartApi';
 
 const CartContext = createContext();
@@ -18,7 +19,7 @@ export const CartProvider = ({ children }) => {
       if (!user?._id) return;
       try {
         const res = await getCartByUser(user._id);
-        setCartItems(res); // `res` should be an array of cart products
+        setCartItems(res); // Expected: array of { productId, quantity }
       } catch (err) {
         console.error("❌ Fetch cart error", err);
       }
@@ -59,12 +60,41 @@ export const CartProvider = ({ children }) => {
       console.error("❌ Remove from cart error", err);
     }
   };
+
+  // Update quantity of product
+  const updateQuantity = async (productId, type) => {
+    setCartItems(prev =>
+      prev.map(item => {
+        if (item.productId._id === productId) {
+          let newQty = item.quantity;
+          if (type === 'inc') newQty += 1;
+          if (type === 'dec') newQty = Math.max(1, item.quantity - 1);
+          return { ...item, quantity: newQty };
+        }
+        return item;
+      })
+    );
+
+    // Optionally sync to backend if supported
+    // await updateCartQuantity(user._id, productId, newQty);
+  };
+
+  // Clear the entire cart
   const clearCart = () => {
     setCartItems([]);
   };
-  
+
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart,clearCart,setCartItems}}>
+    <CartContext.Provider
+      value={{
+        cartItems,
+        addToCart,
+        removeFromCart,
+        updateQuantity,
+        clearCart,
+        setCartItems
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

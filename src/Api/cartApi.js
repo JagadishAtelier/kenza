@@ -18,3 +18,4 @@ export const addProductToCart = async (userId, productId, quantity = 1) => {
 export const removeProductFromCart = async (userId, productId) => {
   return axios.post(`${BASE_URL}/remove`, { userId, productId });
 };
+
