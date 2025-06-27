@@ -12,6 +12,7 @@ import { getAllCategories } from '../../Api/categoryApi';
 import { useMemo } from "react";
 import { Heart, Ruler } from "lucide-react";
 import CountdownTimer from "./Countdown";
+import { BsHeartFill } from "react-icons/bs";
 
 function TrendingNow() {
   const { cartItems,addToCart } = useCart();
@@ -90,7 +91,7 @@ const categoryIdToNameMap = useMemo(() => {
     if (!product) return;
   
     try {
-      await addToCart(product); // ✅ uses context function (already does backend call)
+      await addToCart(product);
       setAddedToCart(true);
       setTimeout(() => setAddedToCart(false), 1500);
     } catch (err) {
@@ -125,28 +126,31 @@ const categoryIdToNameMap = useMemo(() => {
           </div>
 
           <div className="details-section">
-            <h2 className="product-title">{product.name}</h2>
+            <h2 className="product-title mt-4">{product.name}</h2>
             <div className="rating-stars">★★★★★</div>
 
             <div className="price">
-              <span className="original-price">₹60</span>
+              <span className="original-price text-danger">₹{product.price*1.99}</span>
               <span className="discounted-price">₹ {product.price}</span>
               <span className="tax-info text-muted">Tax included.</span>
             </div>
 
-            <p><strong>Vendor:</strong> {product.name.split(' ')[0]}</p>
+            <div className="d-flex gap-5">
+              <p className="m-0"><strong className="text-success">Vendor:</strong> {product.SKU}</p>
             {categoryIdToNameMap[product.category] && (
-              <p><strong>Category:</strong> {categoryIdToNameMap[product.category]}</p>
+              <p className="m-0"><strong className="text-success">Category:</strong> {categoryIdToNameMap[product.category]}</p>
             )}
+            </div>
 
 
 
             <div className="actions">
-              <span><Heart size={18}/> Add To Wishlist</span>
-              <span><Ruler size={18}/> Sizechart</span>
+              <button className="text-decoration-none text-dark btn btn-link flex items-center gap-1"><BsHeartFill size={18} color="red"/> Add To Wishlist</button>
+              <button className="text-decoration-none text-dark btn btn-link flex items-center gap-1"><Ruler size={18} color="brown"/> Sizechart</button>
             </div>
 
-            <div className="size-section">
+            <div id="varient" style={{display:'none'}}>
+              <div className="size-section">
               <label>Size</label>
               <div className="size-options">
                 {["M", "L"].map((size) => (
@@ -173,9 +177,10 @@ const categoryIdToNameMap = useMemo(() => {
                 ))}
               </div>
             </div>
+            </div>
 
-            <div className="quantity-section">
-              <label>Quantity</label>
+            <div className="quantity-section d-flex align-items-center gap-3">
+              <label  className="text-dark fw-bold">Quantity</label>
               <div className="quantity-box">
                 <button onClick={() => handleQuantityChange("dec")}>−</button>
                 <span>{quantity}</span>
