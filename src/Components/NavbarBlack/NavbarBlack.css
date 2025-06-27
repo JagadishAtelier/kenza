@@ -59,7 +59,7 @@
 }
 .navbar {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     background-color: white;
   }
   
@@ -479,17 +479,21 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
 }
 
 .cart-count-badge {
   position: absolute;
   top: 5px;
   right: 45px;
-  font-size: 16px;
-  padding: 2px 6px;
+  font-size: 14px;
   border-radius: 50%;
   z-index: 10;
+  background-color: #3b9048 !important;
+  color: white !important;
+  height: 20px;
+  width: 20px;
+  text-align: center;
 }
 
 .modal-overlay {

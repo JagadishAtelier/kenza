@@ -2,20 +2,22 @@ import React, { useState, useEffect } from "react";
 import "./TrendingNow.css";
 import Reviews from "../Reviews/Reviews";
 import TNImage1 from "../../Assets/trendingNowImage.webp";
-import TNImage2 from "../../Assets/trendingNowImage2.webp";
-import TNImage3 from "../../Assets/trendingNowImage3.webp";
-import TNImage4 from "../../Assets/trendingNowImage4.webp";
+// import TNImage2 from "../../Assets/trendingNowImage2.webp";
+// import TNImage3 from "../../Assets/trendingNowImage3.webp";
+// import TNImage4 from "../../Assets/trendingNowImage4.webp";
 import { useNavigate, useParams } from "react-router-dom";
 import { useCart } from "../CartContext/CartContext";
 import { getProductById, getAllProducts } from "../../Api/productApi";
 import { getAllCategories } from "../../Api/categoryApi";
 import { useMemo } from "react";
-import { Heart, Ruler } from "lucide-react";
+import { Heart, Ruler} from "lucide-react";
 import CountdownTimer from "./Countdown";
-import { BsHeartFill } from "react-icons/bs";
+import { useWishlist } from "../WishlistContext/WishlistContext";
 
 function TrendingNow() {
-  const { cartItems, addToCart } = useCart();
+  const { cartItems,addToCart } = useCart();
+  const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
+
   const navigate = useNavigate();
   const { id } = useParams();
   const [product, setProduct] = useState(null);
@@ -26,6 +28,8 @@ function TrendingNow() {
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("S");
   const [selectedColor, setSelectedColor] = useState("yellow");
+  const isInWishlist = product && wishlist.some(item => item._id === product._id);
+
   const [addedToCart, setAddedToCart] = useState(false);
   const [categories, setCategories] = useState([]);
 
@@ -137,8 +141,8 @@ function TrendingNow() {
               <span className="discounted-price">₹ {product.price}</span>
               <span className="tax-info text-muted">Tax included.</span>
             </div>
-
-            <div className="d-flex gap-5">
+            
+            <div className="d-flex flex-column gap-2 mb-2">
               <p className="m-0">
                 <strong className="text-success">Vendor:</strong> {product.SKU}
               </p>
@@ -150,15 +154,25 @@ function TrendingNow() {
               )}
             </div>
 
-            <div className="actions">
-              <button className="text-decoration-none text-dark btn btn-link flex items-center gap-1">
-                <BsHeartFill size={18} color="red" /> Add To Wishlist
-              </button>
-              <button className="text-decoration-none text-dark btn btn-link flex items-center gap-1">
-                <Ruler size={18} color="brown" /> Sizechart
-              </button>
-            </div>
-
+<div className="actions">
+  <span
+    className="wishlist-action"
+    onClick={() => {
+      if (isInWishlist) {
+        removeFromWishlist(product._id);
+      } else {
+        addToWishlist(product);
+      }
+    }}
+  >
+    <Heart
+      className={`wishlist-icon ${isInWishlist ? "active" : ""}`}
+      size={20}
+    />
+    {isInWishlist ? " Added to Wishlist" : " Add to Wishlist"}
+  </span>
+  <span><Ruler/> Sizechart</span>
+</div>
             <div id="varient" style={{ display: "none" }}>
               <div className="size-section">
                 <label>Size</label>
