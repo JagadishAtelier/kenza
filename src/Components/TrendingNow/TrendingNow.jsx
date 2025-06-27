@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import "./TrendingNow.css";
 import Reviews from "../Reviews/Reviews";
 import TNImage1 from "../../Assets/trendingNowImage.webp";
@@ -13,11 +13,11 @@ import { useMemo } from "react";
 import { Heart, Ruler} from "lucide-react";
 import CountdownTimer from "./Countdown";
 import { useWishlist } from "../WishlistContext/WishlistContext";
-
+import { ChevronDown, ChevronUp, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useSwipeable } from 'react-swipeable';
 function TrendingNow() {
   const { cartItems,addToCart } = useCart();
   const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
-
   const navigate = useNavigate();
   const { id } = useParams();
   const [product, setProduct] = useState(null);
@@ -32,7 +32,9 @@ function TrendingNow() {
 
   const [addedToCart, setAddedToCart] = useState(false);
   const [categories, setCategories] = useState([]);
-
+  const thumbnailRefs = useRef([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -60,20 +62,12 @@ function TrendingNow() {
       try {
         const response = await getProductById(id);
         const productData = response.data;
-        console.log("trendingNow:", productData);
-        console.log("Fetched product images:", productData.images);
 
         setProduct(productData);
-        setMainImage(
-          productData.images && productData.images.length > 0
-            ? productData.images[0]
-            : TNImage1
-        );
-        console.log("Main Image set to:", productData.images?.[0] || TNImage1);
+        setMainImage(productData.images?.[0] || TNImage1);
 
         const allProductsResponse = await getAllProducts();
         const allProducts = allProductsResponse.data;
-        console.log("Filtered products source:", allProducts);
         const filtered = allProducts
           .filter((p) => p._id !== productData._id)
           .slice(0, 8);
@@ -89,47 +83,147 @@ function TrendingNow() {
     window.scrollTo(0, 0);
   }, [id]);
 
+  // ✅ Make sure this hook comes before the return
+  useEffect(() => {
+    if (product?.images?.length > 0) {
+      setMainImage(product.images[currentIndex]);
+    }
+  }, [currentIndex, product]);
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) =>
+      prev > 0 ? prev - 1 : product.images.length - 1
+    );
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) =>
+      prev < product.images.length - 1 ? prev + 1 : 0
+    );
+  };
+
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: handleNext,
+    onSwipedRight: handlePrev,
+    preventScrollOnSwipe: true,
+    trackMouse: false,
+  });
+
   const handleQuantityChange = (type) => {
     setQuantity((prev) => (type === "inc" ? prev + 1 : Math.max(1, prev - 1)));
   };
 
   const handleAddToCart = async () => {
     if (!product) return;
-  
+
     try {
-      await addToCart(product); // ✅ uses context function (already does backend call)
+      await addToCart(product);
       setAddedToCart(true);
       setTimeout(() => setAddedToCart(false), 1500);
     } catch (err) {
-      console.error("❌ Error adding to cart:", err);
+      console.error("Error adding to cart:", err);
       alert("Failed to add to cart.");
     }
   };
-  
-  
 
-  if (loading || !product) return <p className="text-center py-10 my-10">Loading product...</p>;
-
+  if (loading || !product)
+    return <p className="text-center py-10 my-10">Loading product...</p>;
   return (
     <>
       <div className="trending-now-conatiner">
         <div className="product-container">
-          <div className="image-section">
-            <img src={mainImage} alt="Product" className="product-image" />
-            {product.images?.length > 1 && (
-              <div className="thumbnail-container">
-                {product.images.map((img, index) => (
-                  <img
-                    key={index}
-                    src={img}
-                    alt={`thumb-${index}`}
-                    className="thumbnail-image"
-                    onClick={() => setMainImage(img)}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
+        <div className="d-flex flex-column-reverse gap-3 position-relative">
+  {/* Thumbnails */}
+  <div className="d-flex flex-row align-items-center">
+    <button
+      onClick={handlePrev}
+      className="btn d-none d-md-block w-10"
+      style={{ borderRadius: 0, background: '#EFEFEF', border: 0,height:"88px" }}
+      disabled={currentIndex === 0}
+    >
+      <ChevronLeft size={18} />
+    </button>
+
+    <div
+      className="d-flex flex-row flex-md-row gap-2 overflow-auto"
+      style={{
+        maxHeight: 510,
+        maxWidth: '100%',
+        overflowX: 'auto',
+        overflowY: 'auto',
+        scrollbarWidth: 'none',
+      }}
+    >
+      {product.images.map((img, i) => (
+        <img
+          key={i}
+          ref={(el) => (thumbnailRefs.current[i] = el)}
+          src={img}
+          alt={`Thumb ${i + 1}`}
+          onClick={() => setCurrentIndex(i)}
+          className={`img-thumbnail ${currentIndex === i ? 'border border-dark' : ''}`}
+          style={{
+            width: 90,
+            height: 90,
+            objectFit: 'cover',
+            cursor: 'pointer',
+            borderRadius: 4,
+            flexShrink: 0,
+          }}
+        />
+      ))}
+    </div>
+
+    <button
+      onClick={handleNext}
+      className="btn d-none d-md-block w-10"
+      style={{ borderRadius: 0, background: '#EFEFEF', border: 0,height:"88px" }}
+    >
+      <ChevronRight size={18} />
+    </button>
+  </div>
+
+  {/* Main Image */}
+  <div className="product-image position-relative text-center" {...swipeHandlers}>
+    <img
+      src={product.images[currentIndex]}
+      alt="Main Product"
+      className="img-fluid main-image"
+      style={{
+        border: '1px solid #ccc',
+        borderRadius: '4px',
+        maxHeight: '700px',
+        objectFit: 'cover',
+        width: '100%',
+      }}
+    />
+    <button
+      onClick={handlePrev}
+      className="btn border-0 position-absolute p-2 top-50 translate-middle-y"
+      style={{
+        zIndex: 2,
+        left: '10px',
+        background: '#ffffff6b',
+        borderRadius: 0,
+      }}
+    >
+      <ChevronLeft size={20} />
+    </button>
+    <button
+      onClick={handleNext}
+      className="btn border-0 position-absolute p-2 top-50 translate-middle-y"
+      style={{
+        zIndex: 2,
+        right: '10px',
+        background: '#ffffff6b',
+        borderRadius: 0,
+      }}
+    >
+      <ChevronRight size={20} />
+    </button>
+  </div>
+</div>
+
 
           <div className="details-section">
             <h2 className="product-title mt-4">{product.name}</h2>
