@@ -86,11 +86,14 @@
     cursor: pointer;
     position: relative;
   }
+  .option p{
+    margin: 0;
+  }
   
   .option.selected {
     background-color: #eaf1fb;
     border-radius: 5px;
-    padding-left: 10px;
+    /* padding-left: 10px; */
     font-weight: 500;
   }
   
@@ -348,7 +351,14 @@
   }
   .info-edit-btn{
     border: none;
-    color: red;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    padding: 2px 5px;
+    /* border: 2px solid #2323a0; */
+    border-radius: 5px;
+    color: #0808ad;
+    background: transparent;
   }
 
   .payment-right-heading{
