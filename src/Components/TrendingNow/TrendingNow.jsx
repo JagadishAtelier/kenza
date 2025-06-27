@@ -9,8 +9,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useCart } from '../CartContext/CartContext';
 import { getProductById, getAllProducts } from '../../Api/productApi';
 import { addProductToCart } from "../../Api/cartApi";
+import {useWishlist} from '../WishlistContext/WishlistContext'
 function TrendingNow() {
   const { cartItems,addToCart } = useCart();
+  const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
   const navigate = useNavigate();
   const { id } = useParams();
   console.log(id);
@@ -110,7 +112,24 @@ function TrendingNow() {
             <p><strong>Category:</strong> {product.category}</p>
 
             <div className="actions">
-              <span>🤍 Add To Wishlist</span>
+            <span
+  className={`wishlist-btn ${wishlist.some((item) => item._id === product._id) ? 'in-wishlist' : ''}`}
+  onClick={() => {
+    if (wishlist.some((item) => item._id === product._id)) {
+      removeFromWishlist(product._id);
+    } else {
+      addToWishlist(product);
+    }
+  }}
+>
+  {wishlist.some((item) => item._id === product._id)
+    ? "❤️ In Wishlist"
+    : "🤍 Add To Wishlist"}
+</span>
+
+
+
+
               <span>📏 Sizechart</span>
             </div>
 

@@ -421,6 +421,17 @@
   .time-box:hover {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
   }
-              
+      
+  .wishlist-btn {
+    cursor: pointer;
+    font-weight: 600;
+    color: #555; /* Default: grey/black */
+    transition: color 0.3s ease;
+  }
+  
+  .wishlist-btn.in-wishlist {
+    color: #e53935; /* Stays red when added to wishlist */
+  }
+  
 
   
