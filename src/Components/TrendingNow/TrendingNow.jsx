@@ -11,6 +11,7 @@ import { getProductById, getAllProducts } from '../../Api/productApi';
 import { getAllCategories } from '../../Api/categoryApi';
 import { useMemo } from "react";
 import { Heart, Ruler } from "lucide-react";
+import CountdownTimer from "./Countdown";
 
 import { addProductToCart } from "../../Api/cartApi";
 import {useWishlist} from '../WishlistContext/WishlistContext'
@@ -198,13 +199,14 @@ const categoryIdToNameMap = useMemo(() => {
                 <button onClick={() => handleQuantityChange("inc")}>+</button>
               </div>
             </div>
-            
-            <div className="countdown">
+
+            {/* <div className="countdown">
               <div><div className="time-box">00</div><p>Days</p></div>
               <div><div className="time-box">00</div><p>Hours</p></div>
               <div><div className="time-box">00</div><p>Mins</p></div>
               <div><div className="time-box">00</div><p>Secs</p></div>
-            </div>
+            </div> */}
+            <CountdownTimer targetDate={"2025-07-31T23:59:59"}/>
 
             <div className="stock-status">
               <p>Hurry! Only {product.stock || 20} units left in stock!</p>
