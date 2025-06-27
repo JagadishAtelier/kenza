@@ -99,13 +99,21 @@ useEffect(() => {
               <p>info@gmail.com</p>
             </div>
             <div
-              className="navbar-white-icon-text"
-              onClick={() => setShowLogin(!showLogin)}
-              style={{ cursor: "pointer" }}
-            >
-              <i className="bi bi-person"></i>
-              <p>Account</p>
-            </div>
+  className="navbar-white-icon-text"
+  onClick={() => {
+    const user = JSON.parse(localStorage.getItem("userDetails"));
+    if (user && user._id) {
+      navigate("/profile-page");
+    } else {
+      setShowLogin(true);
+    }
+  }}
+  style={{ cursor: "pointer" }}
+>
+  <i className="bi bi-person"></i>
+  <p>Account</p>
+</div>
+
 
             <div
               className="navbar-white-icon-text"
@@ -184,10 +192,26 @@ useEffect(() => {
 
       {/* Mobile Navbar */}
       <div className="black-nav-mobile">
-        <p onClick={() => setShowLogin(!showLogin)}>Login</p>
+        <p   onClick={() => {
+    const user = JSON.parse(localStorage.getItem("userDetails"));
+    if (user && user._id) {
+      navigate("/profile-page");
+    } else {
+      setFormType("login");
+      setShowLogin(true);
+    }
+  }}>Login</p>
 
         <div className="mobile-vertical-line"></div>
-        <p onClick={() => setShowLogin(!showLogin)}>Create A Account</p>
+        <p   onClick={() => {
+    const user = JSON.parse(localStorage.getItem("userDetails"));
+    if (user && user._id) {
+      navigate("/profile-page");
+    } else {
+      setFormType("register");
+      setShowLogin(true);
+    }
+  }}>Create A Account</p>
       </div>
       {showLogin && (
         <AccountForms

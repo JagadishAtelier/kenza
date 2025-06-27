@@ -396,16 +396,16 @@ function ProfilePage() {
         </div>
      )}
      {activeSection === 'wishlist' && (
-  <div className='payment-right-side-container'>
+  <div className='order-right-side-container'>
     <div className='payment-right-heading'>
       <h1>My Wishlist</h1>
     </div>
-    <div className='payment-grid-container'>
+    <div className='order-grid-container'>
       {wishlistItems.length === 0 ? (
         <p>No items in your wishlist.</p>
       ) : (
         wishlistItems.map((item, index) => (
-          <div className='payment-data-grid' key={index}>
+          <div className='order-data-grid' key={index}>
             <img src={item.product?.images?.[0]} alt="wishlist product" />
             <p>{item.product?.name}</p>
             <p>{item.product?.price}</p>
@@ -418,28 +418,24 @@ function ProfilePage() {
 
 
 {activeSection === 'orders' && (
-          <div className='payment-right-side-container'>
+          <div className='order-right-side-container'>
             <div className='payment-right-heading'>
               <h1>My Orders</h1>
             </div>
-            <div className='payment-grid-container'>
+            <div className='order-grid-container' style={{marginTop:"30px"}}>
               {orderList.length === 0 ? (
                 <p>No items ordered yet.</p>
               ) : (
                 orderList.map((order, index) => (
                   <div className='order-block' key={index}>
-                    <h4>Order ID: {order.id}</h4>
-                    <p>Status: {order.status}</p>
-                    <p>Total: ₹{order.total}</p>
                     {order.products.map((item, idx) => (
-                      <div className='payment-data-grid' key={idx}>
-                        <img src={item.productId?.images?.[0]} alt={item.productId?.name} />
+                      <div className='order-data-grid' key={idx}>
+                        <img src={item.productId?.images?.[0]} alt={item.productId?.name} style={{marginBottom:"20px"}}/>
                         <p>{item.productId?.name}</p>
-                        <p>Qty: {item.quantity}</p>
-                        <p>₹{item.productId?.price}</p>
+                        <p>Qty : {item.quantity}</p>
+                        <p>Total : ₹{item.productId?.price}</p>
                       </div>
                     ))}
-                    <hr />
                   </div>
                 ))
               )}

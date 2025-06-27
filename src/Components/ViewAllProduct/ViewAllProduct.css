@@ -5,6 +5,9 @@
 }
 .view-all-left-side{
     width: 350px;
+    position: sticky;
+    top: 0;
+    height: fit-content;
 }
 .view-all-right-side{
     width: 780px;

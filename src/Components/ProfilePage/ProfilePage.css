@@ -104,6 +104,28 @@
 .profile-page-right-my-profile p{
     color: gray;
 }
+.order-grid-container{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 20px;
+}
+.order-data-grid{
+    text-align: center;
+    width: 150px;
+}
+.order-grid-container img{
+    height: 150px;
+    border-radius: 5px;
+    width: 150px;
+    object-fit: cover;
+}
+.order-right-side-container{
+    width: 800px;
+    height: 100vh;
+    position: sticky;
+    overflow-y: auto;
+    top: 0px;
+}
 @media (max-width: 768px) {
     .profile-page-container {
       flex-direction: column;
