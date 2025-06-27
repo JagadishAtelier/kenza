@@ -3,7 +3,8 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import {
   getCartByUser,
   addProductToCart,
-  removeProductFromCart
+  removeProductFromCart,
+  updateProductQuantity
 } from '../../Api/cartApi';
 
 const CartContext = createContext();
@@ -27,27 +28,29 @@ export const CartProvider = ({ children }) => {
   }, [user]);
 
   // Add product to cart
-  const addToCart = async (product) => {
+  const addToCart = async (product, quantity = 1) => {
     if (!user?._id) return;
     try {
-      await addProductToCart(user._id, product._id, 1);
+      await addProductToCart(user._id, product._id, quantity); // Pass quantity to API
+  
       const existing = cartItems.find(item => item.productId._id === product._id);
-
+  
       if (existing) {
         setCartItems(prev =>
           prev.map(item =>
             item.productId._id === product._id
-              ? { ...item, quantity: item.quantity + 1 }
+              ? { ...item, quantity: item.quantity + quantity } // Add selected quantity
               : item
           )
         );
       } else {
-        setCartItems(prev => [...prev, { productId: product, quantity: 1 }]);
+        setCartItems(prev => [...prev, { productId: product, quantity }]); // New product with quantity
       }
     } catch (err) {
       console.error("❌ Add to cart error", err);
     }
   };
+  
 
   // Remove product from cart
   const removeFromCart = async (productId) => {
@@ -62,9 +65,34 @@ export const CartProvider = ({ children }) => {
   const clearCart = () => {
     setCartItems([]);
   };
+  const updateQuantity = async (productId, type) => {
+    const existingItem = cartItems.find(item => item.productId._id === productId);
+    if (!existingItem) return;
+  
+    const currentQty = existingItem.quantity || 1;
+    const newQty = type === 'inc' ? currentQty + 1 : Math.max(1, currentQty - 1);
+  
+    try {
+      // ✅ Sync with backend
+      await updateProductQuantity(user._id, productId, newQty);
+  
+      // ✅ Then update local state
+      setCartItems(prev =>
+        prev.map(item =>
+          item.productId._id === productId
+            ? { ...item, quantity: newQty }
+            : item
+        )
+      );
+    } catch (err) {
+      console.error("❌ Failed to update quantity in backend:", err);
+    }
+  };
+  
+  
   
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart,clearCart,setCartItems}}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart,clearCart,setCartItems,updateQuantity }}>
       {children}
     </CartContext.Provider>
   );

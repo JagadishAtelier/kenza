@@ -14,6 +14,7 @@ import TPImage5 from '../../Assets/p5.webp'
 import TPImage6 from '../../Assets/p6.webp'
 import TPImage7 from '../../Assets/p1.webp'
 import TPImage8 from '../../Assets/p8.webp'
+import { updateProductQuantity } from '../../Api/cartApi';
 const featuredProducts = [
     { image: TPImage1,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage2, text: "Aliqunaim Retrum Mollis", price: "$ 18.00",type:"organics" },
     { image: TPImage2,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage3, text: "American Grapes", price: "$ 17.00",type:"organics" },
@@ -25,14 +26,33 @@ const featuredProducts = [
     { image: TPImage4,bottomImages:[TPImage2,TPImage3,TPImage4,TPImage5], hoverImage: TPImage8, text: "Organic Chilli", price: "$ 14.00" ,type:"organics"}
   ]
 function CartDrawer({ show, onClose }) {
-  const { cartItems, removeFromCart, addToCart, updateQuantity } = useCart();
+  const { cartItems, removeFromCart, addToCart, updateQuantity,setCartItems  } = useCart();
   const [showCartDrawer, setShowCartDrawer] = useState(false);
   const [allproduct,setAllProducts] = useState([]);
+  const user = JSON.parse(localStorage.getItem('userDetails'));
+
 <CartDrawer show={showCartDrawer} onClose={() => setShowCartDrawer(false)} />
    const navigate = useNavigate() 
-   const handleQuantityChange = (index, type) => {
-    updateQuantity(index, type);
+   const handleQuantityChange = async (productId, type) => {
+    const productIndex = cartItems.findIndex(item => item.productId._id === productId);
+    if (productIndex === -1) return;
+
+    const currentQuantity = cartItems[productIndex].quantity || 1;
+    const newQuantity = type === 'inc' ? currentQuantity + 1 : Math.max(1, currentQuantity - 1);
+
+    try {
+      await updateProductQuantity(user._id, productId, newQuantity); // ✅ backend sync
+
+      setCartItems(prev =>
+        prev.map(item =>
+          item.productId._id === productId ? { ...item, quantity: newQuantity } : item
+        )
+      );
+    } catch (err) {
+      console.error('❌ Failed to update quantity:', err);
+    }
   };
+  
   const handleAddToCart = async (product) => {
     if (!product) return;
   
@@ -105,9 +125,10 @@ function CartDrawer({ show, onClose }) {
               <div className="cart-item-quantity-container">
                 <div className="quantity-section">
                   <div className="quantity-box">
-                    <button onClick={() => handleQuantityChange(index, 'dec')}>−</button>
-                    <span>{item.quantity}</span>
-                    <button onClick={() => handleQuantityChange(index, 'inc')}>+</button>
+                  <button onClick={() => handleQuantityChange(item.productId._id, 'dec')}>−</button>
+<span>{item.quantity}</span>
+<button onClick={() => handleQuantityChange(item.productId._id, 'inc')}>+</button>
+
                   </div>
                 </div>
               </div>
@@ -145,7 +166,7 @@ function CartDrawer({ show, onClose }) {
           <h4>You Might Also Like</h4>
           <div className="recommend-list">
           {allproduct.map((item, index) => {
-  const isInCart = cartItems.some(ci => ci.text === item.text);
+const isInCart = cartItems.some(ci => ci.productId._id === item._id);
   return (
     <div className="recommend-item" key={index}>
       <img src={item.images?.[0]} alt={item.text} />
@@ -177,7 +198,19 @@ function CartDrawer({ show, onClose }) {
         <p>Taxes and shipping calculated at checkout</p>
       </div>
       <div className='check-out-btn-div'>
-        <button style={{backgroundColor:"#3b9048"}} onClick={()=>{onClose();navigate('/payment')}} disabled={cartItems.length === 0}>CHECK OUT</button>
+      <button
+  style={{ backgroundColor: "#3b9048" }}
+  onClick={() => {
+    onClose();
+    navigate('/payment', {
+      state: { source: 'cart' }  // ✅ Pass source
+    });
+  }}
+  disabled={cartItems.length === 0}
+>
+  CHECK OUT
+</button>
+
       </div>
     </div>
     </div>

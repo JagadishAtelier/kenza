@@ -93,8 +93,15 @@ const categoryIdToNameMap = useMemo(() => {
   const handleAddToCart = async () => {
     if (!product) return;
   
+    const cartItem = {
+      ...product,
+      selectedSize,
+      selectedColor,
+      quantity,
+    };
+  
     try {
-      await addToCart(product); // ✅ uses context function (already does backend call)
+      await addToCart(product, quantity); // ✅ Pass quantity separately to match context API
       setAddedToCart(true);
       setTimeout(() => setAddedToCart(false), 1500);
     } catch (err) {
@@ -102,6 +109,7 @@ const categoryIdToNameMap = useMemo(() => {
       alert("Failed to add to cart.");
     }
   };
+  
   
   
 
@@ -236,7 +244,21 @@ const categoryIdToNameMap = useMemo(() => {
               <button className="add-btn" onClick={handleAddToCart}>
                 {addedToCart ? "✅ Added to Cart" : "ADD TO CART"}
               </button>
-              <button className="buy-btn" onClick={() => navigate('/payment', { state: { product } })}>
+              <button className="buy-btn" onClick={() =>
+  navigate('/payment', {
+    state: {
+      product: {
+        ...product,
+        quantity,
+        selectedSize,
+        selectedColor,
+      },
+      source: 'buy-now'  // ✅ Add this
+    }
+  })
+}
+
+>
                 BUY IT NOW
               </button>
             </div>
