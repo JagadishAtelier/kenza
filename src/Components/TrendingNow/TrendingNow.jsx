@@ -235,7 +235,20 @@ function TrendingNow() {
               <button className="add-btn" onClick={handleAddToCart}>
                 {addedToCart ? "✅ Added to Cart" : "ADD TO CART"}
               </button>
-              <button className="buy-btn" onClick={() => navigate('/payment', { state: { product } })}>
+              <button className="buy-btn" onClick={() =>
+  navigate('/payment', {
+    state: {
+      product: {
+        ...product,
+        quantity,
+        selectedSize,
+        selectedColor,
+      },
+      source: 'buy-now'  // ✅ Add this
+    }
+  })
+}
+>
                 BUY IT NOW
               </button>
             </div>
