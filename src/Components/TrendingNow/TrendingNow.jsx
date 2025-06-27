@@ -12,9 +12,8 @@ import { getAllCategories } from '../../Api/categoryApi';
 import { useMemo } from "react";
 import { Heart, Ruler } from "lucide-react";
 import CountdownTimer from "./Countdown";
-
+import { useWishlist } from "../WishlistContext/WishlistContext";
 import { addProductToCart } from "../../Api/cartApi";
-import {useWishlist} from '../WishlistContext/WishlistContext'
 function TrendingNow() {
   const { cartItems,addToCart } = useCart();
   const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
@@ -28,6 +27,8 @@ function TrendingNow() {
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("S");
   const [selectedColor, setSelectedColor] = useState("yellow");
+  const isInWishlist = product && wishlist.some(item => item._id === product._id);
+
   const [addedToCart, setAddedToCart] = useState(false);
   const [categories, setCategories] = useState([]);
 
@@ -143,11 +144,28 @@ const categoryIdToNameMap = useMemo(() => {
             )}
 
 
+<div className="actions">
+  <span
+    className="wishlist-action"
+    onClick={() => {
+      if (isInWishlist) {
+        removeFromWishlist(product._id);
+      } else {
+        addToWishlist(product);
+      }
+    }}
+  >
+    <Heart
+      className={`wishlist-icon ${isInWishlist ? "active" : ""}`}
+      size={20}
+    />
+    {isInWishlist ? " Added to Wishlist" : " Add to Wishlist"}
+  </span>
+  <span>📏 Sizechart</span>
+</div>
 
-            <div className="actions">
-              <span>🤍 Add To Wishlist</span>
-              <span>📏 Sizechart</span>
-            </div>
+
+
 
             <div className="countdown">
               <div><div className="time-box">00</div><p>Days</p></div>

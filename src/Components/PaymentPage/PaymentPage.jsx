@@ -164,7 +164,8 @@ const totalAmount =
         clearCart();
         navigate('/payment-success', {
           state: {
-            confirmedOrders: productFromState ? [productFromState] : cartItems
+            confirmedOrders: productFromState ? [productFromState] : cartItems,
+            deliveryAddress: addressInfo 
           }
         });
       } catch (err) {

@@ -4,9 +4,13 @@ import successAnimation from '../../Assets/order-confirmed.json';
 import NavbarBlack from '../NavbarBlack/NavbarBlack'
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const OrderConfirmed = () => {
      const navigate = useNavigate();
+     const location = useLocation();
+     const deliveryAddress = location.state?.deliveryAddress;
+     
   const [loading, setLoading] = useState(true);
   const [statusText, setStatusText] = useState("Payment initiated...");
 
@@ -55,7 +59,7 @@ const OrderConfirmed = () => {
   return (
     <>
       {/* <NavbarTop /> */}
-      <div className="container d-flex flex-column justify-content-center align-items-center min-vh-100 pt-1 pb-3 bg-white">
+      <div className="container d-flex flex-column justify-content-center align-items-center min-vh-100 pt-1 pb-3 bg-white" style={{marginTop:"5%"}}>
         {/* Success Animation */}
         <div style={{ width: '280px', height: '280px' }} className="mb-1">
           <Lottie animationData={successAnimation} loop={false} speed={0.5} />
@@ -63,12 +67,6 @@ const OrderConfirmed = () => {
 
         {/* Heading */}
         <h2 className="fw-bold mb-2 text-center">Your order has been confirmed</h2>
-        <p className="text-secondary text-center mb-1">
-          Thanks for your order <a href="#" className="text-primary text-decoration-underline">RB19011</a>. Arriving by <strong>19 Jun 2025</strong>.
-        </p>
-        <p className="text-muted small mb-4 text-center">
-          Order within <strong>20h 34m</strong> for same-day processing.
-        </p>
 
         {/* Address Section */}
         <div
@@ -116,18 +114,21 @@ const OrderConfirmed = () => {
 
             {/* Address */}
             <div className="small text-md-center text-start mt-2 ms-3 ms-md-0" style={{maxWidth:'200px'}}>
-              Lg – 17, Ramnagar Road,
-              X-Cut, Chennai – 641012,
-              Tamilnadu – India.
+            {deliveryAddress ? (
+    <>
+      {deliveryAddress.house}, {deliveryAddress.street},<br />
+      {deliveryAddress.landMark}, {deliveryAddress.city},<br />
+      {deliveryAddress.district}, {deliveryAddress.state} – {deliveryAddress.pincode}
+    </>
+  ) : (
+    'Delivery address not available'
+  )}
             </div>
           </div>
         </div>
 
         {/* Action Buttons */}
         <div className="d-flex flex-column flex-md-row justify-content-center gap-3 w-100" style={{ maxWidth: 800 }}>
-          <button className="btn btn-dark px-4 py-3 text-white rounded-0 m-0 small" style={{ flex: '0 0 40%' }} onClick={()=>{navigate('/Tracking')}}>
-            Track Delivery
-          </button>
           <button className="btn btn-outline-dark rounded-0 m-0 px-4 py-3 small" style={{ flex: '0 0 40%' }} onClick={()=>{navigate('/')}}>
             Continue Shopping
           </button>

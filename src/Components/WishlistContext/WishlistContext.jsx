@@ -26,10 +26,15 @@ export const WishlistProvider = ({ children }) => {
 
   const addToWishlist = async (product) => {
     if (!user?._id){
-      console.log("user id is notexist")
+      console.log("user id is notexist");
+      return;
     };
     try {
-      await addProductToWishlist(user._id, product._id);
+      const response = await addProductToWishlist(user._id, product._id);
+    
+      // 🧾 Log the API response or product added
+      console.log("✅ Product added to wishlist from API:", response);
+
       if (!wishlist.some(p => p._id === product._id)) {
         setWishlist(prev => [...prev, product]);
       }
