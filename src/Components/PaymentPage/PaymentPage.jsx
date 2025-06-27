@@ -27,7 +27,9 @@ const featuredProducts = [
 function PaymentPage() {
   const navigate = useNavigate()
   const location = useLocation();
+  const source = location.state?.source || 'cart'; // default fallback
   const productFromState = location.state?.product;
+  
   const [orderConfirmed, setOrderConfirmed] = useState(false);
   const [showContact, setShowContact] = useState(false);
 const [showDelivery, setShowDelivery] = useState(false);
@@ -73,13 +75,16 @@ const handleConfirmOrder = () => {
 };
 
 const totalAmount =
-  cartItems.reduce((total, item) => {
-    const price = parseFloat(item.productId?.price?.replace(/[^\d.]/g, '') || '0');
-    return total + price * (item.quantity || 1);
-  }, 0) +
-  (productFromState
-    ? parseFloat(productFromState.price?.replace(/[^\d.]/g, '') || '0')
-    : 0);
+  source === 'cart'
+    ? cartItems.reduce((total, item) => {
+        const price = parseFloat(item.productId?.price?.replace(/[^\d.]/g, '') || '0');
+        return total + price * (item.quantity || 1);
+      }, 0)
+    : productFromState
+    ? parseFloat(productFromState.price?.replace(/[^\d.]/g, '') || '0') * (productFromState.quantity || 1)
+    : 0;
+
+
 
 
 
@@ -277,29 +282,31 @@ const totalAmount =
 <div className="product-details-under-delivery">
   <h4>Product Details</h4>
   <div className="product-items-list">
-  {cartItems.map((item, index) => {
-              const product = item.productId || item;
-              return (
-                <div className="product-item-row" key={index}>
-                  <img src={product.images?.[0]} alt={product.name} className="product-thumb" />
-                  <div className="product-info">
-                    <p className="product-name">{product.name}</p>
-                    <p className="product-price">Qty: {item.quantity}</p>
-                    <p className="product-price">₹{product.price}</p>
-                  </div>
-                </div>
-              );
-            })}
-  {productFromState && (
-    <div className="product-item-row" key="buy-now">
-      <img src={productFromState.images?.[0]} alt={productFromState.text} className="product-thumb" />
-      <div className="product-info">
-        <p className="product-name">{productFromState.name}</p>
-        <p className="product-price">Qty: 1</p>
-        <p className="product-price">₹{productFromState.price}</p>
+  {source === 'cart' &&
+  cartItems.map((item, index) => {
+    const product = item.productId || item;
+    return (
+      <div className="product-item-row" key={index}>
+        <img src={product.images?.[0]} alt={product.name} className="product-thumb" />
+        <div className="product-info">
+          <p className="product-name">{product.name}</p>
+          <p className="product-price">Qty: {item.quantity}</p>
+          <p className="product-price">₹{product.price}</p>
+        </div>
       </div>
+    );
+  })
+}
+{source === 'buy-now' && productFromState && (
+  <div className="product-item-row" key="buy-now">
+    <img src={productFromState.images?.[0]} alt={productFromState.text} className="product-thumb" />
+    <div className="product-info">
+      <p className="product-name">{productFromState.name}</p>
+      <p className="product-price">Qty: {productFromState.quantity || 1}</p>
+      <p className="product-price">₹{productFromState.price}</p>
     </div>
-  )}
+  </div>
+)}
   </div>
   <div className="product-total-amount">
     <strong>Total: ₹ {totalAmount.toFixed(2)}</strong>
@@ -386,7 +393,8 @@ const totalAmount =
               <h1>Items</h1>
             </div>
             <div className='payment-grid-container'>
-            {cartItems.map((item, index) => {
+            {source === 'cart' &&
+            cartItems.map((item, index) => {
             const product = item.productId || item;
             return (
               <div className='payment-data-grid' key={index}>
@@ -397,12 +405,13 @@ const totalAmount =
               </div>
             );
           })}
-{productFromState && (
+
+{source === 'buy-now' && productFromState && (
     <div className='payment-data-grid' key="buy-now-summary">
       <img src={productFromState.images?.[0]} />
       <p>{productFromState.name}</p>
       <p>₹{productFromState.price}</p>
-      <p>Qty: 1</p>
+      <p>Qty: {productFromState.quantity || 1}</p>
     </div>
   )}
             </div>

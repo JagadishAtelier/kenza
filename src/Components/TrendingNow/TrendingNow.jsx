@@ -113,9 +113,9 @@ const renderStars = (rating) => {
 
   const handleAddToCart = async () => {
     if (!product) return;
-
+  
     try {
-      await addToCart(product);
+      await addToCart(product); // ✅ uses context function (already does backend call)
       setAddedToCart(true);
       setTimeout(() => setAddedToCart(false), 1500);
     } catch (err) {
@@ -123,9 +123,10 @@ const renderStars = (rating) => {
       alert("Failed to add to cart.");
     }
   };
+  
+  
 
-  if (loading || !product)
-    return <p className="text-center py-10 my-10">Loading product...</p>;
+  if (loading || !product) return <p className="text-center py-10 my-10">Loading product...</p>;
 
   return (
     <>
@@ -255,10 +256,20 @@ const renderStars = (rating) => {
               <button className="add-btn" onClick={handleAddToCart}>
                 {addedToCart ? "✅ Added to Cart" : "ADD TO CART"}
               </button>
-              <button
-                className="buy-btn"
-                onClick={() => navigate("/payment", { state: { product } })}
-              >
+              <button className="buy-btn" onClick={() =>
+  navigate('/payment', {
+    state: {
+      product: {
+        ...product,
+        quantity,
+        selectedSize,
+        selectedColor,
+      },
+      source: 'buy-now'  // ✅ Add this
+    }
+  })
+}
+>
                 BUY IT NOW
               </button>
             </div>
