@@ -10,13 +10,14 @@ import { useCart } from "../CartContext/CartContext";
 import { getProductById, getAllProducts } from "../../Api/productApi";
 import { getAllCategories } from "../../Api/categoryApi";
 import { useMemo } from "react";
-import { Heart, Ruler} from "lucide-react";
+import { Heart, Ruler } from "lucide-react";
 import CountdownTimer from "./Countdown";
+import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 import { useWishlist } from "../WishlistContext/WishlistContext";
 import { ChevronDown, ChevronUp, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useSwipeable } from 'react-swipeable';
 function TrendingNow() {
-  const { cartItems,addToCart } = useCart();
+  const { cartItems, addToCart } = useCart();
   const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
   const navigate = useNavigate();
   const { id } = useParams();
@@ -28,7 +29,8 @@ function TrendingNow() {
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("S");
   const [selectedColor, setSelectedColor] = useState("yellow");
-  const isInWishlist = product && wishlist.some(item => item._id === product._id);
+  const isInWishlist =
+    product && wishlist.some((item) => item._id === product._id);
 
   const [addedToCart, setAddedToCart] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -55,6 +57,22 @@ function TrendingNow() {
     });
     return map;
   }, [categories]);
+
+const renderStars = (rating) => {
+  const stars = [];
+
+  for (let i = 1; i <= 5; i++) {
+    if (rating >= i) {
+      stars.push(<FaStar key={i} color="#FFD700" size={18} />); // full star
+    } else if (rating >= i - 0.5) {
+      stars.push(<FaStarHalfAlt key={i} color="#FFD700" size={18} />); // half star
+    } else {
+      stars.push(<FaRegStar key={i} color="#ccc" size={18} />); // empty star
+    }
+  }
+
+  return stars;
+};
 
   useEffect(() => {
     const fetchProductData = async () => {
@@ -227,8 +245,9 @@ function TrendingNow() {
 
           <div className="details-section">
             <h2 className="product-title mt-4">{product.name}</h2>
-            <div className="rating-stars">★★★★★</div>
-
+            <div className="rating-stars m-0 flex gap-1" >
+              {renderStars(product.rating || 4.5)}
+            </div>
             <div className="price">
               <span className="original-price text-danger">
                 ₹{product.price * 1.99}
@@ -236,7 +255,7 @@ function TrendingNow() {
               <span className="discounted-price">₹ {product.price}</span>
               <span className="tax-info text-muted">Tax included.</span>
             </div>
-            
+
             <div className="d-flex flex-column gap-2 mb-2">
               <p className="m-0">
                 <strong className="text-success">Vendor:</strong> {product.SKU}
@@ -249,25 +268,27 @@ function TrendingNow() {
               )}
             </div>
 
-<div className="actions">
-  <span
-    className="wishlist-action"
-    onClick={() => {
-      if (isInWishlist) {
-        removeFromWishlist(product._id);
-      } else {
-        addToWishlist(product);
-      }
-    }}
-  >
-    <Heart
-      className={`wishlist-icon ${isInWishlist ? "active" : ""}`}
-      size={20}
-    />
-    {isInWishlist ? " Added to Wishlist" : " Add to Wishlist"}
-  </span>
-  <span><Ruler/> Sizechart</span>
-</div>
+            <div className="actions">
+              <span
+                className="wishlist-action"
+                onClick={() => {
+                  if (isInWishlist) {
+                    removeFromWishlist(product._id);
+                  } else {
+                    addToWishlist(product);
+                  }
+                }}
+              >
+                <Heart
+                  className={`wishlist-icon ${isInWishlist ? "active" : ""}`}
+                  size={20}
+                />
+                {isInWishlist ? " Added to Wishlist" : " Add to Wishlist"}
+              </span>
+              <span>
+                <Ruler color="green" /> Sizechart
+              </span>
+            </div>
             <div id="varient" style={{ display: "none" }}>
               <div className="size-section">
                 <label>Size</label>
@@ -352,28 +373,32 @@ function TrendingNow() {
                 <i className="bi bi-box-seam pink-icon"></i>
                 <div>
                   <h5>Free Delivery</h5>
-                  <p style={{fontSize:'11px'}}>Free Delivery all over india</p>
+                  <p style={{ fontSize: "11px" }}>
+                    Free Delivery all over india
+                  </p>
                 </div>
               </div>
               <div className="feature-box">
                 <i className="bi bi-currency-rupee pink-icon"></i>
                 <div>
                   <h5>Big Savings</h5>
-                  <p style={{fontSize:'11px'}}>Save big while Spending</p>
+                  <p style={{ fontSize: "11px" }}>Save big while Spending</p>
                 </div>
               </div>
               <div className="feature-box">
                 <i className="bi bi-person pink-icon"></i>
                 <div>
                   <h5>Customer Care</h5>
-                  <p style={{fontSize:'11px'}}>24/7 Support Team available</p>
+                  <p style={{ fontSize: "11px" }}>
+                    24/7 Support Team available
+                  </p>
                 </div>
               </div>
               <div className="feature-box">
                 <i className="bi bi-gift pink-icon"></i>
                 <div>
                   <h5>Gift Voucher</h5>
-                  <p style={{fontSize:'11px'}}>Buy using Gift cards</p>
+                  <p style={{ fontSize: "11px" }}>Buy using Gift cards</p>
                 </div>
               </div>
             </div>
