@@ -479,14 +479,14 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
 }
 
 .cart-count-badge {
   position: absolute;
   top: 5px;
-  right: 35px;
-  font-size: 16px;
+  right: 45px;
+  font-size: 14px;
   border-radius: 50%;
   z-index: 10;
   background-color: #3b9048 !important;
