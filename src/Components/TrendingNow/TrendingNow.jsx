@@ -162,35 +162,18 @@ const renderStars = (rating) => {
       <ChevronLeft size={18} />
     </button>
 
-    <div
-      className="d-flex flex-row flex-md-row gap-2 overflow-auto"
-      style={{
-        maxHeight: 510,
-        maxWidth: '100%',
-        overflowX: 'auto',
-        overflowY: 'auto',
-        scrollbarWidth: 'none',
-      }}
-    >
-      {product.images.map((img, i) => (
-        <img
-          key={i}
-          ref={(el) => (thumbnailRefs.current[i] = el)}
-          src={img}
-          alt={`Thumb ${i + 1}`}
-          onClick={() => setCurrentIndex(i)}
-          className={`img-thumbnail ${currentIndex === i ? 'border border-dark' : ''}`}
-          style={{
-            width: 90,
-            height: 90,
-            objectFit: 'cover',
-            cursor: 'pointer',
-            borderRadius: 4,
-            flexShrink: 0,
-          }}
-        />
-      ))}
-    </div>
+    <div className="thumbnail-wrapper">
+  {product.images.map((img, i) => (
+    <img
+      key={i}
+      src={img}
+      alt={`Thumb ${i + 1}`}
+      onClick={() => setCurrentIndex(i)}
+      className={currentIndex === i ? "active" : ""}
+    />
+  ))}
+</div>
+
 
     <button
       onClick={handleNext}
@@ -211,28 +194,16 @@ const renderStars = (rating) => {
     alt="Main Product"
     className="img-fluid main-image"
   />
-    <button
-      onClick={handlePrev}
-      className="btn border-0 position-absolute p-2 top-50 translate-middle-y"
-      style={{
-        zIndex: 2,
-        left: '10px',
-        background: '#ffffff6b',
-        borderRadius: 0,
-      }}
-    >
+<button
+  onClick={handlePrev}
+  className="image-nav-button image-nav-left"
+>
       <ChevronLeft size={20} />
     </button>
     <button
-      onClick={handleNext}
-      className="btn border-0 position-absolute p-2 top-50 translate-middle-y"
-      style={{
-        zIndex: 2,
-        right: '10px',
-        background: '#ffffff6b',
-        borderRadius: 0,
-      }}
-    >
+  onClick={handleNext}
+  className="image-nav-button image-nav-right"
+>
       <ChevronRight size={20} />
     </button>
   </div>
