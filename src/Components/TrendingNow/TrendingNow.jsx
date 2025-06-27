@@ -8,6 +8,10 @@ import TNImage4 from '../../Assets/trendingNowImage4.webp';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCart } from '../CartContext/CartContext';
 import { getProductById, getAllProducts } from '../../Api/productApi';
+import { getAllCategories } from '../../Api/categoryApi';
+import { useMemo } from "react";
+import { Heart, Ruler } from "lucide-react";
+
 function TrendingNow() {
   const { cartItems,addToCart } = useCart();
   const navigate = useNavigate();
@@ -21,6 +25,30 @@ function TrendingNow() {
   const [selectedSize, setSelectedSize] = useState("S");
   const [selectedColor, setSelectedColor] = useState("yellow");
   const [addedToCart, setAddedToCart] = useState(false);
+  const [categories, setCategories] = useState([]);
+
+useEffect(() => {
+  const fetchCategories = async () => {
+    try {
+      const res = await getAllCategories();
+      setCategories(res);   
+    } catch (err) {
+      console.error("Error fetching categories", err);
+    }
+  };
+
+  fetchCategories();
+}, []);
+
+
+const categoryIdToNameMap = useMemo(() => {
+  const map = {};
+  categories.forEach((cat) => {
+    map[cat._id] = cat.name;
+  });
+  return map;
+}, [categories]);
+
 
   useEffect(() => {
     const fetchProductData = async () => {
@@ -105,26 +133,16 @@ function TrendingNow() {
               <span className="tax-info text-muted">Tax included.</span>
             </div>
 
-            <p><strong>Vendor:</strong> kenza-demo</p>
-            <p><strong>Category:</strong> {product.category}</p>
+            <p><strong>Vendor:</strong> {product.name.split(' ')[0]}</p>
+            {categoryIdToNameMap[product.category] && (
+              <p><strong>Category:</strong> {categoryIdToNameMap[product.category]}</p>
+            )}
+
+
 
             <div className="actions">
-              <span>🤍 Add To Wishlist</span>
-              <span>📏 Sizechart</span>
-            </div>
-
-            <div className="countdown">
-              <div><div className="time-box">00</div><p>Days</p></div>
-              <div><div className="time-box">00</div><p>Hours</p></div>
-              <div><div className="time-box">00</div><p>Mins</p></div>
-              <div><div className="time-box">00</div><p>Secs</p></div>
-            </div>
-
-            <div className="stock-status">
-              <p>Hurry! Only {product.stock || 20} units left in stock!</p>
-              <div className="stock-bar-track">
-                <span className="stock-bar-fill" />
-              </div>
+              <span><Heart size={18}/> Add To Wishlist</span>
+              <span><Ruler size={18}/> Sizechart</span>
             </div>
 
             <div className="size-section">
@@ -163,7 +181,20 @@ function TrendingNow() {
                 <button onClick={() => handleQuantityChange("inc")}>+</button>
               </div>
             </div>
+            
+            <div className="countdown">
+              <div><div className="time-box">00</div><p>Days</p></div>
+              <div><div className="time-box">00</div><p>Hours</p></div>
+              <div><div className="time-box">00</div><p>Mins</p></div>
+              <div><div className="time-box">00</div><p>Secs</p></div>
+            </div>
 
+            <div className="stock-status">
+              <p>Hurry! Only {product.stock || 20} units left in stock!</p>
+              <div className="stock-bar-track">
+                <span className="stock-bar-fill" />
+              </div>
+            </div>
             <div className="add-to-cart-buy-btn-div">
               <button className="add-btn" onClick={handleAddToCart}>
                 {addedToCart ? "✅ Added to Cart" : "ADD TO CART"}
