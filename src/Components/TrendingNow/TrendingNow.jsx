@@ -8,6 +8,10 @@ import TNImage4 from '../../Assets/trendingNowImage4.webp';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCart } from '../CartContext/CartContext';
 import { getProductById, getAllProducts } from '../../Api/productApi';
+import { getAllCategories } from '../../Api/categoryApi';
+import { useMemo } from "react";
+import { Heart, Ruler } from "lucide-react";
+
 import { addProductToCart } from "../../Api/cartApi";
 import {useWishlist} from '../WishlistContext/WishlistContext'
 function TrendingNow() {
@@ -15,10 +19,8 @@ function TrendingNow() {
   const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
   const navigate = useNavigate();
   const { id } = useParams();
-  console.log(id);
-  
-
   const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [hoverIndex, setHoverIndex] = useState(null);
   const [mainImage, setMainImage] = useState();
@@ -26,9 +28,34 @@ function TrendingNow() {
   const [selectedSize, setSelectedSize] = useState("S");
   const [selectedColor, setSelectedColor] = useState("yellow");
   const [addedToCart, setAddedToCart] = useState(false);
+  const [categories, setCategories] = useState([]);
+
+useEffect(() => {
+  const fetchCategories = async () => {
+    try {
+      const res = await getAllCategories();
+      setCategories(res);   
+    } catch (err) {
+      console.error("Error fetching categories", err);
+    }
+  };
+
+  fetchCategories();
+}, []);
+
+
+const categoryIdToNameMap = useMemo(() => {
+  const map = {};
+  categories.forEach((cat) => {
+    map[cat._id] = cat.name;
+  });
+  return map;
+}, [categories]);
+
 
   useEffect(() => {
     const fetchProductData = async () => {
+      setLoading(true)
       try {
         const response = await getProductById(id);
         const productData = response.data;
@@ -48,6 +75,8 @@ function TrendingNow() {
         setRelatedProducts(filtered);
       } catch (err) {
         console.error("Failed to load product or related products", err);
+      }finally{
+        setLoading(false)
       }
     };
 
@@ -74,7 +103,7 @@ function TrendingNow() {
   
   
 
-  if (!product) return <p className="text-center p-10">Loading product...</p>;
+  if (loading || !product) return <p className="text-center py-10 my-10">Loading product...</p>;
 
   return (
     <>
@@ -83,19 +112,18 @@ function TrendingNow() {
           <div className="image-section">
             <img src={mainImage} alt="Product" className="product-image" />
             {product.images?.length > 1 && (
-  <div className="thumbnail-container">
-    {product.images.map((img, index) => (
-      <img
-        key={index}
-        src={img}
-        alt={`thumb-${index}`}
-        className="thumbnail-image"
-        onClick={() => setMainImage(img)}
-      />
-    ))}
-  </div>
-)}
-
+            <div className="thumbnail-container">
+              {product.images.map((img, index) => (
+                <img
+                  key={index}
+                  src={img}
+                  alt={`thumb-${index}`}
+                  className="thumbnail-image"
+                  onClick={() => setMainImage(img)}
+                />
+              ))}
+            </div>
+          )}
           </div>
 
           <div className="details-section">
@@ -103,33 +131,20 @@ function TrendingNow() {
             <div className="rating-stars">★★★★★</div>
 
             <div className="price">
-              <span className="original-price">₹60000</span>
-              <span className="discounted-price">{product.price}</span>
-              <span className="tax-info">Tax included.</span>
+              <span className="original-price">₹60</span>
+              <span className="discounted-price">₹ {product.price}</span>
+              <span className="tax-info text-muted">Tax included.</span>
             </div>
 
-            <p><strong>Vendor:</strong> kenza-demo</p>
-            <p><strong>Category:</strong> {product.category}</p>
+            <p><strong>Vendor:</strong> {product.name.split(' ')[0]}</p>
+            {categoryIdToNameMap[product.category] && (
+              <p><strong>Category:</strong> {categoryIdToNameMap[product.category]}</p>
+            )}
+
+
 
             <div className="actions">
-            <span
-  className={`wishlist-btn ${wishlist.some((item) => item._id === product._id) ? 'in-wishlist' : ''}`}
-  onClick={() => {
-    if (wishlist.some((item) => item._id === product._id)) {
-      removeFromWishlist(product._id);
-    } else {
-      addToWishlist(product);
-    }
-  }}
->
-  {wishlist.some((item) => item._id === product._id)
-    ? "❤️ In Wishlist"
-    : "🤍 Add To Wishlist"}
-</span>
-
-
-
-
+              <span>🤍 Add To Wishlist</span>
               <span>📏 Sizechart</span>
             </div>
 
@@ -183,7 +198,20 @@ function TrendingNow() {
                 <button onClick={() => handleQuantityChange("inc")}>+</button>
               </div>
             </div>
+            
+            <div className="countdown">
+              <div><div className="time-box">00</div><p>Days</p></div>
+              <div><div className="time-box">00</div><p>Hours</p></div>
+              <div><div className="time-box">00</div><p>Mins</p></div>
+              <div><div className="time-box">00</div><p>Secs</p></div>
+            </div>
 
+            <div className="stock-status">
+              <p>Hurry! Only {product.stock || 20} units left in stock!</p>
+              <div className="stock-bar-track">
+                <span className="stock-bar-fill" />
+              </div>
+            </div>
             <div className="add-to-cart-buy-btn-div">
               <button className="add-btn" onClick={handleAddToCart}>
                 {addedToCart ? "✅ Added to Cart" : "ADD TO CART"}

@@ -7,6 +7,9 @@
     text-align: center;
     margin-top: 5%;
   }
+  .spl-product-price{
+    font-weight: 600;
+  }
   .spl-grid-box-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 4 columns */ /* spacing between items */
@@ -156,7 +159,7 @@
   @media (max-width: 576px) {
     .spl-grid-box-container {
       grid-template-columns:repeat(2, 1fr); /* 1 column for mobile */
-      padding: 0 34px;
+      padding: 0 !important;
     }
   
     .spl-trending-product-container h1 {
@@ -170,14 +173,16 @@
     .spl-para-text{
       width: 100%;
         text-align: center;
+        max-width: 130px;
         margin-top: 20px;
-        margin-left: 10px;
+        /* margin-left: 10px; */
     }
     .spl-image-wrapper {
       width: 100%;
     }
   
     .spl-hover-icons {
+      display: none;
       right: 10px;
       top: 10px;
       transform: none;

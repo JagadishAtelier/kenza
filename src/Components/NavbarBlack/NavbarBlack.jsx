@@ -63,12 +63,12 @@ useEffect(() => {
     <div style={{ position: "relative" }}>
       <div className="navbar-black-container">
         <div className="navbar-black-text-icon-conatiner">
-          <i class="bi bi-globe"></i>
+          <i className="bi bi-globe"></i>
           <h6>Global Worldwide Delivery</h6>
           <div className="navbar-black-vertical-line"></div>
         </div>
         <div className="navbar-black-text-icon-conatiner">
-          <i class="bi bi-gift"></i>
+          <i className="bi bi-gift"></i>
           <h6>Free Gift Voucher</h6>
           <div className="navbar-black-vertical-line"></div>
         </div>
@@ -95,7 +95,7 @@ useEffect(() => {
               className="navbar-white-icon-text"
               style={{ cursor: "pointer" }}
             >
-              <i class="bi bi-envelope"></i>
+              <i className="bi bi-envelope"></i>
               <p>info@gmail.com</p>
             </div>
             <div
@@ -103,7 +103,7 @@ useEffect(() => {
               onClick={() => setShowLogin(!showLogin)}
               style={{ cursor: "pointer" }}
             >
-              <i class="bi bi-person"></i>
+              <i className="bi bi-person"></i>
               <p>Account</p>
             </div>
 
@@ -306,17 +306,18 @@ useEffect(() => {
           <div onClick={() => setShowCategories(!showCategories)}>☰</div>
           {showCategories && (
             <ul className="categories-dropdown">
-              {categories.map((category, index) => (
-                <li key={index}>
-                  <Link
-                    to={category.href}
-                    state={{ product: category }}
-                    onClick={() => setShowCategories(false)}
-                  >
-                    {category.text}
-                  </Link>
-                </li>
-              ))}
+               <li>Categories</li>
+              {categories.map((category) => (
+                  <li key={category._id}>
+                    <Link
+                      to={`/all-product`}
+                      state={{ product: category }}
+                      onClick={() => setShowCategories(false)}
+                    >
+                      {category.name}
+                    </Link>
+                  </li>
+                ))}
             </ul>
           )}
           <div
@@ -338,30 +339,32 @@ useEffect(() => {
             className="nav-links-mobile"
             onClick={() => setShowNavDetails(!showNavDetails)}
           >
-            <i class="bi bi-filter-left"></i>
+            <i className="bi bi-filter-left"></i>
           </div>
           {showNavDetails && (
             <div className="nav-links">
               <a href="/">Home</a>
               <a href="/shop">Shop</a>
               <a href="/blog">Blog</a>
-              <p
+              <a
+              href=""
                 onClick={() => {
                   navigate("/about-us");
                   setTimeout(() => (window.location.hash = "#about-us"), 100);
                 }}
               >
                 About Us
-              </p>
+              </a>
 
-              <p
+              <a
+              href=""
                 onClick={() => {
                   navigate("/about-us");
                   setTimeout(() => (window.location.hash = "#contact-us"), 100);
                 }}
               >
                 Contact
-              </p>
+              </a>
             </div>
           )}
           <div onClick={() => setCartOpen(true)} className="nav-cart-mobile">
