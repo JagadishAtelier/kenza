@@ -3,6 +3,8 @@
     gap: 40px;
     justify-content: center;
     margin-left: 5%;
+    align-items: start;
+    margin-top: 8%;
   }
   
   .image-section {
@@ -441,6 +443,20 @@
     stroke: red;
     fill: red;
   }
+  .fixed-image-container {
+    width: 565px;
+    height: 550px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 4px;
+  }
+  
+  .fixed-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
   
   
 

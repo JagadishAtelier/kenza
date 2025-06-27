@@ -202,19 +202,15 @@ const renderStars = (rating) => {
   </div>
 
   {/* Main Image */}
-  <div className="product-image position-relative text-center" {...swipeHandlers}>
-    <img
-      src={product.images[currentIndex]}
-      alt="Main Product"
-      className="img-fluid main-image"
-      style={{
-        border: '1px solid #ccc',
-        borderRadius: '4px',
-        maxHeight: '700px',
-        objectFit: 'cover',
-        width: '100%',
-      }}
-    />
+  <div
+  className="product-image position-relative text-center fixed-image-container"
+  {...swipeHandlers}
+>
+<img
+    src={product.images[currentIndex]}
+    alt="Main Product"
+    className="img-fluid main-image"
+  />
     <button
       onClick={handlePrev}
       className="btn border-0 position-absolute p-2 top-50 translate-middle-y"
@@ -244,7 +240,7 @@ const renderStars = (rating) => {
 
 
           <div className="details-section">
-            <h2 className="product-title mt-4">{product.name}</h2>
+            <h2 className="product-title">{product.name}</h2>
             <div className="rating-stars m-0 flex gap-1" >
               {renderStars(product.rating || 4.5)}
             </div>
