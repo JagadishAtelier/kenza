@@ -433,7 +433,7 @@
   }
   
   .wishlist-icon {
-    stroke: gray;
+    stroke: rgb(212, 54, 54);
     transition: stroke 0.3s, fill 0.3s;
   }
   
