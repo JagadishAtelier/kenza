@@ -205,12 +205,14 @@ function ProfilePage() {
       useEffect(() => {
         const fetchUserDetails = async () => {
           const user = JSON.parse(localStorage.getItem("userDetails"));
+          console.log("fetched data from userDetails",user)
           if (!user || !user._id) return;
       
           try {
             const data = await getCustomerDetails(user._id);
       
-            console.log("📦 Raw response from getCustomerDetails API:", data);
+            console.log("📦 Full getCustomerDetails Response:", JSON.stringify(data, null, 2));
+
       
             // Destructure or fallback
             const customer = data?.userDetails || data;
@@ -299,16 +301,6 @@ function ProfilePage() {
         <div className='profile-page-personal-details'style={{ cursor: "pointer" }} onClick={() => setActiveSection('Instructions')}>
             <i class="bi bi-heart"></i>
             <h6>Delivery Instructions</h6>
-        </div>
-      </div>
-
-
-      <hr className='profile-page-hr-line'/>
-
-      <div className='profile-page-personal-details-div'>
-        <div className='profile-page-personal-details' style={{cursor:"pointer"}} onClick={() => setActiveSection('Details')}>
-            <i class="bi bi-cart-check"></i>
-            <h6>Subscription Details</h6>
         </div>
       </div>
 
@@ -506,38 +498,6 @@ function ProfilePage() {
             <li>Reduces Confusion or Miscommunication.</li>
             <li>Enhances Customer Experience (especially for high-touch items like groceries).</li>
             <li>Increases Trust by respecting user instructions.</li>
-        </ul>
-    </div>
-)}
-{activeSection === 'Details' &&(
-    <div className='profile-page-right-my-profile'>
-        <h1>Subscription Details</h1>
-        <br/>
-        <p>Our subscription service is designed to ensure you receive the freshest vegetables at your doorstep on a regular basis — without the hassle of reordering every time. Here’s everything you need to know:</p>
-        <br/>
-        <h5>What’s Included</h5>
-        <ul>
-            <li>Fresh & Seasonal Vegetables: Curated selection of locally-sourced, farm-fresh vegetables.</li>
-            <li>Customizable Boxes: Choose your preferences – organic, leafy greens, root vegetables, or mixed.</li>
-            <li>Flexible Quantities: Select from small (for individuals), medium (for couples), or large (for families).</li>
-            <li>Add-on Options: Include fruits, herbs, or exotic vegetables with your subscription.</li>
-        </ul>
-        <br/>
-        <h5>Delivery Frequency</h5>
-        <ul>
-            <li>Weekly (Most Popular): Fresh vegetables delivered once a week.</li>
-            <li>Bi-Weekly: Every two weeks, ideal for moderate users.</li>
-            <li>Monthly: Once a month, great for occasional vegetable users or long-shelf-life items.</li>
-            <li>Choose Your Slot: Morning or evening delivery options available.</li>
-            <li>Timely Reminders: Get SMS/email reminders before your scheduled delivery.</li>
-        </ul>
-        <br/>
-        <h5>Benefits</h5>
-        <ul>
-            <li>Freshness Guarantee</li>
-            <li>Free doorstep delivery</li>
-            <li>Priority support for subscribers</li>
-            <li>Surprise free items on select orders</li>
         </ul>
     </div>
 )}
