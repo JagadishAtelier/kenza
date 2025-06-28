@@ -315,7 +315,7 @@ const renderStars = (rating) => {
             </div>
             <div className="add-to-cart-buy-btn-div">
               <button className="add-btn" onClick={handleAddToCart}>
-                {addedToCart ? "✅ Added to Cart" : "ADD TO CART"}
+                {addedToCart ? "Added to Cart" : "ADD TO CART"}
               </button>
               <button className="buy-btn" onClick={() =>
   navigate('/payment', {
