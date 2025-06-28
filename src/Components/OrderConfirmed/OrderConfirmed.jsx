@@ -5,7 +5,7 @@ import NavbarBlack from '../NavbarBlack/NavbarBlack'
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-
+import logoImage from '../../Assets/logo.png'
 const OrderConfirmed = () => {
      const navigate = useNavigate();
      const location = useLocation();
@@ -47,7 +47,7 @@ const OrderConfirmed = () => {
         <div className="text-center">
           <img
             src="/favIcon.png"
-            alt="logo"
+            alt="KENZA"
             className="spinner-border"
             style={{ width: "60px", height: "60px", border: "none" }}
           />
